@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('email_padre');
+            $table->boolean('estado')->default(true);
             $table->unsignedBigInteger('id_curso');
             $table->timestamps();
             
-            $table->foreign('id_curso')->references('id')->on('cursos');
+            $table->foreign('id_curso')->references('id')->on('cursos')->onDelete('cascade');
         });
     }
 

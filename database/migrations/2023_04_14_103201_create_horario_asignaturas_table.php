@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_asignatura_int');
             $table->unsignedBigInteger('id_horario_int');
 
-            $table->foreign('id_asignatura_int')->references('id')->on('asignaturas');
+            $table->foreign('id_asignatura_int')->references('id')->on('asignaturas')->onDelete('cascade');
             $table->foreign('id_horario_int')->references('id')->on('horarios');
         });
     }

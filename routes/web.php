@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlumnosController;
+use App\Http\Controllers\CursoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal');
 });
+
+//-----------------------------------------------------
+//ALUMNOS ------------------------------------------
+//-----------------------------------------------------
+
+//VER WEB
+Route::get('/webalumnos', [AlumnosController::class, 'webalumnos'])->name('webalumnos');
+
+//MOSTRAR Y BUSCAR
+Route::get('/alumnos', [AlumnosController::class, 'indexalumnos']);
+
+//INSERTAR
+Route::post('/alumnos', [AlumnosController::class, 'storealumnos']);
+
+//ACTUALIZAR
+Route::put('/alumnos/{id}', [AlumnosController::class, 'updatealumnos']);
+
+//ELIMINAR
+Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
+
+//VER CURSOS EN ALUMNOS
+Route::get('cursos', [AlumnosController::class, 'cursos']);
