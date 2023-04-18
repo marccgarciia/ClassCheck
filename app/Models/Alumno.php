@@ -17,6 +17,7 @@ class Alumno extends Model
         'email',
         'password',
         'email_padre',
+        'estado',
         'id_curso',
     ];
     // RELACION PARA SACAR CURSO Y HACER INNER JOIN

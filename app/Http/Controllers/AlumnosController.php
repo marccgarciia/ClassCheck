@@ -32,6 +32,7 @@ class AlumnosController extends Controller
             'email' => 'required|email|unique:alumnos,email',
             'password' => 'required|min:8',
             'email_padre' => 'required|email',
+            'estado' => 'nullable',
             'id_curso' => 'nullable',
         ]);
 
@@ -45,6 +46,7 @@ class AlumnosController extends Controller
         $alumno->email = $request->email;
         $alumno->password = bcrypt($request->password);
         $alumno->email_padre = $request->email_padre;
+        $alumno->estado = 1;
         $alumno->id_curso = $request->id_curso;
         $alumno->save();
 
@@ -65,6 +67,7 @@ class AlumnosController extends Controller
             'email' => 'required|email|unique:alumnos,email,' . $id,
             'password' => 'required|min:8',
             'email_padre' => 'required|email',
+            'estado' => 'nullable',
             'id_curso' => 'nullable',
         ]);
 
@@ -77,6 +80,7 @@ class AlumnosController extends Controller
         $alumno->email = $request->email;
         $alumno->password = bcrypt($request->password);
         $alumno->email_padre = $request->email_padre;
+        $alumno->estado = $request->estado;
         $alumno->id_curso = $request->id_curso;
         $alumno->save();
 

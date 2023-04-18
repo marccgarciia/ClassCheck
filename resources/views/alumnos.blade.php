@@ -29,6 +29,7 @@
                     <th>Password</th>
                     <th>Email Padre</th>
                     <th>Curso</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -46,6 +47,7 @@
             <input type="text" name="email" placeholder="Email">
             <input type="text" name="password" placeholder="Password">
             <input type="text" name="email_padre" placeholder="Email Padre">
+            {{-- <input type="text" name="estado" placeholder="Estado"> --}}
             <select id="curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
@@ -66,6 +68,7 @@
             <input type="text" name="email" id="edit-email" placeholder="Email">
             <input type="text" name="password" id="edit-password" placeholder="Password">
             <input type="text" name="email_padre" id="edit-email_padre" placeholder="Email Padre">
+            <input type="text" name="estado" id="edit-estado" placeholder="Estado">
             {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
             <select id="edit-id_curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
@@ -104,6 +107,7 @@
                             // var password = alumno.password.toLowerCase();
                             var email_padre = alumno.email_padre.toLowerCase();
                             var curso = alumno.curso.nombre.toLowerCase();
+                            var estado = alumno.estado;
 
 
                             // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
@@ -111,8 +115,11 @@
                                 apellido.indexOf(searchString) == -1 &&
                                 email.indexOf(searchString) == -1 &&
                                 curso.indexOf(searchString) == -1 &&
+                                email_padre.indexOf(searchString) == -1 &&
                                 // password.indexOf(searchString) == -1 &&
-                                email_padre.indexOf(searchString) == -1) {
+
+                                estado != searchString) {
+
                                 return true; // Continue
                             }
 
@@ -123,6 +130,14 @@
                             tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
+                            
+                            // Verificar el estado y cambiar el texto correspondiente
+                            if (alumno.estado == 1) {
+                                tableRows += '<td>Activado</td>';
+                            } else {
+                                tableRows += '<td>Desactivado</td>';
+                            }
+
                             tableRows += '<td>';
                             tableRows += '<button class="edit-alumno" data-id="' + alumno.id +
                                 '" data-nombre="' + alumno.nombre +
@@ -131,6 +146,7 @@
                                 '" data-password="' + alumno.password +
                                 '" data-email_padre="' + alumno.email_padre +
                                 '" data-id_curso="' + alumno.id_curso +
+                                '" data-estado="' + alumno.estado +
 
                                 '">Editar</button>';
 
@@ -246,6 +262,7 @@
                             $('#edit-password').val('');
                             $('#edit-email_padre').val('');
                             $('#edit-id_curso').val('');
+                            $('#edit-estado').val('');
 
                             // reload the user list
                             loadAlumnos();
@@ -256,7 +273,7 @@
                     });
                 });
 
-                function editAlumno(id, nombre, apellido, email, password, email_padre, id_curso) {
+                function editAlumno(id, nombre, apellido, email, password, email_padre, id_curso, estado) {
                     // set the form values
                     $('#edit-id').val(id);
                     $('#edit-nombre').val(nombre);
@@ -265,6 +282,7 @@
                     $('#edit-password').val(password);
                     $('#edit-email_padre').val(email_padre);
                     $('#edit-id_curso').val(id_curso);
+                    $('#edit-estado').val(estado);
 
 
                     // mostrar el form de editar
@@ -280,9 +298,11 @@
                     var password = $(this).data('password');
                     var email_padre = $(this).data('email_padre');
                     var id_curso = $(this).data('id_curso');
+                    var estado = $(this).data('estado');
 
                     // llama a la funcion editUser 
-                    editAlumno(id, nombre, apellido, email, password, email_padre, id_curso);
+                    editAlumno(id, nombre, apellido, email, password, email_padre, id_curso,
+                    estado);
                 });
             });
 
