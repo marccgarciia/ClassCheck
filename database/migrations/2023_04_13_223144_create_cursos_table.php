@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             #Lo ponemos en string ya que será algo rollo 22-23.
-            $table->string('año');
+            $table->string('promocion');
             // $table->unsignedBigInteger('id_profesor');
             $table->unsignedBigInteger('id_escuela');
 
