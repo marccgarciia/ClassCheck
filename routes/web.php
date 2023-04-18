@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login_post' ])->name('login.post');
+Route::get('/login', [AuthController::class, 'login_post' ])->name('login.post');
 
 Route::middleware(['auth:admin', 'revalidate'])->group(function () {
     Route::get('/adminpanel', [AuthController::class, 'admin'])->name('admin.panel');
