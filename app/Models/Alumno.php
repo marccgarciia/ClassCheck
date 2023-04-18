@@ -16,6 +16,10 @@ class Alumno extends Model implements Authenticatable
         'password'
     ];
 
+    protected $casts = [
+        'estado' => 'boolean',
+    ];
+
     protected $table = 'alumnos';
 
         /**

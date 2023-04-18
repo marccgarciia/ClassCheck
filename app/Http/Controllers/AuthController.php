@@ -21,19 +21,19 @@ class AuthController extends Controller
 
     public function login_post(Request $request)
     {
-        // Validate the user input
+        // Validar el input
         $validatedData = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Attempt to log the user in
+        // Intento de login
         $credentials = $request->only('email', 'password');
         // dd($credentials);
-        if (Auth::guard('alumno')->attempt($credentials)) {
+        if (Auth::guard('alumno')->attempt(array_merge($credentials, ['estado' => true]))) {
             return redirect()->route('alumno.panel');
         }
-        elseif (Auth::guard('profesore')->attempt($credentials)) {
+        elseif (Auth::guard('profesore')->attempt(array_merge($credentials, ['estado' => true]))) {
             return redirect()->route('profesore.panel');
         }
         elseif (Auth::guard('admin')->attempt($credentials)) {
