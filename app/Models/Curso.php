@@ -11,10 +11,18 @@ class Curso extends Model
 
     use HasFactory;
 
+    // linea para quitar el update at
+    public $timestamps = false;
+
     protected $fillable = [
         'nombre',
-        'año',
+        'promocion',
         'id_escuela',
     ];
 
+    // RELACION PARA SACAR CURSO Y HACER INNER JOIN
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class, 'id_escuela');
+    }
 }

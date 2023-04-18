@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnosController;
-use App\Http\Controllers\CursoController;
+use App\Http\Controllers\CursosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 //-----------------------------------------------------
-//ALUMNOS ------------------------------------------
+//ALUMNOS ---------------------------------------------
 //-----------------------------------------------------
 
 //VER WEB
@@ -40,3 +40,25 @@ Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
 
 //VER CURSOS EN ALUMNOS
 Route::get('cursos', [AlumnosController::class, 'cursos']);
+
+//-----------------------------------------------------
+//CURSOS ----------------------------------------------
+//-----------------------------------------------------
+
+//VER WEB
+Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
+
+//MOSTRAR Y BUSCAR
+Route::get('/cursos', [CursosController::class, 'indexcursos']);
+
+//INSERTAR
+Route::post('/cursos', [CursosController::class, 'storecursos']);
+
+//ACTUALIZAR
+Route::put('/cursos/{id}', [CursosController::class, 'updatecursos']);
+
+//ELIMINAR
+Route::delete('/cursos/{id}', [CursosController::class, 'destroycursos']);
+
+//VER ESCUELAS EN CURSOS
+Route::get('escuelas', [CursosController::class, 'escuelas']);

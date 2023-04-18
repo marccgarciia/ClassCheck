@@ -12,6 +12,7 @@
 <body>
 <h1>Principal</h1>
 <a href="{{ route('webalumnos') }}">ALUMNOS</a>
+<a href="{{ route('webcursos') }}">CURSOS</a>
 </body>
 
 </html>
