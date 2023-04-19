@@ -10,9 +10,11 @@
 </head>
 
 <body>
-<h1>Principal</h1>
-<a href="{{ route('webalumnos') }}">ALUMNOS</a>
-<a href="{{ route('webcursos') }}">CURSOS</a>
+    <h1>Principal</h1>
+    <a href="{{ route('webalumnos') }}">ALUMNOS</a>
+    <a href="{{ route('webcursos') }}">CURSOS</a>
+    <a href="{{ route('webprofesores') }}">PROFESORES</a>
+    <a href="{{ route('webasignaturas') }}">ASIGNATURAS</a>
 </body>
 
 </html>
