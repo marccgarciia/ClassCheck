@@ -22,6 +22,7 @@
 
         <table>
             <thead>
+                
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -130,6 +131,7 @@
                             tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
+                            
 
                             // Verificar el estado y cambiar el texto correspondiente
                             if (alumno.estado == 1) {

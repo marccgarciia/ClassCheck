@@ -7,37 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 
-class Alumno extends Model implements Authenticatable
+
+class Admin extends Model implements Authenticatable
 {
-    protected $table = 'alumnos';
-
     use HasFactory;
-
-    protected $fillable = [
-        'nombre',
-        'apellido',
-        'email',
-        'password',
-        'email_padre',
-        'estado',
-        'id_curso',
-    ];
     
-    // RELACION PARA SACAR CURSO Y HACER INNER JOIN
-    public function curso()
-    {
-        return $this->belongsTo(Curso::class, 'id_curso');
-    }
-
-
-    //::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-    protected $casts = [
-        'estado' => 'boolean',
+    protected $fillable = [
+        'email',
+        'password'
     ];
 
-
-
+    protected $table = 'admins';
 
         /**
      * Get the name of the unique identifier for the user.

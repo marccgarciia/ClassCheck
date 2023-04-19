@@ -25,5 +25,23 @@
     </ul>
 
     <h1>AQUI VA LA INTEERFAZ DEL CALENDARIO</h1>
+    <h1>Bienvenido, {{ auth('alumno')->user()->nombre }}</h1>
+    <h1>Tu curso es, {{ auth('alumno')->user()->curso->nombre }}</h1>
 
+    <form action="{{ route('passalumno.panel') }}" method="POST">
+        @csrf
+    
+        <div>
+            <label for="newpass">Nueva contraseña</label>
+            <input type="password" id="newpass" name="newpass" required>
+        </div>
+    
+        <button type="submit">Cambiar contraseña</button>
+    </form>
+
+    
+    <form action="{{ route('logout.alumno') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
 @endsection

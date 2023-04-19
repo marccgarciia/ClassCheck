@@ -58,7 +58,7 @@
             <input type="hidden" name="id" id="edit-id">
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="promocion" id="edit-promocion" placeholder="Promocion">
-            
+
             <select id="edit-id_escuela" name="id_escuela">
                 <option value="">Selecciona una escuela</option>
             </select>
@@ -99,7 +99,7 @@
                             // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
                             if (searchString && nombre.indexOf(searchString) == -1 &&
                                 promocion.indexOf(searchString) == -1 &&
-                                escuela.indexOf(searchString) == -1 ) {
+                                escuela.indexOf(searchString) == -1) {
                                 return true; // Continue
                             }
 

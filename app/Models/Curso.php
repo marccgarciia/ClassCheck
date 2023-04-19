@@ -25,4 +25,10 @@ class Curso extends Model
     {
         return $this->belongsTo(Escuela::class, 'id_escuela');
     }
+
+    public function alumnos()
+    {
+        return $this->hasMany(Alumno::class);
+    }
+
 }

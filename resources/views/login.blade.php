@@ -40,7 +40,7 @@
 
             <h1>INICIAR SESIÓN</h1>
 
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('login.post') }}">
                 @csrf
 
                 {{-- CORREO ELECTRÓNICO --}}
@@ -57,7 +57,12 @@
                     <i class="fa-regular fa-eye" id="clickme"></i>
                     <i class="fa-regular fa-eye-slash" id="clickme2"></i>
                 </div>
-
+                @error('email')
+                    <span>{{ $message }}</span>
+                @enderror
+                @error('password')
+                <span>{{ $message }}</span>
+                @enderror
 
                 <button type="submit">ENTRAR</button>
 
