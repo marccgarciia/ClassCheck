@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             #Lo ponemos en string ya que será algo rollo 22-23.
-            $table->string('año');
-            $table->unsignedBigInteger('id_profesor');
+            $table->string('promocion');
+            // $table->unsignedBigInteger('id_profesor');
             $table->unsignedBigInteger('id_escuela');
 
-            $table->foreign('id_profesor')->references('id')->on('profesores');
-            $table->foreign('id_escuela')->references('id')->on('escuelas');
+            // $table->foreign('id_profesor')->references('id')->on('profesores');
+            // $table->foreign('id_escuela')->references('id')->on('escuelas');
+            $table->foreign('id_escuela')->references('id')->on('escuelas')->onDelete('cascade');
         });
     }
 
