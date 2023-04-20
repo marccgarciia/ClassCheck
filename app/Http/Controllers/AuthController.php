@@ -150,10 +150,10 @@ class AuthController extends Controller
             $alumno->password = bcrypt($password);
             $alumno->save();
 
-            $datos = array('msg' => "Bienvenido Alumno, su contraseña reestablecida es: {$password}");
+            $datos = array('msg' => "Bienvenido Alumno, su contraseña reestablecida es: {$password}  ¡Puedes cambiarla al iniciar sesión para más seguridad!");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
-            $from = "laraveldani@gmail.com";
+            $from = "contactoclasscheck@gmail.com";
             Mail::to($correo)->send($enviar->from($from));
 
             return redirect("/")->with('status', 'Correo enviado correctamente');
@@ -164,10 +164,10 @@ class AuthController extends Controller
             $profesor->password = bcrypt($password);
             $profesor->save();
 
-            $datos = array('msg' => "Bienvenido Profesor, su contraseña reestablecida es: {$password}");
+            $datos = array('msg' => "Bienvenido Profesor, su contraseña reestablecida es: {$password} ¡Puedes cambiarla al iniciar sesión para más seguridad!");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
-            $from = "laraveldani@gmail.com";
+            $from = "contactoclasscheck@gmail.com";
             Mail::to($correo)->send($enviar->from($from));
 
             return redirect("/")->with('status', 'Correo enviado correctamente');
