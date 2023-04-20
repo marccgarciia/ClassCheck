@@ -47,7 +47,7 @@
 
                 <button type="submit">CAMBIAR</button>
 
-                <a href="">¡Inicia Sesión!</a>
+                <a href="{{ route('verLogin') }}">¡Inicia Sesión!</a>
             </form>
         </div>
     </div>

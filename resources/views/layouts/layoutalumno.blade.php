@@ -62,15 +62,14 @@
 
 
         <ul class="side-menu">
-
-            <li>
-                <a href="#logout" class="logout">
-                    <i class='bx bxs-exit'></i>
-                    <span class="texto">Salir</span>
-                </a>
+            <li class="logout">
+                <form action="{{ route('procesologoutalumno') }}" method="POST">
+                    @csrf
+                    <button type="submit"><i class='bx bxs-exit'></i></button>
+                </form>
             </li>
-
         </ul>
+
 
     </section>
 
@@ -84,7 +83,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a Abril Valls! | DAW2</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}

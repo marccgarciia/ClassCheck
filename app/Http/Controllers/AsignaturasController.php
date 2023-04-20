@@ -81,7 +81,7 @@ class AsignaturasController extends Controller
     }
 
     // CONTROLADOR PARA VER CURSOS
-    public function cursos()
+    public function cursosasignaturas()
     {
         $cursos = Curso::all();
         return response()->json($cursos);

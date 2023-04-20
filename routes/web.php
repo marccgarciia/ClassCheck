@@ -5,6 +5,8 @@ use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\ProfesoresController;
 use App\Http\Controllers\AsignaturasController;
+use App\Http\Controllers\AdministradoresController;
+use App\Http\Controllers\EscuelasController;
 
 use App\Http\Controllers\AuthController;
 
@@ -24,12 +26,13 @@ use App\Http\Controllers\AuthController;
 //-----------------------------------------------------
 //PROCESAR LOGIN Y CAMBIAR PASSWORD -------------------
 //-----------------------------------------------------
-Route::get('/', [AuthController::class, 'verLogin'])->name('login');
+Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
-Route::post('/login', [AuthController::class, 'login_post'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin');
 
 Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
+Route::get('/password', [AuthController::class, 'verPassword'])->name('verPassword');
 
 //-----------------------------------------------------
 //ADMIN LOGIN -----------------------------------------
@@ -38,7 +41,7 @@ Route::middleware(['auth:admin', 'revalidate'])->group(function () {
     Route::get('/admin', [AuthController::class, 'admin'])->name('admin.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_admin', [AuthController::class, 'logout_admin'])->name('logout.admin');
+    Route::post('/logout_admin', [AuthController::class, 'logout_admin'])->name('procesologoutadmin');
 });
 
 
@@ -49,7 +52,7 @@ Route::middleware(['auth:alumno', 'revalidate'])->group(function () {
     Route::get('/alumno', [AuthController::class, 'alumno'])->name('alumno.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_alumno', [AuthController::class, 'logout_alumno'])->name('logout.alumno');
+    Route::post('/logout_alumno', [AuthController::class, 'logout_alumno'])->name('procesologoutalumno');
 
     //PROCESO CAMBIAR PASSWORD DESDE DENTRO
     Route::post('/passalumno', [AuthController::class, 'passalumno'])->name('passalumno.panel');
@@ -59,18 +62,15 @@ Route::middleware(['auth:alumno', 'revalidate'])->group(function () {
 //PROFESORES LOGIN ------------------------------------
 //-----------------------------------------------------
 
-
 Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
     Route::get('/profesores', [AuthController::class, 'profesor'])->name('profesor.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_profesor', [AuthController::class, 'logout_profesor'])->name('logout.profesor');
+    Route::post('/logout_profesor', [AuthController::class, 'logout_profesor'])->name('procesologoutprofesor');
 
     //PROCESO CAMBIAR PASSWORD DESDE DENTRO
     Route::post('/passprofe', [AuthController::class, 'passprofe'])->name('passprofe.panel');
 });
-
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -84,90 +84,13 @@ Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
 
 
 
+// CRUDS
 
+//-----------------------------------------------------
+//ALUMNOS ---------------------------------------------
+//-----------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARC
-// NO TOCAR
-// //-----------------------------------------------------
-// //LOGIN -----------------------------------------------
-// //-----------------------------------------------------
-
-// //VER LOGIN
-// Route::get('/login', function () {
-//     return view('login');
-// });
-
-// // //VER PASSWORD
-Route::get('/password', function () {
-    return view('password');
-});
-
-// //VER LAYOUT
-// Route::get('/layoutalumno', function () {
-//     return view('layouts/layoutalumno');
-// });
-
-// //VER LAYOUT
-// Route::get('/layoutadmin', function () {
-//     return view('layouts/layoutadmin');
-// });
-
-// //VER LAYOUT
-// Route::get('/layoutprofesor', function () {
-//     return view('layouts/layoutprofesor');
-// });
-
-// //VER ADMIN
-// Route::get('/admin', function () {
-//     return view('admin');
-// });
-
-// //VER PROFESOR
-// Route::get('/profesor', function () {
-//     return view('profesor');
-// });
-
-// //VER ALUMNO
-// Route::get('/alumno', function () {
-//     return view('alumno');
-// });
-
-// //VER ALUMNO
-// Route::get('/principal', function () {
-//     return view('principal');
-// });
-
-
-
-
-
-
-
-// //-----------------------------------------------------
-// //ALUMNOS ---------------------------------------------
-// //-----------------------------------------------------
-
-// //VER WEB
+//VER WEB
 // Route::get('/webalumnos', [AlumnosController::class, 'webalumnos'])->name('webalumnos');
 
 // //MOSTRAR Y BUSCAR
@@ -183,8 +106,7 @@ Route::get('/password', function () {
 // Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
 
 // //VER CURSOS EN ALUMNOS
-// Route::get('cursos', [AlumnosController::class, 'cursos']);
-
+// Route::get('cursosalumnos', [AlumnosController::class, 'cursosalumnos']);
 
 
 
@@ -209,6 +131,8 @@ Route::get('/password', function () {
 
 // //VER ESCUELAS EN CURSOS
 // Route::get('escuelas', [CursosController::class, 'escuelas']);
+
+
 
 
 
@@ -252,7 +176,27 @@ Route::get('/password', function () {
 // Route::delete('/asignaturas/{id}', [AsignaturasController::class, 'destroyasignaturas']);
 
 // //VER CURSOS EN ASIGNATURAS
-// Route::get('cursos', [AsignaturasController::class, 'cursos']);
+// Route::get('cursosasignaturas', [AsignaturasController::class, 'cursosasignaturas']);
 
 // //VER PROFESORES EN ASIGNATURAS
 // Route::get('profesores', [AsignaturasController::class, 'profesores']);
+
+
+// //-----------------------------------------------------
+// //ADMINISTRADORES -------------------------------------
+// //-----------------------------------------------------
+
+// //VER WEB
+// Route::get('/webadministradores', [AdministradoresController::class, 'webadministradores'])->name('webadministradores');
+
+// //MOSTRAR Y BUSCAR
+// Route::get('/administradores', [AdministradoresController::class, 'indexadministradores']);
+
+// //INSERTAR
+// Route::post('/administradores', [AdministradoresController::class, 'storeadministradores']);
+
+// //ACTUALIZAR
+// Route::put('/administradores/{id}', [AdministradoresController::class, 'updateadministradores']);
+
+// //ELIMINAR
+// Route::delete('/administradores/{id}', [AdministradoresController::class, 'destroyadministradores']);

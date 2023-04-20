@@ -40,7 +40,7 @@
 
             <h1>INICIAR SESIÓN</h1>
 
-            <form method="POST" action="{{ route('login.post') }}">
+            <form method="POST" action="{{ route('procesologin') }}">
                 @csrf
 
                 {{-- CORREO ELECTRÓNICO --}}
@@ -66,7 +66,7 @@
 
                 <button type="submit">ENTRAR</button>
 
-                <a href="">¿Has olvidado la contraseña?</a>
+                <a href="{{ route('verPassword') }}">¿Has olvidado la contraseña?</a>
             </form>
         </div>
     </div>

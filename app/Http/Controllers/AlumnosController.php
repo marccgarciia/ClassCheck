@@ -96,7 +96,7 @@ class AlumnosController extends Controller
     }
 
     // CONTROLADOR PARA VER CURSOS
-    public function cursos()
+    public function cursosalumnos()
     {
         $cursos = Curso::all();
         return response()->json($cursos);

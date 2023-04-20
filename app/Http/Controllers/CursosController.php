@@ -23,7 +23,6 @@ class CursosController extends Controller
         return response()->json($cursos);
     }
 
-
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storecursos(Request $request)
     {
@@ -73,14 +72,14 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA ELIMINAR DATOS
-    public function destroycursos($id)
+    public function destroycurso($id)
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();
-        return response()->json(['message' => 'Usuario deleted']);
+        return response()->json(['message' => 'Curso deleted']);
     }
 
-    // CONTROLADOR PARA VER ESCUELA
+    // CONTROLADOR PARA VER CURSOS
     public function escuelas()
     {
         $escuelas = Escuela::all();
