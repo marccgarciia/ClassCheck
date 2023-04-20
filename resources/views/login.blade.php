@@ -66,7 +66,7 @@
 
                 <button type="submit">ENTRAR</button>
 
-                <a href="">¿Has olvidado la contraseña?</a>
+                <a href="{{ route('verPassword') }}">¿Has olvidado la contraseña?</a>
             </form>
         </div>
     </div>

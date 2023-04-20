@@ -19,6 +19,10 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function verPassword()
+    {
+        return view('password');
+    }
 
     public function login_post(Request $request)
     {
@@ -33,12 +37,15 @@ class AuthController extends Controller
         // dd($credentials);
         if (Auth::guard('alumno')->attempt(array_merge($credentials, ['estado' => true]))) {
             return redirect()->route('alumno.panel');
+
         } elseif (Auth::guard('profesor')->attempt(array_merge($credentials, ['estado' => true]))) {
             return redirect()->route('profesor.panel');
+
         } elseif (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.panel');
+
         } else {
-            return redirect()->route('login')->withErrors([
+            return redirect()->route('verLogin')->withErrors([
                 'email' => 'Email o Contraseña incorrectas.',
             ]);
         }
@@ -70,7 +77,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('verLogin');
     }
 
     public function logout_alumno(Request $request)
@@ -79,7 +86,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('verLogin');
     }
 
     public function logout_profesor(Request $request)
@@ -88,7 +95,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('verLogin');
     }
 
 
@@ -111,7 +118,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('verLogin');
     }
 
     public function passprofe(Request $request)
@@ -129,7 +136,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('verLogin');
     }
 
     public function mail(Request $request)

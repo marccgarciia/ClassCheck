@@ -26,12 +26,13 @@ use App\Http\Controllers\AuthController;
 //-----------------------------------------------------
 //PROCESAR LOGIN Y CAMBIAR PASSWORD -------------------
 //-----------------------------------------------------
-Route::get('/', [AuthController::class, 'verLogin'])->name('login');
+Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
 Route::post('/login', [AuthController::class, 'login_post'])->name('login.post');
 
 Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
+Route::get('/password', [AuthController::class, 'verPassword'])->name('verPassword');
 
 //-----------------------------------------------------
 //ADMIN LOGIN -----------------------------------------
@@ -61,7 +62,6 @@ Route::middleware(['auth:alumno', 'revalidate'])->group(function () {
 //PROFESORES LOGIN ------------------------------------
 //-----------------------------------------------------
 
-
 Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
     Route::get('/profesores', [AuthController::class, 'profesor'])->name('profesor.panel');
 
@@ -71,8 +71,6 @@ Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
     //PROCESO CAMBIAR PASSWORD DESDE DENTRO
     Route::post('/passprofe', [AuthController::class, 'passprofe'])->name('passprofe.panel');
 });
-
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -80,185 +78,117 @@ Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
 
 
 
+// //-----------------------------------------------------
+// //ALUMNOS ---------------------------------------------
+// //-----------------------------------------------------
 
+// //VER WEB
+// Route::get('/webalumnos', [AlumnosController::class, 'webalumnos'])->name('webalumnos');
 
+// //MOSTRAR Y BUSCAR
+// Route::get('/alumnos', [AlumnosController::class, 'indexalumnos']);
 
+// //INSERTAR
+// Route::post('/alumnos', [AlumnosController::class, 'storealumnos']);
 
+// //ACTUALIZAR
+// Route::put('/alumnos/{id}', [AlumnosController::class, 'updatealumnos']);
 
+// //ELIMINAR
+// Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
 
+// //VER CURSOS EN ALUMNOS
+// Route::get('cursosalumnos', [AlumnosController::class, 'cursosalumnos']);
 
 
 
+// //-----------------------------------------------------
+// //CURSOS ----------------------------------------------
+// //-----------------------------------------------------
 
+// //VER WEB
+// Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
 
+// //MOSTRAR Y BUSCAR
+// Route::get('/cursos', [CursosController::class, 'indexcursos']);
 
+// //INSERTAR
+// Route::post('/cursos', [CursosController::class, 'storecursos']);
 
+// //ACTUALIZAR
+// Route::put('/cursos/{id}', [CursosController::class, 'updatecursos']);
 
+// //ELIMINAR
+// Route::delete('/cursos/{id}', [CursosController::class, 'destroycursos']);
 
+// //VER ESCUELAS EN CURSOS
+// Route::get('escuelas', [CursosController::class, 'escuelas']);
 
 
-//-----------------------------------------------------
-//LOGIN -----------------------------------------------
-//-----------------------------------------------------
 
-//VER PASSWORD
-Route::get('/password', function () {
-    return view('password');
-});
 
-//VER LAYOUT
-Route::get('/layoutalumno', function () {
-    return view('layouts/layoutalumno');
-});
 
-//VER LAYOUT
-Route::get('/layoutadmin', function () {
-    return view('layouts/layoutadmin');
-});
+// //-----------------------------------------------------
+// //PROFESORES ------------------------------------------
+// //-----------------------------------------------------
 
-//VER LAYOUT
-Route::get('/layoutprofesor', function () {
-    return view('layouts/layoutprofesor');
-});
+// //VER WEB
+// Route::get('/webprofesores', [ProfesoresController::class, 'webprofesores'])->name('webprofesores');
 
-//VER ADMIN
-Route::get('/admin', function () {
-    return view('admin');
-});
+// //MOSTRAR Y BUSCAR
+// Route::get('/profesores', [ProfesoresController::class, 'indexprofesores']);
 
-//VER PROFESOR
-Route::get('/profesor', function () {
-    return view('profesor');
-});
+// //INSERTAR
+// Route::post('/profesores', [ProfesoresController::class, 'storeprofesores']);
 
-//VER ALUMNO
-Route::get('/alumno', function () {
-    return view('alumno');
-});
+// //ACTUALIZAR
+// Route::put('/profesores/{id}', [ProfesoresController::class, 'updateprofesores']);
 
-//VER ALUMNO
-Route::get('/principal', function () {
-    return view('principal');
-});
+// //ELIMINAR
+// Route::delete('/profesores/{id}', [ProfesoresController::class, 'destroyprofesores']);
 
 
+// //-----------------------------------------------------
+// //ASIGNATURAS -----------------------------------------
+// //-----------------------------------------------------
 
+// //VER WEB
+// Route::get('/webasignaturas', [AsignaturasController::class, 'webasignaturas'])->name('webasignaturas');
 
+// //MOSTRAR Y BUSCAR
+// Route::get('/asignaturas', [AsignaturasController::class, 'indexasignaturas']);
 
+// //INSERTAR
+// Route::post('/asignaturas', [AsignaturasController::class, 'storeasignaturas']);
 
+// //ACTUALIZAR
+// Route::put('/asignaturas/{id}', [AsignaturasController::class, 'updateasignaturas']);
 
-//-----------------------------------------------------
-//ALUMNOS ---------------------------------------------
-//-----------------------------------------------------
+// //ELIMINAR
+// Route::delete('/asignaturas/{id}', [AsignaturasController::class, 'destroyasignaturas']);
 
-//VER WEB
-Route::get('/webalumnos', [AlumnosController::class, 'webalumnos'])->name('webalumnos');
+// //VER CURSOS EN ASIGNATURAS
+// Route::get('cursosasignaturas', [AsignaturasController::class, 'cursosasignaturas']);
 
-//MOSTRAR Y BUSCAR
-Route::get('/alumnos', [AlumnosController::class, 'indexalumnos']);
+// //VER PROFESORES EN ASIGNATURAS
+// Route::get('profesores', [AsignaturasController::class, 'profesores']);
 
-//INSERTAR
-Route::post('/alumnos', [AlumnosController::class, 'storealumnos']);
 
-//ACTUALIZAR
-Route::put('/alumnos/{id}', [AlumnosController::class, 'updatealumnos']);
+// //-----------------------------------------------------
+// //ADMINISTRADORES -------------------------------------
+// //-----------------------------------------------------
 
-//ELIMINAR
-Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
+// //VER WEB
+// Route::get('/webadministradores', [AdministradoresController::class, 'webadministradores'])->name('webadministradores');
 
-//VER CURSOS EN ALUMNOS
-Route::get('cursosalumnos', [AlumnosController::class, 'cursosalumnos']);
+// //MOSTRAR Y BUSCAR
+// Route::get('/administradores', [AdministradoresController::class, 'indexadministradores']);
 
+// //INSERTAR
+// Route::post('/administradores', [AdministradoresController::class, 'storeadministradores']);
 
+// //ACTUALIZAR
+// Route::put('/administradores/{id}', [AdministradoresController::class, 'updateadministradores']);
 
-
-//-----------------------------------------------------
-//CURSOS ----------------------------------------------
-//-----------------------------------------------------
-
-//VER WEB
-Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
-
-//MOSTRAR Y BUSCAR
-Route::get('/cursos', [CursosController::class, 'indexcursos']);
-
-//INSERTAR
-Route::post('/cursos', [CursosController::class, 'storecursos']);
-
-//ACTUALIZAR
-Route::put('/cursos/{id}', [CursosController::class, 'updatecursos']);
-
-//ELIMINAR
-Route::delete('/cursos/{id}', [CursosController::class, 'destroycursos']);
-
-//VER ESCUELAS EN CURSOS
-Route::get('escuelas', [CursosController::class, 'escuelas']);
-
-
-
-
-
-//-----------------------------------------------------
-//PROFESORES ------------------------------------------
-//-----------------------------------------------------
-
-//VER WEB
-Route::get('/webprofesores', [ProfesoresController::class, 'webprofesores'])->name('webprofesores');
-
-//MOSTRAR Y BUSCAR
-Route::get('/profesores', [ProfesoresController::class, 'indexprofesores']);
-
-//INSERTAR
-Route::post('/profesores', [ProfesoresController::class, 'storeprofesores']);
-
-//ACTUALIZAR
-Route::put('/profesores/{id}', [ProfesoresController::class, 'updateprofesores']);
-
-//ELIMINAR
-Route::delete('/profesores/{id}', [ProfesoresController::class, 'destroyprofesores']);
-
-
-//-----------------------------------------------------
-//ASIGNATURAS -----------------------------------------
-//-----------------------------------------------------
-
-//VER WEB
-Route::get('/webasignaturas', [AsignaturasController::class, 'webasignaturas'])->name('webasignaturas');
-
-//MOSTRAR Y BUSCAR
-Route::get('/asignaturas', [AsignaturasController::class, 'indexasignaturas']);
-
-//INSERTAR
-Route::post('/asignaturas', [AsignaturasController::class, 'storeasignaturas']);
-
-//ACTUALIZAR
-Route::put('/asignaturas/{id}', [AsignaturasController::class, 'updateasignaturas']);
-
-//ELIMINAR
-Route::delete('/asignaturas/{id}', [AsignaturasController::class, 'destroyasignaturas']);
-
-//VER CURSOS EN ASIGNATURAS
-Route::get('cursosasignaturas', [AsignaturasController::class, 'cursosasignaturas']);
-
-//VER PROFESORES EN ASIGNATURAS
-Route::get('profesores', [AsignaturasController::class, 'profesores']);
-
-
-//-----------------------------------------------------
-//ADMINISTRADORES -------------------------------------
-//-----------------------------------------------------
-
-//VER WEB
-Route::get('/webadministradores', [AdministradoresController::class, 'webadministradores'])->name('webadministradores');
-
-//MOSTRAR Y BUSCAR
-Route::get('/administradores', [AdministradoresController::class, 'indexadministradores']);
-
-//INSERTAR
-Route::post('/administradores', [AdministradoresController::class, 'storeadministradores']);
-
-//ACTUALIZAR
-Route::put('/administradores/{id}', [AdministradoresController::class, 'updateadministradores']);
-
-//ELIMINAR
-Route::delete('/administradores/{id}', [AdministradoresController::class, 'destroyadministradores']);
+// //ELIMINAR
+// Route::delete('/administradores/{id}', [AdministradoresController::class, 'destroyadministradores']);
