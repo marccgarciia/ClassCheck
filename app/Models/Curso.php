@@ -20,12 +20,13 @@ class Curso extends Model
         'id_escuela',
     ];
 
-    // RELACION PARA SACAR CURSO Y HACER INNER JOIN
+    // RELACION PARA SACAR ESCUELA Y HACER INNER JOIN
     public function escuela()
     {
         return $this->belongsTo(Escuela::class, 'id_escuela');
     }
-
+    
+    // RELACION PARA SACAR CURSOS EN ALUMNOS
     public function alumnos()
     {
         return $this->hasMany(Alumno::class);
