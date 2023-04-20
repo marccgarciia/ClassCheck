@@ -40,7 +40,7 @@
 
             <h1>INICIAR SESIÓN</h1>
 
-            <form method="POST" action="{{ route('login.post') }}">
+            <form method="POST" action="{{ route('procesologin') }}">
                 @csrf
 
                 {{-- CORREO ELECTRÓNICO --}}

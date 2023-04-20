@@ -28,7 +28,7 @@ use App\Http\Controllers\AuthController;
 //-----------------------------------------------------
 Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
-Route::post('/login', [AuthController::class, 'login_post'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin');
 
 Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
@@ -41,7 +41,7 @@ Route::middleware(['auth:admin', 'revalidate'])->group(function () {
     Route::get('/admin', [AuthController::class, 'admin'])->name('admin.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_admin', [AuthController::class, 'logout_admin'])->name('logout.admin');
+    Route::post('/logout_admin', [AuthController::class, 'logout_admin'])->name('procesologoutadmin');
 });
 
 
@@ -52,7 +52,7 @@ Route::middleware(['auth:alumno', 'revalidate'])->group(function () {
     Route::get('/alumno', [AuthController::class, 'alumno'])->name('alumno.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_alumno', [AuthController::class, 'logout_alumno'])->name('logout.alumno');
+    Route::post('/logout_alumno', [AuthController::class, 'logout_alumno'])->name('procesologoutalumno');
 
     //PROCESO CAMBIAR PASSWORD DESDE DENTRO
     Route::post('/passalumno', [AuthController::class, 'passalumno'])->name('passalumno.panel');
@@ -66,7 +66,7 @@ Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
     Route::get('/profesores', [AuthController::class, 'profesor'])->name('profesor.panel');
 
     //PROCESO LOGOUT
-    Route::post('/logout_profesor', [AuthController::class, 'logout_profesor'])->name('logout.profesor');
+    Route::post('/logout_profesor', [AuthController::class, 'logout_profesor'])->name('procesologoutprofesor');
 
     //PROCESO CAMBIAR PASSWORD DESDE DENTRO
     Route::post('/passprofe', [AuthController::class, 'passprofe'])->name('passprofe.panel');
@@ -78,11 +78,19 @@ Route::middleware(['auth:profesor', 'revalidate'])->group(function () {
 
 
 
-// //-----------------------------------------------------
-// //ALUMNOS ---------------------------------------------
-// //-----------------------------------------------------
 
-// //VER WEB
+
+
+
+
+
+// CRUDS
+
+//-----------------------------------------------------
+//ALUMNOS ---------------------------------------------
+//-----------------------------------------------------
+
+//VER WEB
 // Route::get('/webalumnos', [AlumnosController::class, 'webalumnos'])->name('webalumnos');
 
 // //MOSTRAR Y BUSCAR

@@ -18,7 +18,7 @@
         <button type="submit">Cambiar contraseña</button>
     </form>
 
-    <form action="{{ route('logout.profesor') }}" method="POST">
+    <form action="{{ route('procesologoutprofesor') }}" method="POST">
         @csrf
         <button type="submit">Logout</button>
     </form>

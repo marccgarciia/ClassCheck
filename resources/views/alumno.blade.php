@@ -40,7 +40,7 @@
     </form>
 
     
-    <form action="{{ route('logout.alumno') }}" method="POST">
+    <form action="{{ route('procesologoutalumno') }}" method="POST">
         @csrf
         <button type="submit">Logout</button>
     </form>

@@ -37,7 +37,7 @@
     <h1>Bienvenido, {{ auth('admin')->user()->nombre }}</h1>
     <h1>Bienvenido, tu id de admin {{ auth('admin')->user()->id }}</h1>
 
-    <form action="{{ route('logout.admin') }}" method="POST">
+    <form action="{{ route('procesologoutadmin') }}" method="POST">
         @csrf
         <button type="submit">Logout</button>
     </form>
