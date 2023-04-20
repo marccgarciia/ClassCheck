@@ -165,6 +165,19 @@ html {
     color: var(--rojo);
 }
 
+.logout {
+    color: var(--rojo);
+}
+
+.logout i {
+    margin: 0px 0px 0px 8px;
+    font-size: 30px;
+}
+.logout i:hover{
+    color: #142c44;
+    transition: 0.3s;
+}
+
 #sidebar .side-menu.top li a:hover {
     color: var(--color-azulmasclaro);
 }

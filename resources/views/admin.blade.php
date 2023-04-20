@@ -34,11 +34,5 @@
     </ul>
 
     <h1>AQUI VAN LOS CRUDS SEGUN LA PESTAÑA SELECCIONADA</h1>
-    <h1>Bienvenido, {{ auth('admin')->user()->nombre }}</h1>
-    <h1>Bienvenido, tu id de admin {{ auth('admin')->user()->id }}</h1>
 
-    <form action="{{ route('procesologoutadmin') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
 @endsection
