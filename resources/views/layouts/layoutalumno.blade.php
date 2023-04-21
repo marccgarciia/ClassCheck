@@ -20,6 +20,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CALENDARIO -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    <script src="{{ asset('../resources/js/calendarAlu.js') }}"></script>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
 </head>

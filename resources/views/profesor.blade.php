@@ -3,8 +3,28 @@
 @section('titulo', 'Panel de Control | Profesor')
 
 @section('contenido')
-
-    <h1>AQUI VA LA INTEERFAZ DEL CALENDARIO CON FILTROS Y CRUD DE SUS ALUMNOS EN SU CLASE</h1>
+    <div class="row">
+        <div class="column2 table-wrapper" id='filtroP'>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">%</th>
+                        <th scope="col">Faltas</th>
+                    </tr>
+                </thead>
+                
+                <tbody class="tbody" id="resultado">
+        
+        
+                </tbody>
+            </table>
+        </div>
+        <div class="column2" id='calendar'></div>
+    </div>
 
     <form action="{{ route('passprofe.panel') }}" method="POST">
         @csrf

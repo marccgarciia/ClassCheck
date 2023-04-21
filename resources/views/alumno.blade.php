@@ -23,8 +23,8 @@
         </li>
 
     </ul>
-
-    <h1>AQUI VA LA INTEERFAZ DEL CALENDARIO</h1>
+    <br>
+    <div id='calendar'></div>
 
 
     <form action="{{ route('passalumno.panel') }}" method="POST">

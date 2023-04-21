@@ -13,7 +13,84 @@
     --color-gris: #eee;
     --color-blanco: #ffff;
     --rojo: #DB504A;
+    --fc-border-color: #eeeeee;
 }
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #eeeeee;
+    color: #000;
+}
+
+.fc-widget-content {border-radius: 25px;}
+
+
+#calendar tr{
+    background-color: #2b4d6d;
+    color: white; 
+}
+
+
+.column2 {
+    padding: 20px;
+    float: left;
+    width: 50%;
+}
+  
+  /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+  
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+  
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #1b4965;
+    border-radius: 40px;
+}
+/*   
+  .table-wrapper::::-webkit-scrollbar-track {
+    background: var(--white);
+    border-radius: 40px;
+  } */
+  
+.table-wrapper table {
+    margin: 50px 0 20px;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 40px;
+
+}
+  
+.table-wrapper table th,
+  .table-wrapper table td {
+    padding: 10px;
+    min-width: 75px;
+}
+  
+.table-wrapper table th {
+    color: #fff;
+    background: #1b4965;
+}
+  
+.table-wrapper table tbody tr:nth-of-type(even) > * {
+    background: var(--lightblue);
+}
+  
+.table-wrapper table td:first-child {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-gap: 10px;
+    text-align: left;
+}
+  
 
 body {
     background: var(--color-gris);
