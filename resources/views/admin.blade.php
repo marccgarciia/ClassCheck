@@ -3,36 +3,27 @@
 @section('titulo', 'Panel de Control | Administrador')
 
 @section('contenido')
+<script>
+    // CAMBIAR SEGUN LOS BOTONES DE LI
+    // espera a que el documento esté listo antes de agregar el controlador de eventos
+    $(document).ready(function() {
+        // agrega un controlador de eventos para los clics en los enlaces de la barra lateral
+        $('#sidebar .side-menu.top a').click(function(event) {
+            // previene el comportamiento predeterminado del enlace (navegar a una nueva página)
+            event.preventDefault();
 
-    <ul class="box-info">
+            // borra el contenido anterior del contenedor principal
+            $('#contenedor-contenido').empty();
 
-        <li>
-            <i class='bx bxs-calendar-check'></i>
-            <span class="texto">
-                <h3>55</h3>
-                <p>Cursos</p>
-            </span>
-        </li>
+            // obtiene la URL del archivo blade asociado con el enlace
+            var url = $(this).attr('href');
 
-        <li>
-            <i class='bx bxs-group'></i>
-            <span class="texto">
-                <h3>2834</h3>
-                <p>Alumnos</p>
-            </span>
-        </li>
-
-
-        <li>
-            <i class='bx bx-library'></i>
-            <span class="texto">
-                <h3>254</h3>
-                <p>Total Asignaturas</p>
-            </span>
-        </li>
-
-    </ul>
-
-    <h1>AQUI VAN LOS CRUDS SEGUN LA PESTAÑA SELECCIONADA</h1>
-
+            // envía una solicitud AJAX para obtener el contenido del archivo blade
+            $.get(url, function(data) {
+                // actualiza el contenido del contenedor principal con la respuesta de la solicitud
+                $('#contenedor-contenido').html(data);
+            });
+        });
+    });
+</script>
 @endsection

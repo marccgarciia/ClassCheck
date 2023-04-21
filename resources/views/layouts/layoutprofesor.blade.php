@@ -107,7 +107,10 @@
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
 
-            @yield('contenido')
+            <div id="contenedor-contenido">
+
+            </div>
+
 
         </main>
 
@@ -198,4 +201,5 @@
             document.body.classList.remove('dark');
         }
     })
+    
 </script>
