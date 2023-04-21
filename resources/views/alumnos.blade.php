@@ -13,25 +13,23 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="alumnos">
-        <h2>Lista de Alumnos</h2>
-
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
         </select> --}}
 
-        <table>
+        <table class="table">
             <thead>
                 
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Email Padre</th>
-                    <th>Curso</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo Electrónico</th>
+                    {{-- <th scope="col">Password</th> --}}
+                    <th scope="col">Contacto Padres</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,41 +39,41 @@
 
     <div>
         <form action="alumnos" method="POST" id="form-insert">
-            <h2>Formulario de Insertar</h2>
+            <h2 class="text">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
-            <input type="text" name="apellido" placeholder="Apellido">
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="password" placeholder="Password">
-            <input type="text" name="email_padre" placeholder="Email Padre">
+            <input type="text" name="apellido" placeholder="Apellidos">
+            <input type="text" name="email" placeholder="Correo Electrónico">
+            <input type="text" name="password" placeholder="Contraseña">
+            <input type="text" name="email_padre" placeholder="Contacto Padres">
             {{-- <input type="text" name="estado" placeholder="Estado"> --}}
             <select id="curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
 
-            <button type="submit">Insertar</button>
+            <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <form action="alumnos" method="POST" id="form-edit" style="display:none;">
-            <h2>Formulario de Editar</h2>
+            <h2 class="text">Formulario de Editar</h2>
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit-id">
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <input type="text" name="email" id="edit-email" placeholder="Email">
-            <input type="text" name="password" id="edit-password" placeholder="Password">
-            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Email Padre">
+            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
             <input type="text" name="estado" id="edit-estado" placeholder="Estado">
             {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
             <select id="edit-id_curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
 
-            <button type="submit">Actualizar</button>
+            <button type="submit" class="btn">Actualizar</button>
         </form>
     </div>
 
@@ -128,7 +126,7 @@
                             tableRows += '<td>' + alumno.nombre + '</td>';
                             tableRows += '<td>' + alumno.apellido + '</td>';
                             tableRows += '<td>' + alumno.email + '</td>';
-                            tableRows += '<td>' + alumno.password + '</td>';
+                            // tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
                             
@@ -281,7 +279,7 @@
                     $('#edit-nombre').val(nombre);
                     $('#edit-apellido').val(apellido);
                     $('#edit-email').val(email);
-                    $('#edit-password').val(password);
+                    // $('#edit-password').val(password);
                     $('#edit-email_padre').val(email_padre);
                     $('#edit-id_curso').val(id_curso);
                     $('#edit-estado').val(estado);

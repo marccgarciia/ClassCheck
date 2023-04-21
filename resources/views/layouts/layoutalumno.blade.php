@@ -42,6 +42,13 @@
         <ul class="side-menu top">
 
             <li class="active">
+                <a href="#escaner">
+                    <i class='bx bx-qr-scan'></i>
+                    <span class="texto">Escáner</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="#faltas">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
@@ -109,7 +116,9 @@
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
 
-            @yield('contenido')
+            <div id="contenedor-contenido">
+
+            </div>
 
         </main>
 

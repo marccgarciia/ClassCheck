@@ -12,6 +12,9 @@
     --color-azulmasclaro: #85b7e5;
     --color-gris: #eee;
     --color-blanco: #ffff;
+    --color-input: #ffff;
+    --color-texto-input: #142c44;
+    --color-texto: #142c44;
     --rojo: #DB504A;
     --fc-border-color: #eeeeee;
 }
@@ -102,6 +105,9 @@ body.dark {
     --color-azulclaro: #0C0C1E;
     --color-gris: #142c44;
     --color-blanco: #FBFBFB;
+    --color-texto: #FBFBFB;
+    --color-input: #2b4d6d;
+    --color-texto-input: #85b7e5;
 }
 
 html {
@@ -124,6 +130,179 @@ html {
 
 .side-menu span {
     margin: 2px 0px 0px 0px;
+}
+
+#buscador {
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--color-input);
+    color: var(--color-texto-input);
+    border: 0.5px solid var(--color-texto-input);
+}
+
+#buscador::placeholder {
+    color: var(--color-texto-input);
+}
+#form-insert input ::placeholder {
+    color: var(--color-texto-input);
+}
+
+#form-edit input ::placeholder {
+    color: var(--color-texto-input);
+}
+
+
+
+#form-insert input {
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--color-input);
+    color: var(--color-texto-input);
+    border: 0.5px solid var(--color-texto-input);
+    margin: 10px 3px;
+}
+#form-insert select {
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--color-input);
+    color: var(--color-texto-input);
+    border: 0.5px solid var(--color-texto-input);
+    margin: 10px 3px;
+}
+
+
+#form-edit input {
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--color-input);
+    color: var(--color-texto-input);
+    border: 0.5px solid var(--color-texto-input);
+    margin: 10px 3px;
+}
+#form-edit select {
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--color-input);
+    color: var(--color-texto-input);
+    border: 0.5px solid var(--color-texto-input);
+}
+
+
+input {
+    width: 20%;
+    border-radius: 10px !important;
+}
+
+select {
+    width: 20%;
+    border-radius: 10px !important;
+}
+
+.edit-profesor,
+.edit-alumno,
+.edit-curso,
+.edit-asignatura {
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.edit-profesor:hover,
+.edit-alumno:hover,
+.edit-curso:hover,
+.edit-asignatura:hover {
+    background-color: var(--color-negro);
+    color: var(--color-blanco);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.delete-profesor,
+.delete-alumno,
+.delete-curso,
+.delete-asignatura {
+    background-color: var(--rojo);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 2px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.delete-profesor:hover,
+.delete-alumno:hover,
+.delete-curso:hover,
+.delete-asignatura:hover {
+    background-color: #d9110a;
+    color: var(--color-blanco);
+    transition: 0.3s;
+}
+
+
+.btn{
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.btn:hover {
+    background-color: var(--color-negro);
+    color: var(--color-blanco);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+#contenedor-contenido {
+    margin: 20px 0px;
+}
+
+
+.table {
+    color: var(--color-texto);
+    margin: 30px 0px;
+}
+
+
+.text{
+    color: var(--color-texto);
+}
+
+/* FOCUS */
+[multiple]:focus,
+[type=date]:focus,
+[type=datetime-local]:focus,
+[type=email]:focus,
+[type=month]:focus,
+[type=number]:focus,
+[type=password]:focus,
+[type=search]:focus,
+[type=tel]:focus,
+[type=text]:focus,
+[type=time]:focus,
+[type=url]:focus,
+[type=week]:focus,
+select:focus,
+textarea:focus {
+    --tw-ring-inset: var(--tw-empty,
+            /*!*/
+            /*!*/
+        );
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff !important;
+    --tw-ring-color: #142c44 !important;
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color) !important;
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c44 !important;
+    border-color: #142c44 !important;
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow) !important;
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
 }
 
 
@@ -250,7 +429,8 @@ html {
     margin: 0px 0px 0px 5px;
     font-size: 30px;
 }
-.logout i:hover{
+
+.logout i:hover {
     color: #142c44;
     transition: 0.3s;
 }
@@ -400,6 +580,10 @@ html {
     background: var(--color-azulmasclaro);
     border-radius: 50%;
     transition: all .3s ease;
+}
+
+#contenido table .modooscuro::before {
+    color: white;
 }
 
 #contenido nav #modooscuro:checked+.modooscuro::before {

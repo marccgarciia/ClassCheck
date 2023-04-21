@@ -15,6 +15,11 @@ class AdministradoresController extends Controller
         return view('administradores');
     }
 
+    public function webpanel()
+    {
+        return view('webpanel');
+    }
+    
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexadministradores()
     {
@@ -81,5 +86,4 @@ class AdministradoresController extends Controller
         $administrador->delete();
         return response()->json(['message' => 'Adminstrador deleted']);
     }
-
 }

@@ -200,3 +200,6 @@ Route::put('/administradores/{id}', [AdministradoresController::class, 'updatead
 
 //ELIMINAR
 Route::delete('/administradores/{id}', [AdministradoresController::class, 'destroyadministradores']);
+
+//VER PANEL DE CONTROL DEL ADMIN
+Route::get('/webpanel', [AdministradoresController::class, 'webpanel'])->name('webpanel');
