@@ -22,7 +22,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CALENDARIO -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
-    <script src="{{ asset('../resources/js/calendarProf.js') }}"></script>
+    {{-- //<script src="{{ asset('../resources/js/calendarProf.js') }}"></script> --}}
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
 </head>
@@ -42,21 +42,21 @@
         <ul class="side-menu top">
 
             <li class="active">
-                <a href="#faltas">
+                <a href="{{ route('faltasprof') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#horario">
+                <a href="{{ route('horarioprof') }}">
                     <i class='bx bxs-calendar'></i>
                     <span class="texto">Horario</span>
                 </a>
             </li>
 
             <li>
-                <a href="#datos">
+                <a href="{{ route('datosprof') }}">
                     <i class='bx bxs-cog'></i>
                     <span class="texto">Datos Personales</span>
                 </a>
@@ -111,7 +111,7 @@
         <main>
 
             <div id="contenedor-contenido">
-
+                @yield('contenido')
             </div>
 
 

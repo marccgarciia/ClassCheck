@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    alert('hola');
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {

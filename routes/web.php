@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfesoresController;
 use App\Http\Controllers\AsignaturasController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\EscuelasController;
+use App\Http\Controllers\CSVController;
+
 
 use App\Http\Controllers\AuthController;
 
@@ -108,6 +110,17 @@ Route::delete('/alumnos/{id}', [AlumnosController::class, 'destroyalumnos']);
 //VER CURSOS EN ALUMNOS
 Route::get('cursosalumnos', [AlumnosController::class, 'cursosalumnos']);
 
+//VER WEB FALTAS ALUMNOS 
+Route::get('/faltasalu', [AlumnosController::class, 'faltasalu'])->name('faltasalu');
+
+//VER WEB HORARIO ALUMNOS 
+Route::get('/horarioalu', [AlumnosController::class, 'horarioalu'])->name('horarioalu');
+
+//VER WEB DATOS ALUMNOS 
+Route::get('/datosalu', [AlumnosController::class, 'datosalu'])->name('datosalu');
+//VER WEB SCANER ALUMNOS 
+Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
+
 
 
 //-----------------------------------------------------
@@ -154,6 +167,17 @@ Route::put('/profesores/{id}', [ProfesoresController::class, 'updateprofesores']
 
 //ELIMINAR
 Route::delete('/profesores/{id}', [ProfesoresController::class, 'destroyprofesores']);
+
+Route::get('/escaner', [ProfesoresController::class, 'escaner'])->name('escaner');
+
+//VER WEB FALTAS PROFESOR 
+Route::get('/faltasprof', [ProfesoresController::class, 'faltasprof'])->name('faltasprof');
+
+//VER WEB HORARIO PROFESOR 
+Route::get('/horarioprof', [ProfesoresController::class, 'horarioprof'])->name('horarioprof');
+
+//VER WEB DATOS PROFESOR 
+Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('datosprof');
 
 
 //-----------------------------------------------------
@@ -203,3 +227,16 @@ Route::delete('/administradores/{id}', [AdministradoresController::class, 'destr
 
 //VER PANEL DE CONTROL DEL ADMIN
 Route::get('/webpanel', [AdministradoresController::class, 'webpanel'])->name('webpanel');
+
+
+
+//CSV
+//EXPORTAR ALUMNO
+// Route::get('/expalu', [CSVController::class, 'exp']);
+// //IMPORTAR ALUMNO
+// Route::post('/impalu', [CSVController::class, 'imp']);
+
+// //EXPORTAR PROFESOR
+// Route::get('/expprof', [CSVController::class, 'expprof']);
+// //IMPORTAR PROFESOR
+// Route::post('/impprof', [CSVController::class, 'impprof']);

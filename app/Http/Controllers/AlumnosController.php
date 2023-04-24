@@ -16,6 +16,28 @@ class AlumnosController extends Controller
         return view('alumnos');
     }
 
+    // CONTROLADOR PARA VER FALTAS 
+    public function faltasalu()
+    {
+        return view('faltasalu');
+    }
+    // CONTROLADOR PARA VER HORARIO
+    public function horarioalu()
+    {
+        return view('horarioalu');
+    }
+    // CONTROLADOR PARA VER DATOS 
+    public function datosalu()
+    {
+        return view('datosalu');
+    }
+
+       // CONTROLADOR PARA VER SCANER 
+       public function scanalu()
+       {
+           return view('scanalu');
+       }
+
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexalumnos()
     {

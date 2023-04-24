@@ -22,7 +22,6 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- CALENDARIO -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
-    <script src="{{ asset('../resources/js/calendarAlu.js') }}"></script>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
 </head>
@@ -42,28 +41,28 @@
         <ul class="side-menu top">
 
             <li class="active">
-                <a href="#escaner">
+                <a href="{{ route('scanalu') }}">
                     <i class='bx bx-qr-scan'></i>
                     <span class="texto">Escáner</span>
                 </a>
             </li>
 
             <li>
-                <a href="#faltas">
+                <a href="{{ route('faltasalu') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#horario">
+                <a href="{{ route('horarioalu') }}">
                     <i class='bx bxs-calendar'></i>
                     <span class="texto">Horario</span>
                 </a>
             </li>
 
             <li>
-                <a href="#datos">
+                <a href="{{ route('datosalu') }}">
                     <i class='bx bxs-cog'></i>
                     <span class="texto">Datos Personales</span>
                 </a>
@@ -117,7 +116,7 @@
         <main>
 
             <div id="contenedor-contenido">
-
+                @yield('contenido')
             </div>
 
         </main>

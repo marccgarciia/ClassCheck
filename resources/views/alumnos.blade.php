@@ -20,7 +20,7 @@
 
         <table class="table">
             <thead>
-                
+
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
@@ -78,7 +78,6 @@
     </div>
 
 
-
     <script>
         $(document).ready(function() {
 
@@ -129,7 +128,7 @@
                             // tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
-                            
+
 
                             // Verificar el estado y cambiar el texto correspondiente
                             if (alumno.estado == 1) {
@@ -315,6 +314,7 @@
 
         });
     </script>
+
 </body>
 
 </html>

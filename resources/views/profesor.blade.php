@@ -3,38 +3,27 @@
 @section('titulo', 'Panel de Control | Profesor')
 
 @section('contenido')
-    <div class="row">
-        <div class="column2 table-wrapper" id='filtroP'>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Año</th>
-                        <th scope="col">%</th>
-                        <th scope="col">Faltas</th>
-                    </tr>
-                </thead>
-                
-                <tbody class="tbody" id="resultado">
-        
-        
-                </tbody>
-            </table>
-        </div>
-        <div class="column2" id='calendar'></div>
-    </div>
+<script>
+    // CAMBIAR SEGUN LOS BOTONES DE LI
+    // espera a que el documento esté listo antes de agregar el controlador de eventos
+    $(document).ready(function() {
+        // agrega un controlador de eventos para los clics en los enlaces de la barra lateral
+        $('#sidebar .side-menu.top a').click(function(event) {
+            // previene el comportamiento predeterminado del enlace (navegar a una nueva página)
+            event.preventDefault();
 
-    <form action="{{ route('passprofe.panel') }}" method="POST">
-        @csrf
+            // borra el contenido anterior del contenedor principal
+            $('#contenedor-contenido').empty();
 
-        <div>
-            <label for="newpass">Nueva contraseña</label>
-            <input type="password" id="newpass" name="newpass" required>
-        </div>
+            // obtiene la URL del archivo blade asociado con el enlace
+            var url = $(this).attr('href');
 
-        <button type="submit">Cambiar contraseña</button>
-    </form>
-
+            // envía una solicitud AJAX para obtener el contenido del archivo blade
+            $.get(url, function(data) {
+                // actualiza el contenido del contenedor principal con la respuesta de la solicitud
+                $('#contenedor-contenido').html(data);
+            });
+        });
+    });
+</script>
 @endsection
