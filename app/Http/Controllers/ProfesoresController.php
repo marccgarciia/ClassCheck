@@ -29,6 +29,11 @@ class ProfesoresController extends Controller
     {
         return view('datosprof');
     }
+
+    public function pasarlista()
+    {
+        return view('pasarlista');
+    }
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexprofesores()
     {

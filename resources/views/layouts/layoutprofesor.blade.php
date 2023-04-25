@@ -42,6 +42,13 @@
         <ul class="side-menu top">
 
             <li class="active">
+                <a href="{{ route('pasarlista') }}">
+                    <i class='bx bxs-chalkboard'></i>
+                    <span class="texto">Pasar lista</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('faltasprof') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>

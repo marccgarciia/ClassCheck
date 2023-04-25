@@ -4,6 +4,102 @@
     font-family: 'League Spartan', sans-serif;
 }
 
+.camara {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.qr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+
+#preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+
+.qr-scanner .box {
+    width: 37.5vw; /* cambio de tamaño */
+    height: 37.5vw; /* cambio de tamaño */
+    max-height: 37.5vh; /* cambio de tamaño */
+    max-width: 37.5vh; /* cambio de tamaño */
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border: 0.1rem solid rgba(0, 255, 51, 0.2);
+}
+
+.qr-scanner .line {
+    height: calc(100% - 2px);
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0, 255, 51, 0) 43%, #00ff33 211%);
+    border-bottom: 3px solid #00ff33;
+    transform: translateY(-100%);
+    animation: radar-beam 2s infinite;
+    animation-timing-function: cubic-bezier(0.53, 0, 0.43, 0.99);
+    animation-delay: 1.4s;
+}
+
+.qr-scanner .box:after,
+.qr-scanner .box:before,
+.qr-scanner .angle:after,
+.qr-scanner .angle:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+
+    border: 0.2rem solid transparent;
+}
+
+.qr-scanner .box:after,
+.qr-scanner .box:before {
+    top: 0;
+    border-top-color: #00ff33;
+}
+
+.qr-scanner .angle:after,
+.qr-scanner .angle:before {
+    bottom: 0;
+    border-bottom-color: #00ff33;
+}
+
+.qr-scanner .box:before,
+.qr-scanner .angle:before {
+    left: 0;
+    border-left-color: #00ff33;
+}
+
+.qr-scanner .box:after,
+.qr-scanner .angle:after {
+    right: 0;
+    border-right-color: #00ff33;
+}
+
+@keyframes radar-beam {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
 
 :root {
     --color-negro: #000;

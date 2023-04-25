@@ -170,6 +170,9 @@ Route::delete('/profesores/{id}', [ProfesoresController::class, 'destroyprofesor
 
 Route::get('/escaner', [ProfesoresController::class, 'escaner'])->name('escaner');
 
+Route::get('/pasarlista', [ProfesoresController::class, 'pasarlista'])->name('pasarlista');
+
+
 //VER WEB FALTAS PROFESOR 
 Route::get('/faltasprof', [ProfesoresController::class, 'faltasprof'])->name('faltasprof');
 
