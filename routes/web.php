@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\CursosController;
@@ -9,8 +9,6 @@ use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\EscuelasController;
 use App\Http\Controllers\CSVController;
 
-
-use App\Http\Controllers\AuthController;
 
 
 /*
