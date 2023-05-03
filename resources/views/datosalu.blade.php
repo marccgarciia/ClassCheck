@@ -7,36 +7,37 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td>Name</td>
+                            <td>Nombre</td>
                             <td>:</td>
-                            <td>ImDezCode</td>
+                            <td>Edgar</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>imdezcode@gmail.com</td>
+                            <td>alumnotest@gmail.com</td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td>Dirección</td>
                             <td>:</td>
-                            <td>Bali, Indonesia</td>
+                            <td>Hospitalet, Barcelona</td>
                         </tr>
                         <tr>
-                            <td>Hobbies</td>
+                            <td>Curso</td>
                             <td>:</td>
-                            <td>Diving, Reading Book</td>
+                            <td>DAW 2</td>
                         </tr>
-                        <tr>
-                            <td>Job</td>
-                            <td>:</td>
-                            <td>Web Developer</td>
-                        </tr>
-                        <tr>
-                            <td>Skill</td>
-                            <td>:</td>
-                            <td>PHP, HTML, CSS, Java</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
+                    <form action="{{ route('passalumno.panel') }}" method="POST">
+                        @csrf
+                    
+                        <div>
+                            <label for="newpass">Nueva contraseña</label>
+                            <input type="password" id="newpass" name="newpass" required>
+                        </div>
+                    
+                        <button type="submit">Cambiar contraseña</button>
+                    </form>
             </div>
         </div>

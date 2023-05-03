@@ -21,16 +21,7 @@
 <div id='calendar'></div>
 
 
-<form action="{{ route('passalumno.panel') }}" method="POST">
-    @csrf
 
-    <div>
-        <label for="newpass">Nueva contraseña</label>
-        <input type="password" id="newpass" name="newpass" required>
-    </div>
-
-    <button type="submit">Cambiar contraseña</button>
-</form>
 
 <script>
     var calendarEl = document.getElementById('calendar');

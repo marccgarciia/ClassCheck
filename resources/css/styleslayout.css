@@ -760,8 +760,8 @@ textarea:focus {
 
 #contenido main .box-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5px;
     margin-top: 36px;
 }
 

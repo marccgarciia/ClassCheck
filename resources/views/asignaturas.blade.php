@@ -107,11 +107,11 @@
 
                                 return true; // Continue
                             }
-
+                            console.log(asignatura)
                             tableRows += '<tr>';
                             tableRows += '<td>' + asignatura.nombre + '</td>';
                             tableRows += '<td>' + asignatura.curso.nombre + '</td>';
-                            tableRows += '<td>' + asignatura.profesor.nombre + '</td>';
+                            tableRows += '<td>' + asignatura.profesor.nombre + " " + asignatura.profesor.apellido + '</td>';
                             tableRows += '<td>';
                             tableRows += '<button class="edit-asignatura" data-id="' +
                                 asignatura.id +

@@ -92,7 +92,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} {{ auth('alumno')->user()->apellido }}  | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}

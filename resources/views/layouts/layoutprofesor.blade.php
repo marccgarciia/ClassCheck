@@ -25,6 +25,7 @@
     {{-- //<script src="{{ asset('../resources/js/calendarProf.js') }}"></script> --}}
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -57,8 +58,8 @@
 
             <li>
                 <a href="{{ route('horarioprof') }}">
-                    <i class='bx bxs-calendar'></i>
-                    <span class="texto">Horario</span>
+                    <i class='bx bxs-school'></i>
+                    <span class="texto">Mis cursos</span>
                 </a>
             </li>
 
@@ -93,7 +94,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }} {{ auth('profesor')->user()->apellido}}!</p>
 
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}

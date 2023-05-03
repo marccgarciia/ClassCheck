@@ -25,6 +25,9 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+
+    <script src='{!! asset('../resources/js/gestionAdmin.js') !!}'></script>
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -100,7 +103,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }} {{ auth('admin')->user()->apellido }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}
@@ -130,7 +133,7 @@
                     <li>
                         <i class='bx bxs-calendar-check'></i>
                         <span class="texto">
-                            <h3>55</h3>
+                            <h3 id="cursosN">55</h3>
                             <p>Cursos</p>
                         </span>
                     </li>
@@ -138,7 +141,7 @@
                     <li>
                         <i class='bx bxs-group'></i>
                         <span class="texto">
-                            <h3>2834</h3>
+                            <h3 id="alumnosN">2834</h3>
                             <p>Alumnos</p>
                         </span>
                     </li>
@@ -147,7 +150,7 @@
                     <li>
                         <i class='bx bx-library'></i>
                         <span class="texto">
-                            <h3>254</h3>
+                            <h3 id="asignaturasN">254</h3>
                             <p>Total Asignaturas</p>
                         </span>
                     </li>

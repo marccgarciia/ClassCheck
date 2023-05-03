@@ -14,6 +14,7 @@ class Alumno extends Model implements Authenticatable
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'nombre',
         'apellido',
         'email',
@@ -22,6 +23,11 @@ class Alumno extends Model implements Authenticatable
         'estado',
         'id_curso',
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+    
     
     // RELACION PARA SACAR CURSO Y HACER INNER JOIN
     public function curso()

@@ -7,36 +7,31 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td>Name</td>
+                            <td>Nombre</td>
                             <td>:</td>
-                            <td>ImDezCode</td>
+                            <td>Gerard</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>imdezcode@gmail.com</td>
+                            <td>profesortest@gmail.com</td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td>Dirección</td>
                             <td>:</td>
-                            <td>Bali, Indonesia</td>
-                        </tr>
-                        <tr>
-                            <td>Hobbies</td>
-                            <td>:</td>
-                            <td>Diving, Reading Book</td>
-                        </tr>
-                        <tr>
-                            <td>Job</td>
-                            <td>:</td>
-                            <td>Web Developer</td>
-                        </tr>
-                        <tr>
-                            <td>Skill</td>
-                            <td>:</td>
-                            <td>PHP, HTML, CSS, Java</td>
+                            <td>Hospitalet, Barcelona</td>
                         </tr>
                     </tbody>
                 </table>
+                    <form action="{{ route('passalumno.panel') }}" method="POST">
+                        @csrf
+                    
+                        <div>
+                            <label for="newpass">Nueva contraseña</label>
+                            <input type="password" id="newpass" name="newpass" required>
+                        </div>
+                    
+                        <button type="submit">Cambiar contraseña</button>
+                    </form>
             </div>
         </div>

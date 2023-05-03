@@ -81,9 +81,7 @@ class AlumnosController extends Controller
         $alumno = Alumno::find($id);
         if (!$alumno) {
             return response()->json(['message' => 'Usuario not found'], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
+       $validator = Validator::make($request->all(), [
             'nombre' => 'required|alpha',
             'apellido' => 'required',
             'email' => 'required|email|unique:alumnos,email,' . $id,
@@ -92,7 +90,9 @@ class AlumnosController extends Controller
             'estado' => 'nullable',
             'id_curso' => 'nullable',
         ]);
+       }
 
+  
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }

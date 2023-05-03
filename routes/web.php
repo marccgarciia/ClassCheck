@@ -118,6 +118,7 @@ Route::get('/horarioalu', [AlumnosController::class, 'horarioalu'])->name('horar
 
 //VER WEB DATOS ALUMNOS 
 Route::get('/datosalu', [AlumnosController::class, 'datosalu'])->name('datosalu');
+
 //VER WEB SCANER ALUMNOS 
 Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
@@ -132,6 +133,8 @@ Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcurso
 
 //MOSTRAR Y BUSCAR
 Route::get('/cursos', [CursosController::class, 'indexcursos']);
+Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
+
 
 //INSERTAR
 Route::post('/cursos', [CursosController::class, 'storecursos']);
@@ -168,10 +171,12 @@ Route::put('/profesores/{id}', [ProfesoresController::class, 'updateprofesores']
 //ELIMINAR
 Route::delete('/profesores/{id}', [ProfesoresController::class, 'destroyprofesores']);
 
+
+//ESCANER
 Route::get('/escaner', [ProfesoresController::class, 'escaner'])->name('escaner');
 
+//PASAR LISTA
 Route::get('/pasarlista', [ProfesoresController::class, 'pasarlista'])->name('pasarlista');
-
 
 //VER WEB FALTAS PROFESOR 
 Route::get('/faltasprof', [ProfesoresController::class, 'faltasprof'])->name('faltasprof');

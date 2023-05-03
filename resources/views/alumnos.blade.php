@@ -278,7 +278,7 @@
                     $('#edit-nombre').val(nombre);
                     $('#edit-apellido').val(apellido);
                     $('#edit-email').val(email);
-                    // $('#edit-password').val(password);
+                    $('#edit-password').val(password);
                     $('#edit-email_padre').val(email_padre);
                     $('#edit-id_curso').val(id_curso);
                     $('#edit-estado').val(estado);
@@ -294,7 +294,7 @@
                     var nombre = $(this).data('nombre');
                     var apellido = $(this).data('apellido');
                     var email = $(this).data('email');
-                    var password = $(this).data('password');
+                    // var password = $(this).data('password');
                     var email_padre = $(this).data('email_padre');
                     var id_curso = $(this).data('id_curso');
                     var estado = $(this).data('estado');
