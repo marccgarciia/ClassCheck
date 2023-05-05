@@ -30,11 +30,11 @@ class CursosController extends Controller
     public function cursosprofe()
     //->where('profesores.id','=',auth('profesor')->user()->id)
     {
-        $cursos = Asignatura::select('cursos.nombre')
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso')
         ->join('profesores','profesores.id','=','asignaturas.id_profesor')
         ->join('cursos','cursos.id','=','asignaturas.id_curso')
         ->where('profesores.id','=',auth('profesor')->user()->id)
-        ->groupBy('cursos.nombre')
+        // ->groupBy('cursos.nombre')
         ->get();
         return response()->json($cursos);
     }

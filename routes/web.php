@@ -235,14 +235,21 @@ Route::delete('/administradores/{id}', [AdministradoresController::class, 'destr
 Route::get('/webpanel', [AdministradoresController::class, 'webpanel'])->name('webpanel');
 
 
-
 //CSV
+
 //EXPORTAR ALUMNO
-// Route::get('/expalu', [CSVController::class, 'exp']);
+Route::get('/expalu', [CSVController::class, 'exp']);
 // //IMPORTAR ALUMNO
+Route::post('/impalu', [CSVController::class, 'imp']);
+// Route::get('/expfiltroalu', [CSVController::class, 'expfiltroalu']);
+// Route::get('/expfiltromat', [CSVController::class, 'expfiltromat']);
+// //EXPORTAR PROFESOR
+Route::get('/expprof', [CSVController::class, 'expprof']);
+// //IMPORTAR PROFESOR
+Route::post('/impprof', [CSVController::class, 'impprof']);
+
+// Route::get('/expalu', [CSVController::class, 'exp']);
 // Route::post('/impalu', [CSVController::class, 'imp']);
 
-// //EXPORTAR PROFESOR
 // Route::get('/expprof', [CSVController::class, 'expprof']);
-// //IMPORTAR PROFESOR
 // Route::post('/impprof', [CSVController::class, 'impprof']);

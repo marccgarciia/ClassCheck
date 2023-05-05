@@ -13,6 +13,13 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="profesores">
+        <button id="btn-exportar">Exportar CSV</button>
+        <form id="import-form" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="csv-file" required>
+            <button type="submit">Importar</button>
+        </form>
+        <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
@@ -254,7 +261,53 @@
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+             // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+    btnExportar.addEventListener('click', () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'expprof', true);
+        xhr.responseType = 'blob';
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = 'profesores.csv';
+                a.click();
+            }
+        };
+        xhr.send();
+    });
 
+    // IMPORTAR
+    // Obtener el formulario y el elemento donde se mostrarán los resultados
+    const importForm = document.querySelector('#import-form');
+    const importResults = document.querySelector('#import-results');
+
+    // Escuchar el evento "submit" del formulario
+    importForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevenir que el formulario se envíe
+
+        // Crear una instancia de FormData para enviar el archivo CSV
+        const formData = new FormData(importForm);
+
+        // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'impprof', true);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Mostrar los resultados en el elemento correspondiente
+                    importResults.innerHTML = xhr.responseText;
+                    loadProfesores()
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                }
+            }
+        };
+        xhr.send(formData);
+    });
 
 
 
