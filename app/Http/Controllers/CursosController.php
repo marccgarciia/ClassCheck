@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Curso;
 use App\Models\Escuela;
+use App\Models\Profesor;
+use App\Models\Asignatura;
+
 
 
 class CursosController extends Controller
@@ -20,6 +24,18 @@ class CursosController extends Controller
     public function indexcursos()
     {
         $cursos = Curso::with('escuela')->get();
+        return response()->json($cursos);
+    }
+
+    public function cursosprofe()
+    //->where('profesores.id','=',auth('profesor')->user()->id)
+    {
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso')
+        ->join('profesores','profesores.id','=','asignaturas.id_profesor')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->where('profesores.id','=',auth('profesor')->user()->id)
+        // ->groupBy('cursos.nombre')
+        ->get();
         return response()->json($cursos);
     }
 

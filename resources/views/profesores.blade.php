@@ -13,22 +13,27 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="profesores">
-        <h2>Lista de Profesores</h2>
-
+        <button id="btn-exportar">Exportar CSV</button>
+        <form id="import-form" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="csv-file" required>
+            <button type="submit">Importar</button>
+        </form>
+        <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
         </select> --}}
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo Electrónico</th>
+                    {{-- <th>Password</th> --}}
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,35 +43,33 @@
 
     <div>
         <form action="profesores" method="POST" id="form-insert">
-            <h2>Formulario de Insertar</h2>
+            <h2 class="text">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
             <input type="text" name="apellido" placeholder="Apellido">
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="password" placeholder="Password">
+            <input type="text" name="email" placeholder="Correo Electrónico">
+            <input type="text" name="password" placeholder="Contraseña">
 
-            <button type="submit">Insertar</button>
+            <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <form action="profesores" method="POST" id="form-edit" style="display:none;">
-            <h2>Formulario de Editar</h2>
+            <h2 class="text">Formulario de Editar</h2>
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit-id">
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <input type="text" name="email" id="edit-email" placeholder="Email">
-            <input type="text" name="password" id="edit-password" placeholder="Password">
+            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
             <input type="text" name="estado" id="edit-estado" placeholder="Estado">
 
-            <button type="submit">Actualizar</button>
+            <button type="submit" class="btn">Actualizar</button>
         </form>
     </div>
-
-
 
     <script>
         $(document).ready(function() {
@@ -107,7 +110,7 @@
                             tableRows += '<td>' + profesor.nombre + '</td>';
                             tableRows += '<td>' + profesor.apellido + '</td>';
                             tableRows += '<td>' + profesor.email + '</td>';
-                            tableRows += '<td>' + profesor.password + '</td>';
+                            // tableRows += '<td>' + profesor.password + '</td>';
                             
                             // Verificar el estado y cambiar el texto correspondiente
                             if (profesor.estado == 1) {
@@ -233,7 +236,7 @@
                     $('#edit-nombre').val(nombre);
                     $('#edit-apellido').val(apellido);
                     $('#edit-email').val(email);
-                    $('#edit-password').val(password);
+                    // $('#edit-password').val(password);
                     $('#edit-estado').val(estado);
 
 
@@ -258,7 +261,53 @@
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+             // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+    btnExportar.addEventListener('click', () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'expprof', true);
+        xhr.responseType = 'blob';
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = 'profesores.csv';
+                a.click();
+            }
+        };
+        xhr.send();
+    });
 
+    // IMPORTAR
+    // Obtener el formulario y el elemento donde se mostrarán los resultados
+    const importForm = document.querySelector('#import-form');
+    const importResults = document.querySelector('#import-results');
+
+    // Escuchar el evento "submit" del formulario
+    importForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevenir que el formulario se envíe
+
+        // Crear una instancia de FormData para enviar el archivo CSV
+        const formData = new FormData(importForm);
+
+        // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'impprof', true);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Mostrar los resultados en el elemento correspondiente
+                    importResults.innerHTML = xhr.responseText;
+                    loadProfesores()
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                }
+            }
+        };
+        xhr.send(formData);
+    });
 
 
 

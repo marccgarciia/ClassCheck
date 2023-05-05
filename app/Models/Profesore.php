@@ -6,31 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-
-class Profesor extends Model implements Authenticatable
+class Profesore extends Model implements Authenticatable
 {
-    protected $table = 'profesores';
-
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'nombre',
-        'apellido',
         'email',
-        'password',
-        'estado',
+        'password'
     ];
-
-    protected $hidden = [
-        'password',
-    ];
-    
 
     protected $casts = [
         'estado' => 'boolean',
     ];
-    
+
+
+    protected $table = 'profesores';
+
         /**
      * Get the name of the unique identifier for the user.
      *

@@ -13,20 +13,18 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="asignaturas">
-        <h2>Lista de Asignaturas</h2>
-
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
         </select> --}}
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Curso</th>
-                    <th>Profesor</th>
-                    <th>Acciones</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Profesor</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +34,7 @@
 
     <div>
         <form action="asignaturas" method="POST" id="form-insert">
-            <h2>Formulario de Insertar</h2>
+            <h2 class="text">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
 
@@ -48,14 +46,14 @@
                 <option value="">Selecciona un profesor</option>
             </select>
 
-            <button type="submit">Insertar</button>
+            <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <form action="asignaturas" method="POST" id="form-edit" style="display:none;">
-            <h2>Formulario de Editar</h2>
+            <h2 class="text">Formulario de Editar</h2>
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit-id">
@@ -69,7 +67,7 @@
                 <option value="">Selecciona un profesor</option>
             </select>
 
-            <button type="submit">Actualizar</button>
+            <button type="submit" class="btn">Actualizar</button>
         </form>
     </div>
 
@@ -109,11 +107,11 @@
 
                                 return true; // Continue
                             }
-
+                            console.log(asignatura)
                             tableRows += '<tr>';
                             tableRows += '<td>' + asignatura.nombre + '</td>';
                             tableRows += '<td>' + asignatura.curso.nombre + '</td>';
-                            tableRows += '<td>' + asignatura.profesor.nombre + '</td>';
+                            tableRows += '<td>' + asignatura.profesor.nombre + " " + asignatura.profesor.apellido + '</td>';
                             tableRows += '<td>';
                             tableRows += '<button class="edit-asignatura" data-id="' +
                                 asignatura.id +

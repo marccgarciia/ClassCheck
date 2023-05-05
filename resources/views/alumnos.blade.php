@@ -13,25 +13,30 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="alumnos">
-        <h2>Lista de Alumnos</h2>
-
+        <button id="btn-exportar">Exportar CSV</button>
+        <form id="import-form" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="csv-file" required>
+            <button type="submit">Importar</button>
+        </form>
+        <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
         </select> --}}
 
-        <table>
+        <table class="table">
             <thead>
-                
+
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Email Padre</th>
-                    <th>Curso</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo Electrónico</th>
+                    {{-- <th scope="col">Password</th> --}}
+                    <th scope="col">Contacto Padres</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,45 +46,45 @@
 
     <div>
         <form action="alumnos" method="POST" id="form-insert">
-            <h2>Formulario de Insertar</h2>
+            <h2 class="text">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
-            <input type="text" name="apellido" placeholder="Apellido">
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="password" placeholder="Password">
-            <input type="text" name="email_padre" placeholder="Email Padre">
+            <input type="text" name="apellido" placeholder="Apellidos">
+            <input type="text" name="email" placeholder="Correo Electrónico">
+            <input type="text" name="password" placeholder="Contraseña">
+            <input type="text" name="email_padre" placeholder="Contacto Padres">
             {{-- <input type="text" name="estado" placeholder="Estado"> --}}
             <select id="curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
 
-            <button type="submit">Insertar</button>
+            <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <form action="alumnos" method="POST" id="form-edit" style="display:none;">
-            <h2>Formulario de Editar</h2>
+            <h2 class="text">Formulario de Editar</h2>
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit-id">
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <input type="text" name="email" id="edit-email" placeholder="Email">
-            <input type="text" name="password" id="edit-password" placeholder="Password">
-            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Email Padre">
+            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
             <input type="text" name="estado" id="edit-estado" placeholder="Estado">
             {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
             <select id="edit-id_curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
 
-            <button type="submit">Actualizar</button>
+            <button type="submit" class="btn">Actualizar</button>
         </form>
     </div>
 
-
+    <div class="pagination" id="pagination"></div>
 
     <script>
         $(document).ready(function() {
@@ -128,7 +133,7 @@
                             tableRows += '<td>' + alumno.nombre + '</td>';
                             tableRows += '<td>' + alumno.apellido + '</td>';
                             tableRows += '<td>' + alumno.email + '</td>';
-                            tableRows += '<td>' + alumno.password + '</td>';
+                            // tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
                             
@@ -161,7 +166,6 @@
                     }
                 });
             }
-
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -297,7 +301,7 @@
                     var nombre = $(this).data('nombre');
                     var apellido = $(this).data('apellido');
                     var email = $(this).data('email');
-                    var password = $(this).data('password');
+                    // var password = $(this).data('password');
                     var email_padre = $(this).data('email_padre');
                     var id_curso = $(this).data('id_curso');
                     var estado = $(this).data('estado');
@@ -317,6 +321,55 @@
 
         });
     </script>
+    <script>
+        // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+        btnExportar.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'expalu', true);
+            xhr.responseType = 'blob';
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(xhr.response);
+                    a.download = 'alumnos.csv';
+                    a.click();
+                }
+            };
+            xhr.send();
+        });
+    
+        // IMPORTAR
+        // Obtener el formulario y el elemento donde se mostrarán los resultados
+        const importForm = document.querySelector('#import-form');
+        const importResults = document.querySelector('#import-results');
+    
+        // Escuchar el evento "submit" del formulario
+        importForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir que el formulario se envíe
+    
+            // Crear una instancia de FormData para enviar el archivo CSV
+            const formData = new FormData(importForm);
+    
+            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'impalu', true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Mostrar los resultados en el elemento correspondiente
+                        importResults.innerHTML = xhr.responseText;
+                    } else {
+                        // Mostrar un mensaje de error en caso de que la petición haya fallado
+                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
+
 </body>
 
 </html>
