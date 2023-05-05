@@ -20,6 +20,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CALENDARIO -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
 </head>
@@ -39,21 +41,28 @@
         <ul class="side-menu top">
 
             <li class="active">
-                <a href="#faltas">
+                <a href="{{ route('scanalu') }}">
+                    <i class='bx bx-qr-scan'></i>
+                    <span class="texto">Escáner</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('faltasalu') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#horario">
+                <a href="{{ route('horarioalu') }}">
                     <i class='bx bxs-calendar'></i>
                     <span class="texto">Horario</span>
                 </a>
             </li>
 
             <li>
-                <a href="#datos">
+                <a href="{{ route('datosalu') }}">
                     <i class='bx bxs-cog'></i>
                     <span class="texto">Datos Personales</span>
                 </a>
@@ -83,7 +92,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} {{ auth('alumno')->user()->apellido }}  | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}
@@ -106,7 +115,9 @@
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
 
-            @yield('contenido')
+            <div id="contenedor-contenido">
+                @yield('contenido')
+            </div>
 
         </main>
 

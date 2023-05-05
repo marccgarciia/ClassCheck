@@ -10,6 +10,7 @@
     --color-azulclaro: #2b4d6d;
     --color-gris: #252627;
     --color-blanco: #ffffff;
+    --rojo: #DB504A;
 }
 
 body {
@@ -171,6 +172,11 @@ textarea:focus {
     outline-offset: 2px;
 }
 
+.errores{
+    font-size: 12px;
+    margin: 10px;
+    color: var(--rojo);
+}
 /* RESPONSIVE */
 @media only screen and (max-width: 1450px) {
     #clickme, #clickme2 {

@@ -3,6 +3,13 @@
 @section('titulo', 'Panel de Control | Alumno')
 
 @section('contenido')
+<script>
+    // espera a que el documento esté listo antes de agregar el controlador de eventos
+    $(document).ready(function() {
+        // agrega un controlador de eventos para los clics en los enlaces de la barra lateral
+        $('#sidebar .side-menu.top a').click(function(event) {
+            // previene el comportamiento predeterminado del enlace (navegar a una nueva página)
+            event.preventDefault();
 
     <ul class="box-info">
 
@@ -13,7 +20,7 @@
                 <p>Total de Faltas</p>
             </span>
         </li>
-
+        
         <li>
             <i class='bx bx-library'></i>
             <span class="texto">

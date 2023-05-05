@@ -16,6 +16,28 @@ class AlumnosController extends Controller
         return view('alumnos');
     }
 
+    // CONTROLADOR PARA VER FALTAS 
+    public function faltasalu()
+    {
+        return view('faltasalu');
+    }
+    // CONTROLADOR PARA VER HORARIO
+    public function horarioalu()
+    {
+        return view('horarioalu');
+    }
+    // CONTROLADOR PARA VER DATOS 
+    public function datosalu()
+    {
+        return view('datosalu');
+    }
+
+       // CONTROLADOR PARA VER SCANER 
+       public function scanalu()
+       {
+           return view('scanalu');
+       }
+
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexalumnos()
     {
@@ -59,9 +81,7 @@ class AlumnosController extends Controller
         $alumno = Alumno::find($id);
         if (!$alumno) {
             return response()->json(['message' => 'Usuario not found'], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
+       $validator = Validator::make($request->all(), [
             'nombre' => 'required|alpha',
             'apellido' => 'required',
             'email' => 'required|email|unique:alumnos,email,' . $id,
@@ -70,7 +90,9 @@ class AlumnosController extends Controller
             'estado' => 'nullable',
             'id_curso' => 'nullable',
         ]);
+       }
 
+  
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }

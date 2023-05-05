@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         } else {
             return redirect()->route('verLogin')->withErrors([
-                'email' => 'Email o Contraseña incorrectas.',
+                'email' => '¡Correo Electrónico o Contraseña incorrectos!',
             ]);
         }
     }
@@ -179,7 +179,7 @@ class AuthController extends Controller
             $nombre = $alumno->nombre;
             $alumno->save();
 
-            $datos = array('bnv' => "Bienvenido {$nombre}",'msg' => "Su contraseña reestablecida es: {$password}.");
+            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}.");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
             $from = "contactoclasscheck@gmail.com";
@@ -194,7 +194,7 @@ class AuthController extends Controller
             $nombre = $profesor->nombre;
             $profesor->save();
 
-            $datos = array('bnv' => "Bienvenido {$nombre}",'msg' => "Su contraseña reestablecida es: {$password}.");
+            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}.");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
             $from = "contactoclasscheck@gmail.com";

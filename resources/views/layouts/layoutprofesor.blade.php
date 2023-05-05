@@ -20,8 +20,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CALENDARIO -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    {{-- //<script src="{{ asset('../resources/js/calendarProf.js') }}"></script> --}}
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -39,21 +43,28 @@
         <ul class="side-menu top">
 
             <li class="active">
-                <a href="#faltas">
+                <a href="{{ route('pasarlista') }}">
+                    <i class='bx bxs-chalkboard'></i>
+                    <span class="texto">Pasar lista</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('faltasprof') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#horario">
-                    <i class='bx bxs-calendar'></i>
-                    <span class="texto">Horario</span>
+                <a href="{{ route('horarioprof') }}">
+                    <i class='bx bxs-school'></i>
+                    <span class="texto">Mis cursos</span>
                 </a>
             </li>
 
             <li>
-                <a href="#datos">
+                <a href="{{ route('datosprof') }}">
                     <i class='bx bxs-cog'></i>
                     <span class="texto">Datos Personales</span>
                 </a>
@@ -83,7 +94,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }} {{ auth('profesor')->user()->apellido}}!</p>
 
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
@@ -107,7 +118,10 @@
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
 
-            @yield('contenido')
+            <div id="contenedor-contenido">
+                @yield('contenido')
+            </div>
+
 
         </main>
 
@@ -198,4 +212,5 @@
             document.body.classList.remove('dark');
         }
     })
+    
 </script>

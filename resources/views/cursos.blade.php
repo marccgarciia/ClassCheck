@@ -13,21 +13,19 @@
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 
     <div id="cursos">
-        <h2>Lista de Cursos</h2>
-
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
         </select> --}}
 
-        <table>
+        <table class="table">
             <thead>
-                
+
                 <tr>
-                    <th>Nombre</th>
-                    <th>Promocion</th>
-                    <th>Escuela</th>
-                    <th>Acciones</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Promocion</th>
+                    <th scope="col">Escuela</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,34 +35,34 @@
 
     <div>
         <form action="cursos" method="POST" id="form-insert">
-            <h2>Formulario de Insertar</h2>
+            <h2 class="text">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
-            <input type="text" name="promocion" placeholder="promocion">
+            <input type="text" name="promocion" placeholder="Promoción">
 
             <select id="escuela" name="id_escuela">
                 <option value="">Selecciona un escuela</option>
             </select>
 
-            <button type="submit">Insertar</button>
+            <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <form action="cursos" method="POST" id="form-edit" style="display:none;">
-            <h2>Formulario de Editar</h2>
+            <h2 class="text">Formulario de Editar</h2>
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="edit-id">
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-            <input type="text" name="promocion" id="edit-promocion" placeholder="Promocion">
+            <input type="text" name="promocion" id="edit-promocion" placeholder="Promoción">
 
             <select id="edit-id_escuela" name="id_escuela">
                 <option value="">Selecciona un escuela</option>
             </select>
 
-            <button type="submit">Actualizar</button>
+            <button type="submit" class="btn">Actualizar</button>
         </form>
     </div>
 
@@ -99,7 +97,7 @@
                             // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
                             if (searchString && nombre.indexOf(searchString) == -1 &&
                                 promocion.indexOf(searchString) == -1 &&
-                                escuela.indexOf(searchString) == -1 ) {
+                                escuela.indexOf(searchString) == -1) {
 
                                 return true; // Continue
                             }
@@ -108,7 +106,7 @@
                             tableRows += '<td>' + curso.nombre + '</td>';
                             tableRows += '<td>' + curso.promocion + '</td>';
                             tableRows += '<td>' + curso.escuela.nombre + '</td>';
-                        
+
 
                             tableRows += '<td>';
                             tableRows += '<button class="edit-curso" data-id="' + curso.id +

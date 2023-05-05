@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo') - ClassCheck</title>
 
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     {{-- FONT AWESOME --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -22,6 +25,9 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+
+    <script src='{!! asset('../resources/js/gestionAdmin.js') !!}'></script>
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -38,29 +44,37 @@
 
         <ul class="side-menu top">
 
+
+
             <li class="active">
-                <a href="#alumnos">
+                <a href="{{ route('webpanel') }}">
+                    <i class='bx bxs-group'></i>
+                    <span class="texto">Panel de Control</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{{ route('webalumnos') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Alumnos</span>
                 </a>
             </li>
-
             <li>
-                <a href="#cursos">
+                <a href="{{ route('webcursos') }}">
                     <i class='bx bxs-graduation'></i>
                     <span class="texto">Cursos</span>
                 </a>
             </li>
 
             <li>
-                <a href="#profesores">
+                <a href="{{ route('webprofesores') }}">
                     <i class='bx bxs-user-circle'></i>
                     <span class="texto">Profesores</span>
                 </a>
             </li>
 
             <li>
-                <a href="#asignaturas">
+                <a href="{{ route('webasignaturas') }}">
                     <i class='bx bx-library'></i>
                     <span class="texto">Asignaturas</span>
                 </a>
@@ -89,7 +103,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a  {{ auth('admin')->user()->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }} {{ auth('admin')->user()->apellido }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}
@@ -112,7 +126,44 @@
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
 
-            @yield('contenido')
+
+            <div id="paneldecontrol">
+                <ul class="box-info">
+
+                    <li>
+                        <i class='bx bxs-calendar-check'></i>
+                        <span class="texto">
+                            <h3 id="cursosN">55</h3>
+                            <p>Cursos</p>
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class='bx bxs-group'></i>
+                        <span class="texto">
+                            <h3 id="alumnosN">2834</h3>
+                            <p>Alumnos</p>
+                        </span>
+                    </li>
+
+
+                    <li>
+                        <i class='bx bx-library'></i>
+                        <span class="texto">
+                            <h3 id="asignaturasN">254</h3>
+                            <p>Total Asignaturas</p>
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div id="contenedor-contenido">
+                @yield('contenido')
+
+            </div>
+
 
         </main>
 
@@ -203,4 +254,5 @@
             document.body.classList.remove('dark');
         }
     })
+    
 </script>

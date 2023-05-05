@@ -14,7 +14,26 @@ class ProfesoresController extends Controller
     {
         return view('profesores');
     }
+    // CONTROLADOR PARA VER FALTAS 
+    public function faltasprof()
+    {
+        return view('faltasprof');
+    }
+    // CONTROLADOR PARA VER HORARIO
+    public function horarioprof()
+    {
+        return view('horarioprof');
+    }
+    // CONTROLADOR PARA VER DATOS 
+    public function datosprof()
+    {
+        return view('datosprof');
+    }
 
+    public function pasarlista()
+    {
+        return view('pasarlista');
+    }
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexprofesores()
     {
