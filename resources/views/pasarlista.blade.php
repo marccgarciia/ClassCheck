@@ -43,7 +43,7 @@
         // Ocultar el botón de escaneo y mostrar la cámara
         boton.style.display = "none";
         botonStop.style.display = "block";
-        qrDiv.style.display = "block";
+        qrDiv.style.display = "flex";
     });
 
     botonStop.addEventListener("click", function() {

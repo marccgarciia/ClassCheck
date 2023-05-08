@@ -80,6 +80,7 @@ html {
 
 #newpass {
     background-color: var(--color-azulclaro);
+    border: 1px solid var(--color-azuloscuro) !important;
 }
 
 .btndatos {
@@ -278,6 +279,7 @@ html {
     width: 20%;
     margin: 20px;
     height: 10%;
+    overflow: hidden;
 }
 
 #qrcode {
@@ -982,6 +984,9 @@ textarea:focus {
         font-size: 12px;
     }
 
+    #qrcode {
+        width: 80%;
+    }
 }
 
 
@@ -1027,5 +1032,17 @@ textarea:focus {
 
     #tituloscan {
         font-size: 15px;
+    }
+
+    #qrcode {
+        width: 100%;
+    }
+
+    .qr img{
+        width: 60%;
+    }
+
+    .btnstop {
+        width: 50%;
     }
 }

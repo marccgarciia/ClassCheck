@@ -1,4 +1,5 @@
 <div class="divdatos">
+    <h1 id="tituloscan"> DATOS PERSONALES</h1>
     <h1><b>Nombre:</b> Pepe</h1>
     <h1><b>Correo Electrónico:</b> Pepe</h1>
     <h1><b>Dirección:</b> Pepe</h1>
