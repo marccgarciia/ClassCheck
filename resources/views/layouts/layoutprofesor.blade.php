@@ -57,7 +57,7 @@
             </li>
 
             <li>
-                <a href="{{ route('horarioprof') }}">
+                <a href="{{ route('cursosprof') }}">
                     <i class='bx bxs-school'></i>
                     <span class="texto">Mis cursos</span>
                 </a>

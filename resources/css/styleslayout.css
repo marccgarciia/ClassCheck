@@ -112,6 +112,7 @@ html {
     justify-content: center;
     align-items: center;
     height: 80vh;
+    flex-direction: column;
 }
 
 #tituloscan {
@@ -250,6 +251,46 @@ html {
     color: #2b4d6d;
     right: 26%;
 }
+
+/* PASAR LISTA */
+.btnlista {
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+}
+
+.btnstop {
+    font-size: 40px;
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 8px;
+    text-align: center;
+    width: 20%;
+    margin: 20px;
+    height: 10%;
+}
+
+#qrcode {
+    background-color: var(--color-blanco);
+    display: flex;
+    width: 60%;
+    height: 50%;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 /* Clear floats after the columns */
 .row:after {
