@@ -11,61 +11,30 @@
             // previene el comportamiento predeterminado del enlace (navegar a una nueva página)
             event.preventDefault();
 
-    <ul class="box-info">
+            // borra el contenido anterior del contenedor principal
+            $('#contenedor-contenido').empty();
 
-        <li>
-            <i class='bx bxs-calendar-check'></i>
-            <span class="texto">
-                <h3>55</h3>
-                <p>Total de Faltas</p>
-            </span>
-        </li>
-        
-        <li>
-            <i class='bx bx-library'></i>
-            <span class="texto">
-                <h3>254</h3>
-                <p>Total Asignaturas</p>
-            </span>
-        </li>
+            // obtiene la URL del archivo blade asociado con el enlace
+            var url = $(this).attr('href');
 
-    </ul>
-
-    <h1>AQUI VA LA INTEERFAZ DEL CALENDARIO</h1>
-
-
-    <form id="password-form" action="{{ route('passalumno.panel') }}" method="POST">
-        @csrf
-    
-        <div>
-            <label for="newpass">Nueva contraseña</label>
-            <input type="password" id="newpass" name="newpass" required>
-        </div>
-
-        <div>
-            <label for="confirmpass">Confirmar contraseña</label>
-            <input type="password" id="confirmpass" name="confirmpass" required>
-        </div>    
-    
-        <button type="submit">Cambiar contraseña</button>
-    </form>
-
-    <script>
-        const form = document.getElementById('password-form');
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita que el formulario se envíe automáticamente
-    
-            const newPass = document.getElementById('newpass').value;
-            const confirmPass = document.getElementById('confirmpass').value;
-    
-            if (newPass !== confirmPass) {
-                alert('La confirmación de contraseña no coincide');
-                return;
-            }
-    
-            form.submit(); // Si la validación es correcta, envía el formulario
+            // envía una solicitud AJAX para obtener el contenido del archivo blade
+            $.get(url, function(data) {
+                // actualiza el contenido del contenedor principal con la respuesta de la solicitud
+                $('#contenedor-contenido').html(data);
+            });
         });
-    </script>
 
+        // obtiene la URL del archivo blade asociado con la primera etiqueta li que tenga la clase "active"
+        var activeLi = $('#sidebar .side-menu.top li.active:first');
+        if (activeLi.length > 0) {
+            var url = activeLi.find('a').attr('href');
 
+            // envía una solicitud AJAX para obtener el contenido del archivo blade
+            $.get(url, function(data) {
+                // actualiza el contenido del contenedor principal con la respuesta de la solicitud
+                $('#contenedor-contenido').html(data);
+            });
+        }
+    });
+</script>
 @endsection
