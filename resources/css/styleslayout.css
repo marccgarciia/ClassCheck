@@ -62,6 +62,13 @@ html {
     width: 50%;
 }
 
+.desplegable{
+    width: 100%;
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border: 1px solid var(--color-azuloscuro);
+}
+
 /* DATOS */
 .divdatos {
     width: 100%;
@@ -344,8 +351,6 @@ html {
     grid-gap: 10px;
     text-align: left;
 }
-
-
 
 
 /* :::::::::::::::::::::::::: */

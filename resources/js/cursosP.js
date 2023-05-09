@@ -26,13 +26,13 @@ function listarCursos() {
         });
         for (let i in cursos) {
           let curso = cursos[i];
-          let asignaturas = curso.elementos.map(asignatura => `<li>${asignatura}</li>`).join("");
+          let asignaturas = curso.elementos.map(asignatura => `<option>${asignatura}</option>`).join("");
           let cursoHTML = `
             <li>
               <i class='bx bx-library'></i>
               <span class="texto">
                 <h3 id="asignaturasN">${curso.nombre}</h3>
-                <ul>${asignaturas}</ul>
+                <select class="desplegable">${asignaturas}</select>
               </span>
             </li>
           `;

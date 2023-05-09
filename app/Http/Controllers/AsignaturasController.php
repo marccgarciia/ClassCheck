@@ -28,7 +28,7 @@ class AsignaturasController extends Controller
     public function storeasignaturas(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'id_curso' => 'nullable',
             'id_profesor' => 'nullable',
         ]);
@@ -55,7 +55,7 @@ class AsignaturasController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'id_curso' => 'nullable',
             'id_profesor' => 'nullable',
         ]);
