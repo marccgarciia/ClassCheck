@@ -17,10 +17,10 @@
         <form id="import-form" enctype="multipart/form-data">
             @csrf
             <input type="file" name="csv-file" required>
-            <button type="submit">Importar</button>
+            <button type="submit" class="btn">Importar</button>
         </form>
     </div>
-    g
+    
     <div id="profesores">
 
         <div id="import-results"></div>
