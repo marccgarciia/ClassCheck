@@ -26,7 +26,7 @@ function listarCursos() {
         });
         for (let i in cursos) {
           let curso = cursos[i];
-          let asignaturas = curso.elementos.map(asignatura => `<li>${asignatura}</li>`).join("");
+          let asignaturas = curso.elementos.map(asignatura => `<a href="./datosprof"><li>${asignatura}</li></a>`).join("");
           let cursoHTML = `
             <li>
               <i class='bx bx-library'></i>
