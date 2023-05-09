@@ -69,6 +69,10 @@ html {
     border: 1px solid var(--color-azuloscuro);
 }
 
+.importar{
+    margin: 10px 0px 0px 0px;
+    width: 100em;
+}
 /* DATOS */
 .divdatos {
     width: 100%;
@@ -997,6 +1001,11 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    #contenido main .box-info li .bx {
+        width: 140px;
+        height: 80px;
+    }
+
     #contenido nav form .form-input input {
         display: none;
     }

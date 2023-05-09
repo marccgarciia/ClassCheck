@@ -11,14 +11,18 @@
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
+    <button id="btn-exportar" class="btn">Exportar CSV</button>
 
-    <div id="profesores">
-        <button id="btn-exportar">Exportar CSV</button>
+    <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
             <input type="file" name="csv-file" required>
             <button type="submit">Importar</button>
         </form>
+    </div>
+    
+    <div id="profesores">
+
         <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">

@@ -88,7 +88,7 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA ELIMINAR DATOS
-    public function destroycurso($id)
+    public function destroycursos($id)
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();

@@ -131,8 +131,8 @@ Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcurso
 
 //MOSTRAR Y BUSCAR
 Route::get('/cursos', [CursosController::class, 'indexcursos']);
-Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
 
+Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
 
 //INSERTAR
 Route::post('/cursos', [CursosController::class, 'storecursos']);
