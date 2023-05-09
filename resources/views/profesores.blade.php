@@ -42,33 +42,159 @@
     </div>
 
     <div>
-        <form action="profesores" method="POST" id="form-insert">
-            <h2 class="text">Formulario de Insertar</h2>
+        
+        <a href="#profesores1"><button class="btn">Insertar</button></a>
+        <div id="profesores1" class="modal">
+        <div class="modal__content">
+            <form action="profesores1" method="POST" id="form-insert">
+            <h2 class="texth2">Formulario de Insertar</h2>
             @csrf
             <input type="text" name="nombre" placeholder="Nombre">
+            <br>
             <input type="text" name="apellido" placeholder="Apellido">
             <input type="text" name="email" placeholder="Correo Electrónico">
             <input type="text" name="password" placeholder="Contraseña">
+            <button type="submit" class="btn-modal">Insertar</button>
+            </form>
+            <a href="#" class="modal__close">&times;</a>
+        </div>
+        </div>
+        <style>
+        #profesores1 {
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: rgba(0, 0, 0, 0.8);
+            transition: all .4s; */
+        }
 
-            <button type="submit" class="btn">Insertar</button>
-        </form>
+        .texth2{
+            padding-top: 8px;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #profesores1:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn-modal {
+            background-color: var(--color-azuloscuro);
+            color: var(--color-blanco);
+            border-radius: 5px !important;
+            padding: 3px 10px;
+            text-align: center;
+            margin: 3px;
+        }
+
+        .modal__content {
+            border-radius: 20px;
+            position: relative;
+            width: 275px;
+            height: 350px;
+            background: #2B4D6D;
+            padding: 1em 2em;
+            }
+
+        .modal__close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        </style>
+        
     </div>
 
     <div>
-        <!-- Agregar un nuevo formulario para la edición de usuarios -->
-        <form action="profesores" method="POST" id="form-edit" style="display:none;">
-            <h2 class="text">Formulario de Editar</h2>
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="id" id="edit-id">
-            <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-            <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
-            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
-            <input type="text" name="estado" id="edit-estado" placeholder="Estado">
+        <div id="asignaturas2" class="modal2">
+        <div class="modal__content2">
+            <div>
+                <form action="profesores" method="POST" id="form-edit" style="display:block;">
+                    <h2 class="text">Formulario de Editar</h2>
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="edit-id">
+                    <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                    <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
+                    <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+                    <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+                    <input type="text" name="estado" id="edit-estado" placeholder="Estado">
+        
+                    <button type="submit" class="btn">Actualizar</button>
+                </form>
+            </div>
+            <a href="#" class="modal__close2">&times;</a>
+        </div>
 
-            <button type="submit" class="btn">Actualizar</button>
-        </form>
+        <style>
+        #asignaturas2 {
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: rgba(0, 0, 0, 0.8);
+            transition: all .4s; */
+            backdrop-filter: blur(2px);
+        }
+
+        .text13{
+            padding-top: 8px;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #asignaturas2:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn13 {
+            background-color: var(--color-azuloscuro);
+            color: var(--color-blanco);
+            border-radius: 5px !important;
+            padding: 3px 10px;
+            text-align: center;
+            margin: 3px;
+        }
+
+        .modal__content2 {
+            border-radius: 20px;
+            position: relative;
+            width: 275px;
+            height: 300px;
+            background: #2B4D6D;
+            padding: 1em 2em;
+            }
+
+        .modal__close2 {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        </style>
+        
     </div>
 
     <script>
@@ -120,14 +246,14 @@
                             }
 
                             tableRows += '<td>';
-                            tableRows += '<button class="edit-profesor" data-id="' + profesor.id +
+                            tableRows += '<a href="#asignaturas2"><button class="btn" data-id="' + profesor.id +
                                 '" data-nombre="' + profesor.nombre +
                                 '" data-apellido="' + profesor.apellido +
                                 '" data-email="' + profesor.email +
                                 '" data-password="' + profesor.password +
                                 '" data-estado="' + profesor.estado +
 
-                                '">Editar</button>';
+                                '">Editar</button></a>';
 
                             tableRows += '<button class="delete-profesor" data-id="' + profesor.id +
                                 '">Eliminar</button>';

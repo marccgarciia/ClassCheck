@@ -290,7 +290,7 @@ html {
 
 
 #form-insert input {
-    width: 30%;
+    width: 80%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -308,7 +308,7 @@ html {
 
 
 #form-edit input {
-    width: 30%;
+    width: 80%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -325,7 +325,6 @@ html {
 
 
 input {
-    width: 20%;
     border-radius: 10px !important;
 }
 
@@ -816,7 +815,23 @@ textarea:focus {
     color: var(--color-blanco);
 }
 
+#modalinsertar{
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
 
+#modaleditar{
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
 
 
 /* :::::::::::::::::::::::::: */

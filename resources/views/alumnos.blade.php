@@ -44,47 +44,171 @@
         </table>
     </div>
 
-    <div>
-        <form action="alumnos" method="POST" id="form-insert">
-            <h2 class="text">Formulario de Insertar</h2>
-            @csrf
-            <input type="text" name="nombre" placeholder="Nombre">
-            <input type="text" name="apellido" placeholder="Apellidos">
-            <input type="text" name="email" placeholder="Correo Electrónico">
-            <input type="text" name="password" placeholder="Contraseña">
-            <input type="text" name="email_padre" placeholder="Contacto Padres">
-            {{-- <input type="text" name="estado" placeholder="Estado"> --}}
-            <select id="curso" name="id_curso">
-                <option value="">Selecciona un curso</option>
-            </select>
 
-            <button type="submit" class="btn">Insertar</button>
-        </form>
+    <div>
+        <a href="#asignaturas3"><button class="btn">Insertar</button></a>
+        <div id="asignaturas3" class="modal">
+        <div class="modal__content3">
+            <form action="alumnos" method="POST" id="form-insert" style="display:block;">
+                <h2 class="text14">Formulario de Insertar</h2>
+                @csrf
+                <input type="text" name="nombre" placeholder="Nombre">
+                <input type="text" name="apellido" placeholder="Apellidos">
+                <input type="text" name="email" placeholder="Correo Electrónico">
+                <input type="text" name="password" placeholder="Contraseña">
+                <input type="text" name="email_padre" placeholder="Contacto Padres">
+                {{-- <input type="text" name="estado" placeholder="Estado"> --}}
+                <select id="curso" name="id_curso">
+                    <option value="">Selecciona un curso</option>
+                </select>
+    
+                <button type="submit" class="btn14">Insertar</button>
+            </form>
+            <a href="#" class="modal__close3">&times;</a>
+        </div>
+        </div>
     </div>
 
     <div>
-        <!-- Agregar un nuevo formulario para la edición de usuarios -->
-        <form action="alumnos" method="POST" id="form-edit" style="display:none;">
-            <h2 class="text">Formulario de Editar</h2>
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="id" id="edit-id">
-            <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-            <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
-            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
-            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
-            <input type="text" name="estado" id="edit-estado" placeholder="Estado">
-            {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
-            <select id="edit-id_curso" name="id_curso">
-                <option value="">Selecciona un curso</option>
-            </select>
+        <div id="asignaturas2" class="modal2">
+        <div class="modal__content2">
+            <form action="alumnos" method="POST" id="form-edit" style="display:none;">
+                <h2 class="text13">Formulario de Editar</h2>
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="edit-id">
+                <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
+                <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+                <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+                <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
+                <input type="text" name="estado" id="edit-estado" placeholder="Estado">
+                {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
+                <select id="edit-id_curso" name="id_curso">
+                    <option value="">Selecciona un curso</option>
+                </select>
+    
+                <button type="submit" class="btn13">Actualizar</button>
+            </form>
+            <a href="#" class="modal__close2">&times;</a>
+        </div>
+        </div>
+        <style>
+        #asignaturas3 {
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: rgba(0, 0, 0, 0.8);
+            transition: all .4s; */
+            backdrop-filter: blur(2px);
+        }
 
-            <button type="submit" class="btn">Actualizar</button>
-        </form>
+        .text14{
+            padding-top: 8px;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #asignaturas3:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn14 {
+            background-color: var(--color-azuloscuro);
+            color: var(--color-blanco);
+            border-radius: 5px !important;
+            padding: 3px 10px;
+            text-align: center;
+            margin: 3px;
+        }
+
+        .modal__content3 {
+            border-radius: 20px;
+            position: relative;
+            width: 275px;
+            height: 300px;
+            background: #2B4D6D;
+            padding: 1em 2em;
+            }
+
+        .modal__close3 {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        /* separador */
+
+        #asignaturas2 {
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: rgba(0, 0, 0, 0.8);
+            transition: all .4s; */
+            backdrop-filter: blur(2px);
+        }
+
+        .text13{
+            padding-top: 8px;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #asignaturas2:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn13 {
+            background-color: var(--color-azuloscuro);
+            color: var(--color-blanco);
+            border-radius: 5px !important;
+            padding: 3px 10px;
+            text-align: center;
+            margin: 3px;
+        }
+
+        .modal__content2 {
+            border-radius: 20px;
+            position: relative;
+            width: 275px;
+            height: 300px;
+            background: #2B4D6D;
+            padding: 1em 2em;
+            }
+
+        .modal__close2 {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        </style>
+
     </div>
-
-    <div class="pagination" id="pagination"></div>
 
     <script>
         $(document).ready(function() {
@@ -146,7 +270,7 @@
                             }
 
                             tableRows += '<td>';
-                            tableRows += '<button class="edit-alumno" data-id="' + alumno.id +
+                            tableRows += '<a href="#asignaturas2"><button class="edit-alumno" data-id="' + alumno.id +
                                 '" data-nombre="' + alumno.nombre +
                                 '" data-apellido="' + alumno.apellido +
                                 '" data-email="' + alumno.email +
@@ -155,7 +279,7 @@
                                 '" data-id_curso="' + alumno.id_curso +
                                 '" data-estado="' + alumno.estado +
 
-                                '">Editar</button>';
+                                '">Editar</button></a>';
 
                             tableRows += '<button class="delete-alumno" data-id="' + alumno.id +
                                 '">Eliminar</button>';
@@ -307,8 +431,7 @@
                     var estado = $(this).data('estado');
 
                     // llama a la funcion editUser 
-                    editAlumno(id, nombre, apellido, email, password, email_padre, id_curso,
-                        estado);
+                    editAlumno(id, nombre, apellido, email, password, email_padre, id_curso,estado);
                 });
             });
 
@@ -320,8 +443,7 @@
 
 
         });
-    </script>
-    <script>
+
         // EXPORTAR
         const btnExportar = document.getElementById('btn-exportar');
     
@@ -369,6 +491,7 @@
             xhr.send(formData);
         });
     </script>
+
 
 </body>
 
