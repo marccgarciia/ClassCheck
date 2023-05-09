@@ -9,22 +9,17 @@
                         <tr>
                             <td>Nombre</td>
                             <td>:</td>
-                            <td>Edgar</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>alumnotest@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>Dirección</td>
-                            <td>:</td>
-                            <td>Hospitalet, Barcelona</td>
+                            <td>{{ auth('alumno')->user()->nombre }}</td>
                         </tr>
                         <tr>
                             <td>Curso</td>
                             <td>:</td>
-                            <td>DAW 2</td>
+                            <td>{{ auth('alumno')->user()->curso->nombre }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>{{ auth('alumno')->user()->email}}</td>
                         </tr>
                         
                     </tbody>

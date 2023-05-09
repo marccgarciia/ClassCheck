@@ -9,21 +9,21 @@
                         <tr>
                             <td>Nombre</td>
                             <td>:</td>
-                            <td>Gerard</td>
+                            <td>{{ auth('profesor')->user()->nombre }}</td>
+                        </tr>
+                        <tr>
+                            <td>Apellido</td>
+                            <td>:</td>
+                            <td>{{ auth('profesor')->user()->apellido }}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>profesortest@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>Dirección</td>
-                            <td>:</td>
-                            <td>Hospitalet, Barcelona</td>
+                            <td>{{ auth('profesor')->user()->email }}</td>
                         </tr>
                     </tbody>
                 </table>
-                    <form action="{{ route('passalumno.panel') }}" method="POST">
+                    <form action="{{ route('passprofe.panel') }}" method="POST">
                         @csrf
                     
                         <div>

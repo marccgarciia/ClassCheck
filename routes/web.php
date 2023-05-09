@@ -34,6 +34,11 @@ Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
 Route::get('/password', [AuthController::class, 'verPassword'])->name('verPassword');
 
+Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+
+Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
+
+
 //-----------------------------------------------------
 //ADMIN LOGIN -----------------------------------------
 //-----------------------------------------------------
