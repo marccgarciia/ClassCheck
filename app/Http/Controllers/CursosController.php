@@ -43,7 +43,7 @@ class CursosController extends Controller
     public function storecursos(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
@@ -70,7 +70,7 @@ class CursosController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
