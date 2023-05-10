@@ -4,6 +4,7 @@ function listarCursos() {
   var csrf_token = token.content;
   var resultado = document.getElementById('resultado');
 
+  
   let formdata = new FormData();
   formdata.append('_token', csrf_token);
 
@@ -28,6 +29,7 @@ function listarCursos() {
         let curso = cursos[i];
         let asignaturas = curso.elementos.map(asignatura => `<option>${asignatura}</option>`).join("");
         let cursoHTML = `
+            
             <li>
               <i class='bx bx-library'></i>
               <span class="texto">
@@ -35,10 +37,12 @@ function listarCursos() {
                 <select class="desplegable">${asignaturas}</select>
               </span>
             </li>
+            
           `;
         resultado.innerHTML += cursoHTML;
       }
     }
   };
   ajax.send(formdata);
+  
 }
