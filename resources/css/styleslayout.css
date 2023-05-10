@@ -39,6 +39,76 @@ html {
 
 
 
+
+
+
+
+
+.expandir {
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #142c44;
+    margin-bottom: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    color: #85b7e5;
+    margin-left: 20px;
+}
+
+.flecha {
+    border: solid #85b7e5;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-right: 20px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease-out;
+    /* Nueva regla de estilo para la transición */
+}
+
+.flecha.rotar {
+    transform: rotate(225deg);
+    /* Nueva regla de estilo para la rotación */
+}
+
+.contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 10px 10px;
+    margin-left: 20px;
+}
+
+.contenido.mostrar {
+    max-height: 200px;
+    /* Elige la altura que desees */
+    transition: max-height 0.5s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* COSAS VARIAS */
 .fc .fc-daygrid-day.fc-day-today {
     background-color: #eeeeee;
@@ -62,17 +132,20 @@ html {
     width: 50%;
 }
 
-.desplegable{
+.desplegable {
     width: 100%;
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
     border: 1px solid var(--color-azuloscuro);
 }
 
-.importar{
+.importar {
     margin: 10px 0px 0px 0px;
     width: 100%;
+    color: var(--color-azulmasclaro);
 }
+
+
 /* DATOS */
 .divdatos {
     width: 100%;
@@ -1052,7 +1125,7 @@ textarea:focus {
         width: 100%;
     }
 
-    .qr img{
+    .qr img {
         width: 60%;
     }
 

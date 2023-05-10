@@ -48,7 +48,7 @@
 
             <li class="active">
                 <a href="{{ route('webpanel') }}">
-                    <i class='bx bxs-group'></i>
+                    <i class='bx bx-check bx-tada bx-rotate-270' ></i>
                     <span class="texto">Panel de Control</span>
                 </a>
             </li>

@@ -32,11 +32,11 @@ class AlumnosController extends Controller
         return view('datosalu');
     }
 
-       // CONTROLADOR PARA VER SCANER 
-       public function scanalu()
-       {
-           return view('scanalu');
-       }
+    // CONTROLADOR PARA VER SCANER 
+    public function scanalu()
+    {
+        return view('scanalu');
+    }
 
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexalumnos()
@@ -81,18 +81,17 @@ class AlumnosController extends Controller
         $alumno = Alumno::find($id);
         if (!$alumno) {
             return response()->json(['message' => 'Usuario not found'], 404);
-       $validator = Validator::make($request->all(), [
+        }
+
+        $validator = Validator::make($request->all(), [
             'nombre' => 'required|alpha',
             'apellido' => 'required',
             'email' => 'required|email|unique:alumnos,email,' . $id,
-            'password' => 'required|min:8',
             'email_padre' => 'required|email',
             'estado' => 'nullable',
             'id_curso' => 'nullable',
         ]);
-       }
 
-  
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
@@ -100,7 +99,12 @@ class AlumnosController extends Controller
         $alumno->nombre = $request->nombre;
         $alumno->apellido = $request->apellido;
         $alumno->email = $request->email;
-        $alumno->password = bcrypt($request->password);
+
+        // Comprobar si el campo password se ha proporcionado en la solicitud
+        // if ($request->has('password')) {
+        //     $alumno->password = bcrypt($request->password);
+        // }
+
         $alumno->email_padre = $request->email_padre;
         $alumno->estado = $request->estado;
         $alumno->id_curso = $request->id_curso;
@@ -108,6 +112,8 @@ class AlumnosController extends Controller
 
         return response()->json($alumno);
     }
+
+
 
     // CONTROLADOR PARA ELIMINAR DATOS
     public function destroyalumnos($id)
