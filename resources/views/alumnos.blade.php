@@ -12,6 +12,8 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
     
     <div class="importar">
@@ -19,7 +21,7 @@
             @csrf
             <input type="file" name="csv-file" required>
             <button type="submit" class="btn">Importar</button>
-            
+
         </form>
     </div>
 
@@ -38,6 +40,7 @@
                     {{-- <th scope="col">Password</th> --}}
                     <th scope="col">Contacto Padres</th>
                     <th scope="col">Curso</th>
+                    <th scope="col">Seleccionar</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -138,6 +141,9 @@
                             // tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
+                            tableRows +=
+                                '<td><input type="checkbox" name="seleccionar[]" value="' +
+                                alumno.id + '"></td>';
 
 
                             // Verificar el estado y cambiar el texto correspondiente
@@ -368,6 +374,7 @@
             };
             xhr.send(formData);
         });
+
     </script>
 
 </body>

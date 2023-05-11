@@ -12,6 +12,9 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
+
 
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
@@ -36,6 +39,7 @@
                     <th scope="col">Apellido</th>
                     <th scope="col">Correo Electrónico</th>
                     {{-- <th>Password</th> --}}
+                    <th scope="col">Seleccionar</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -115,6 +119,8 @@
                             tableRows += '<td>' + profesor.apellido + '</td>';
                             tableRows += '<td>' + profesor.email + '</td>';
                             // tableRows += '<td>' + profesor.password + '</td>';
+                            tableRows +=
+                                '<td><input type="checkbox" name="seleccionar[]" value="' + profesor.id + '"></td>';
 
                             // Verificar el estado y cambiar el texto correspondiente
                             if (profesor.estado == 1) {

@@ -1330,8 +1330,19 @@ textarea:focus {
         margin: 0px 0px 20px 0px;
     }
 
-
     #buscador {
+        width: 100%;
+    }
+
+    [type=file] {
+        display: none;
+    }
+
+    .importar {
+        display: none;
+    }
+
+    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
         width: 100%;
     }
 }
