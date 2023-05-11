@@ -38,14 +38,14 @@ function listarHorario() {
               box += `<td>${sesion.nombre}</td>`;
               dia++;
               encontrado = true;
-              i = -1; // Agrega esta línea para salir del bucle cuando se encuentra una sesión
               x = 0;
+              i = -1;
             } else {
               encontrado = false;
             }
-            if (!encontrado && x == horario.length) {
+            if (!encontrado && i == horario.length - 1) {
               box += `<td>-</td>`;
-              // x = 0;
+              x = 1;
               i = -1;
               dia++;
             }
@@ -57,6 +57,7 @@ function listarHorario() {
         box += `</tr>`;
         
       });
+    
       
       
       
