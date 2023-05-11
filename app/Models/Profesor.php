@@ -18,17 +18,20 @@ class Profesor extends Model implements Authenticatable
         'nombre',
         'apellido',
         'email',
+        'token',
         'password',
         'estado',
     ];
 
     protected $hidden = [
         'password',
+        'token',
     ];
     
 
     protected $casts = [
         'estado' => 'boolean',
+        'token',
     ];
     
         /**
