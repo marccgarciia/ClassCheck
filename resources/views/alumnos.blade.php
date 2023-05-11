@@ -12,7 +12,6 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <a href="#asignaturas3"><button class="btn">Insertar</button></a>
 
     
     <div class="importar">
