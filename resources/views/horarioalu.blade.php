@@ -1,4 +1,5 @@
 <script src="{!! asset('../resources/js/horarioAlu.js') !!}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 <style>
 		table {
@@ -33,17 +34,23 @@
 		}
 </style>
 
-<div class="horario" id="horario">
-	<table>
-		<tr>
-			<th>Hora</th>
-			<th>Lunes</th>
-			<th>Martes</th>
-			<th>Miércoles</th>
-			<th>Jueves</th>
-			<th>Viernes</th>
-		</tr>
+<div class="horario">
+	<table class="table table-hover table-sm rounded" style="margin-top: 20px;">
+        <thead style="background-color: #2b4d6d; color: white">
+            <tr>
+                <th>Hora</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+            </tr>
+        </thead>
+        
+        <tbody class="tbody" id="horario">
 
-	</table>
+
+        </tbody>
+    </table>
 </div>
 
