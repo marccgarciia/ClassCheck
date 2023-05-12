@@ -39,32 +39,6 @@ class CursosController extends Controller
         return response()->json($cursos);
     }
 
-    public function horarioCurso()
-    {
-        $curso = auth('alumno')->user()->id_curso;
-
-        $horarios = Asignatura::select('asignaturas.nombre','horarios.dia','horarios.hora_inicio','horarios.hora_fin')
-        ->join('cursos','cursos.id','=','asignaturas.id_curso')
-        ->join('horario_asignaturas','horario_asignaturas.id_asignatura_int','=','asignaturas.id')
-        ->join('horarios','horarios.id','=','horario_asignaturas.id_horario_int')
-        // ->join('cursos','cursos.id','=','asignaturas.id_curso')
-        ->where('cursos.id','=',auth('alumno')->user()->id_curso)
-        ->get();
-        return response()->json($horarios);
-    }
-
-    public function alumnosCurso()
-    {
-        $curso = auth('profesor')->user()->id_curso;
-
-        $alumnos = Asignatura::select('alumnos.id','alumnos.nombre','alumnos.apellido')
-        ->join('cursos','cursos.id','=','asignaturas.id_curso')
-        ->join('alumnos','alumnos.id_curso','=','cursos.id')
-        ->where('cursos.id','=',$curso)
-        ->get();
-        return response()->json($alumnos);
-    }
-
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storecursos(Request $request)
     {

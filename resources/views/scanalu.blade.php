@@ -38,9 +38,8 @@
         
         // Agregar un evento de detección de códigos QR
         scanner.addListener('scan', function (content) {
-            let session = "{{ auth('alumno')->user()->id }}";
             // Mostrar la información del código QR en el párrafo
-            qrText.innerHTML = 'El código QR contiene: ' + content + ' Alumno:' + session;
+            qrText.innerHTML = 'El código QR contiene: ' + content + ' Alumno: Edgar';
             
             // Ocultar la cámara y mostrar el botón de escaneo
             scanner.stop();

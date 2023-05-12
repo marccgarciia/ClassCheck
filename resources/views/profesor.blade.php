@@ -38,21 +38,4 @@
     });
 </script>
 
-    <script>
-        const form = document.getElementById('password-form');
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita que el formulario se envíe automáticamente
-    
-            const newPass = document.getElementById('newpass').value;
-            const confirmPass = document.getElementById('confirmpass').value;
-    
-            if (newPass !== confirmPass) {
-                alert('La confirmación de contraseña no coincide');
-                return;
-            }
-    
-            form.submit(); // Si la validación es correcta, envía el formulario
-        });
-    </script>
-
 @endsection

@@ -28,7 +28,7 @@
     <div class="contenedorlogingrande">
         <div class="contenedorloginmediano">
 
-            {{-- SERÍA LO SUYO CAMBIAR EL NOMBRE --}}
+
             <h1>CAMBIAR CONTRASEÑA</h1>
 
             <form method="post" action="{{ route('enviar') }}">

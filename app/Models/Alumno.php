@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// MUST VERIFY TENER CUIDADO
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -20,7 +18,6 @@ class Alumno extends Model implements Authenticatable
         'nombre',
         'apellido',
         'email',
-        'token',
         'password',
         'email_padre',
         'estado',
@@ -29,7 +26,6 @@ class Alumno extends Model implements Authenticatable
 
     protected $hidden = [
         'password',
-        'token',
     ];
     
     
@@ -44,7 +40,6 @@ class Alumno extends Model implements Authenticatable
 
     protected $casts = [
         'estado' => 'boolean',
-        'token',
     ];
 
 
