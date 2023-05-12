@@ -2,7 +2,8 @@
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
 <div class="camara">
-    <button id="scan" class="btn btn-primary">Escanear</button>
+    <h1 id="tituloscan">¡DATE PRISA Y ESCANEA EL QR!</h1>
+    <button id="scan" class="btn btn-primary"><i class='bx bx-scan'></i></button>
     <div class="qr-scanner" id="qrScan" style="display: none;">
         <div class="box">
             <div class="line"></div>

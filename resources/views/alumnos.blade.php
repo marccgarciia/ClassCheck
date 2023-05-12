@@ -11,19 +11,24 @@
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
+    <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
-    <div id="alumnos">
-        <button id="btn-exportar">Exportar CSV</button>
+    
+    <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
             <input type="file" name="csv-file" required>
-            <button type="submit">Importar</button>
+            <button type="submit" class="btn">Importar</button>
+
         </form>
+    </div>
+
+
+    <div id="alumnos">
+
         <div id="import-results"></div>
-        {{-- Filtro para filtrar por cursos --}}
-        {{-- <select id="select-filtro">
-            <option value="">Filtrar por curso</option>
-        </select> --}}
 
         <table class="table">
             <thead>
@@ -35,6 +40,7 @@
                     {{-- <th scope="col">Password</th> --}}
                     <th scope="col">Contacto Padres</th>
                     <th scope="col">Curso</th>
+                    <th scope="col">Seleccionar</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -72,10 +78,9 @@
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
             <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
-            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+            {{-- <input type="text" name="password" id="edit-password" placeholder="Contraseña"> --}}
             <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
             <input type="text" name="estado" id="edit-estado" placeholder="Estado">
-            {{-- <input type="text" name="id_curso" id="edit-id_curso" placeholder="Id curso"> --}}
             <select id="edit-id_curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
@@ -136,7 +141,10 @@
                             // tableRows += '<td>' + alumno.password + '</td>';
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
-                            
+                            tableRows +=
+                                '<td><input type="checkbox" name="seleccionar[]" value="' +
+                                alumno.id + '"></td>';
+
 
                             // Verificar el estado y cambiar el texto correspondiente
                             if (alumno.estado == 1) {
@@ -265,7 +273,7 @@
                             $('#edit-nombre').val('');
                             $('#edit-apellido').val('');
                             $('#edit-email').val('');
-                            $('#edit-password').val('');
+                            // $('#edit-password').val('');
                             $('#edit-email_padre').val('');
                             $('#edit-id_curso').val('');
                             $('#edit-estado').val('');
@@ -279,13 +287,13 @@
                     });
                 });
 
-                function editAlumno(id, nombre, apellido, email, password, email_padre, id_curso, estado) {
+                function editAlumno(id, nombre, apellido, email, email_padre, id_curso, estado) {
                     // set the form values
                     $('#edit-id').val(id);
                     $('#edit-nombre').val(nombre);
                     $('#edit-apellido').val(apellido);
                     $('#edit-email').val(email);
-                    $('#edit-password').val(password);
+                    // $('#edit-password').val(password);
                     $('#edit-email_padre').val(email_padre);
                     $('#edit-id_curso').val(id_curso);
                     $('#edit-estado').val(estado);
@@ -307,8 +315,7 @@
                     var estado = $(this).data('estado');
 
                     // llama a la funcion editUser 
-                    editAlumno(id, nombre, apellido, email, password, email_padre, id_curso,
-                        estado);
+                    editAlumno(id, nombre, apellido, email, email_padre, id_curso, estado);
                 });
             });
 
@@ -320,11 +327,10 @@
 
 
         });
-    </script>
-    <script>
+
         // EXPORTAR
         const btnExportar = document.getElementById('btn-exportar');
-    
+
         btnExportar.addEventListener('click', () => {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'expalu', true);
@@ -339,19 +345,19 @@
             };
             xhr.send();
         });
-    
+
         // IMPORTAR
         // Obtener el formulario y el elemento donde se mostrarán los resultados
         const importForm = document.querySelector('#import-form');
         const importResults = document.querySelector('#import-results');
-    
+
         // Escuchar el evento "submit" del formulario
         importForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Prevenir que el formulario se envíe
-    
+
             // Crear una instancia de FormData para enviar el archivo CSV
             const formData = new FormData(importForm);
-    
+
             // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'impalu', true);
@@ -368,6 +374,7 @@
             };
             xhr.send(formData);
         });
+
     </script>
 
 </body>

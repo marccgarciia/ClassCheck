@@ -21,8 +21,6 @@
 <div id='calendar'></div>
 
 
-
-
 <script>
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
