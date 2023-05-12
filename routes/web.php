@@ -26,6 +26,7 @@ use App\Http\Controllers\CSVController;
 //-----------------------------------------------------
 //PROCESAR LOGIN Y CAMBIAR PASSWORD -------------------
 //-----------------------------------------------------
+
 Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
 Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin');

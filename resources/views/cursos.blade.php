@@ -34,7 +34,8 @@
     </div>
 
     <div>
-        <a href="#asignaturas1"><button class="btn">Insertar</button></a>
+        <button class="btn" onclick="location.href='#asignaturas1'">Insertar</button>
+        {{-- <a href="#asignaturas1"><button class="btn">Insertar</button></a> --}}
         <div id="asignaturas1" class="modal">
             <div class="modal__content1">
                 <form action="cursos" method="POST" id="form-insert">
