@@ -174,38 +174,117 @@ class AuthController extends Controller
         $sub = "Reestablecimiento de contraseña";
 
         $alumno = Alumno::where('email', $correo)->first();
+        $profesor = Profesor::where('email', $correo)->first();
         if ($alumno) {
             $alumno->password = bcrypt($password);
             $nombre = $alumno->nombre;
             $alumno->save();
 
-            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}.");
+            // Agregamos un token de seguridad único al enlace de confirmación
+            $token = Str::random(32);
+            $alumno->update(['token' => $token]);
+
+            // Agregamos el token al enlace de confirmación en el correo electrónico
+            $url = url("/reset-password?token=$token&email=$correo");
+            // $enviar->url = $url;
+
+            // Creamos el array con los datos para el correo electrónico
+            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}." , 'url' => "{$url}");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
             $from = "contactoclasscheck@gmail.com";
+
+            
+
+            // // Agregamos el token al enlace de confirmación en el correo electrónico
+            // $url = url("/reset-password?token=$token&email=$correo");
+            // $enviar->url = $url;
+
             Mail::to($correo)->send($enviar->from($from));
 
             return redirect("/")->with('status', 'Correo enviado correctamente');
-        }
-
-        $profesor = Profesor::where('email', $correo)->first();
-        if ($profesor) {
+        } else if ($profesor) {
             $profesor->password = bcrypt($password);
             $nombre = $profesor->nombre;
             $profesor->save();
+        
+            // Agregamos un token de seguridad único al enlace de confirmación
+            $token = Str::random(32);
+            $profesor->update(['token' => $token]);
+        
+            // Agregamos el token al enlace de confirmación en el correo electrónico
+            $url = url("/reset-password?token=$token&email=$correo");
+            // $enviar->url = $url;
 
-            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}.");
+            // Creamos el array con los datos para el correo electrónico
+            $datos = array('bnv' => "¡Hola {$nombre}!",'msg' => "Su contraseña reestablecida es: {$password}." , 'url' => "{$url}");
             $enviar = new EnviarCorreo($datos);
             $enviar->sub = $sub;
             $from = "contactoclasscheck@gmail.com";
+
+            
+
+            // // Agregamos el token al enlace de confirmación en el correo electrónico
+            // $url = url("/reset-password?token=$token&email=$correo");
+            // $enviar->url = $url;
+
             Mail::to($correo)->send($enviar->from($from));
 
             return redirect("/")->with('status', 'Correo enviado correctamente');
-        }
+        } else{ 
 
-        // Si el correo no pertenece a ningún alumno o profesor, redirigimos con un error
-        return redirect()->back()->withErrors([
-            'correo' => 'El correo ingresado no pertenece a ningún usuario.',
-        ]);
+            // Si el correo no pertenece a ningún usuario, redirigimos con un error
+            return redirect()->back()->withErrors([
+                'correo' => 'El correo ingresado no pertenece a ningún usuario.',
+            ]);
+        }
     }
+
+    public function resetPassword(Request $request)
+    {
+        $email = $request->input('email');
+        $token = $request->input('token');
+
+        $alumno = Alumno::where('email', $email)->first();
+        $profesor = Profesor::where('email', $email)->first();
+
+        if ($alumno && $alumno->token === $token) {
+            // Si el mail y el token son validos, te devuelve a la vista de cambiar la contraseña
+            return view('reset-password', compact('email', 'token'));
+
+        } else if($profesor && $profesor->token === $token) {
+            // Si el mail y el token son validos, te devuelve a la vista de cambiar la contraseña
+            return view('reset-password', compact('email', 'token'));
+        } else {
+            // Si el mail o el token no son válidos, a tu casa zorra, vas a hackear a tu abuela
+            return view('error');
+        }
+    }
+
+    public function updatePassword(Request $request)
+        {
+            $email = $request->input('email');
+            $token = $request->input('token');
+            $password = $request->input('password');
+
+            $alumno = Alumno::where('email', $email)->first();
+            $profesor = Profesor::where('email', $email)->first();
+
+
+            if ($alumno && $alumno->token === $token) {
+                $alumno->password = bcrypt($password);
+                $alumno->token = null; // Elimina el token de seguridad
+                $alumno->save();
+
+                return redirect('/')->with('status', 'Contraseña actualizada correctamente');
+            } else if ($profesor && $profesor->token === $token) {
+                $profesor->password = bcrypt($password);
+                $profesor->token = null; // Elimina el token de seguridad
+                $profesor->save();
+
+                return redirect('/')->with('status', 'Contraseña actualizada correctamente');
+            } else {
+                return view('error');
+            }
+        }
 }

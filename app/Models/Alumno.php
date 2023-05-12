@@ -18,6 +18,7 @@ class Alumno extends Model implements Authenticatable
         'nombre',
         'apellido',
         'email',
+        'token',
         'password',
         'email_padre',
         'estado',
@@ -26,6 +27,7 @@ class Alumno extends Model implements Authenticatable
 
     protected $hidden = [
         'password',
+        'token',
     ];
     
     
@@ -40,6 +42,7 @@ class Alumno extends Model implements Authenticatable
 
     protected $casts = [
         'estado' => 'boolean',
+        'token',
     ];
 
 

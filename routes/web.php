@@ -248,3 +248,7 @@ Route::post('/impalu', [CSVController::class, 'imp']);
 Route::get('/expprof', [CSVController::class, 'expprof']);
 // //IMPORTAR PROFESOR
 Route::post('/impprof', [CSVController::class, 'impprof']);
+
+Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+
+Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
