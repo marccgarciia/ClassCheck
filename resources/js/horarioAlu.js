@@ -27,7 +27,6 @@ function listarHorario() {
         const horaFin = horaInicio.clone().add(55, 'minutes');
         let dia = 0;
         let encontrado = false;
-        let x = 1;
         box += `
           <tr>
             <td>${horaInicio.format('HH:mm')} - ${horaFin.format('HH:mm')}</td>`;
@@ -38,20 +37,16 @@ function listarHorario() {
               box += `<td>${sesion.nombre}</td>`;
               dia++;
               encontrado = true;
-              x = 0;
               i = -1;
             } else {
               encontrado = false;
             }
             if (!encontrado && i == horario.length - 1) {
               box += `<td>-</td>`;
-              x = 1;
               i = -1;
               dia++;
             }
-            x++;
           }
-          
         }
         
         box += `</tr>`;
