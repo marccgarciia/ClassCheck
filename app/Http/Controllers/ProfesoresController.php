@@ -20,9 +20,9 @@ class ProfesoresController extends Controller
         return view('faltasprof');
     }
     // CONTROLADOR PARA VER HORARIO
-    public function horarioprof()
+    public function cursosprof()
     {
-        return view('horarioprof');
+        return view('cursosprof');
     }
     // CONTROLADOR PARA VER DATOS 
     public function datosprof()
@@ -79,7 +79,6 @@ class ProfesoresController extends Controller
             'nombre' => 'required|alpha',
             'apellido' => 'required',
             'email' => 'required|email|unique:profesores,email,' . $id,
-            'password' => 'required|min:8',
             'estado' => 'nullable',
         ]);
 
@@ -90,7 +89,10 @@ class ProfesoresController extends Controller
         $profesor->nombre = $request->nombre;
         $profesor->apellido = $request->apellido;
         $profesor->email = $request->email;
-        $profesor->password = bcrypt($request->password);
+        // Comprobar si el campo password se ha proporcionado en la solicitud
+        // if ($request->has('password')) {
+        //     $profesor->password = bcrypt($request->password);
+        // }
         $profesor->estado = $request->estado;
         $profesor->save();
 

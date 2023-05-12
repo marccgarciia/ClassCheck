@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
         <table>
             <thead>

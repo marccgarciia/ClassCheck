@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        $admins = DB::table('admins')->get();
-    
-        foreach ($admins as $admin) {
-            DB::table('admins')
-                ->where('id', $admin->id)
-                ->update(['password' => bcrypt($admin->password)]);
-        }
+        Schema::table('profesores', function (Blueprint $table) {
+            $table->string('token')->nullable()->after('email');
+        });
     }
 
     /**
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('profesores', function (Blueprint $table) {
+            $table->dropColumn('token');
+        });
     }
 };

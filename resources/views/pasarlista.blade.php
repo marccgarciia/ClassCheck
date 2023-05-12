@@ -1,10 +1,10 @@
-<script src="{{asset('../resources/js/qrcode.js')}}" ></script>
+<script src="{{ asset('../resources/js/qrcode.js') }}"></script>
 
 
 <div class="qr">
-    <button id="passList" class="btn btn-primary">Pasar lista</button>
-    <div id="qrcode"  style="display: none;"></div>
-    <button id="stopQr" class="btn btn-primary" style="display: none;">Parar</button>
+    <button id="passList" class="btn-primary btnlista"><i class='bx bxs-check-circle'></i></button>
+    <div id="qrcode" style="display: none;"></div>
+    <button id="stopQr" class="btnstop btn-primary" style="display: none;"><i class='bx bx-stop-circle'></i></button>
 </div>
 
 
@@ -43,7 +43,7 @@
         // Ocultar el botón de escaneo y mostrar la cámara
         boton.style.display = "none";
         botonStop.style.display = "block";
-        qrDiv.style.display = "block";
+        qrDiv.style.display = "flex";
     });
 
     botonStop.addEventListener("click", function() {
