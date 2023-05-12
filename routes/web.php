@@ -128,7 +128,6 @@ Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
 //VER WEB
 Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
-Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR
 Route::get('/cursos', [CursosController::class, 'indexcursos']);
