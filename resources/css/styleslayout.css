@@ -59,54 +59,9 @@ html {
 }
 
 
-
-.expandir {
-    border-radius: 4px;
-    overflow: hidden;
-    background-color: #142c44;
-    margin-bottom: 10px;
-    color: white;
-    border-radius: 10px;
-}
-
-.titulo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    color: #85b7e5;
-    margin-left: 20px;
-}
-
-.flecha {
-    border: solid #85b7e5;
-    border-width: 0 4px 4px 0;
-    display: inline-block;
-    padding: 3px;
-    margin-right: 20px;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease-out;
-    /* Nueva regla de estilo para la transición */
-}
-
-.flecha.rotar {
-    transform: rotate(225deg);
-    /* Nueva regla de estilo para la rotación */
-}
-
-.contenido {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    padding: 0 10px 10px;
-    margin-left: 20px;
-}
-
-.contenido.mostrar {
-    max-height: 200px;
-    /* Elige la altura que desees */
-    transition: max-height 0.5s ease-in-out;
+table tbody tr:last-child td {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 
@@ -177,13 +132,17 @@ html {
 
 
 
-
-
-
 /* COSAS VARIAS */
+.fc-view-harness{
+    height: 500px !important;
+}
 
 .fc .fc-scrollgrid-section-liquid>td {
     border: none !important;
+}
+
+.fc-day-top.fc-last {
+    border-radius: 0 0 10px 10px;
 }
 
 .fc .fc-scrollgrid-liquid {
