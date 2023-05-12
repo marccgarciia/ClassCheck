@@ -69,7 +69,7 @@ class CursosController extends Controller
     public function storecursos(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
@@ -96,7 +96,7 @@ class CursosController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
@@ -114,7 +114,7 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA ELIMINAR DATOS
-    public function destroycurso($id)
+    public function destroycursos($id)
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();

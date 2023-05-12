@@ -11,14 +11,21 @@
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
+    <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
-    <div id="profesores">
-        <button id="btn-exportar">Exportar CSV</button>
+
+    <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="csv-file" required>
-            <button type="submit">Importar</button>
+            <input type="file" name="csv-file" required class="impt">
+            <button type="submit" class="btn">Importar</button>
         </form>
+    </div>
+
+    <div id="profesores">
+
         <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
@@ -32,6 +39,7 @@
                     <th scope="col">Apellido</th>
                     <th scope="col">Correo Electrónico</th>
                     {{-- <th>Password</th> --}}
+                    <th scope="col">Seleccionar</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -64,7 +72,7 @@
             <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
             <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
             <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
-            <input type="text" name="password" id="edit-password" placeholder="Contraseña">
+            {{-- <input type="text" name="password" id="edit-password" placeholder="Contraseña"> --}}
             <input type="text" name="estado" id="edit-estado" placeholder="Estado">
 
             <button type="submit" class="btn">Actualizar</button>
@@ -111,7 +119,9 @@
                             tableRows += '<td>' + profesor.apellido + '</td>';
                             tableRows += '<td>' + profesor.email + '</td>';
                             // tableRows += '<td>' + profesor.password + '</td>';
-                            
+                            tableRows +=
+                                '<td><input type="checkbox" name="seleccionar[]" value="' + profesor.id + '"></td>';
+
                             // Verificar el estado y cambiar el texto correspondiente
                             if (profesor.estado == 1) {
                                 tableRows += '<td>Activado</td>';
@@ -120,7 +130,8 @@
                             }
 
                             tableRows += '<td>';
-                            tableRows += '<button class="edit-profesor" data-id="' + profesor.id +
+                            tableRows += '<button class="edit-profesor" data-id="' + profesor
+                                .id +
                                 '" data-nombre="' + profesor.nombre +
                                 '" data-apellido="' + profesor.apellido +
                                 '" data-email="' + profesor.email +
@@ -129,7 +140,8 @@
 
                                 '">Editar</button>';
 
-                            tableRows += '<button class="delete-profesor" data-id="' + profesor.id +
+                            tableRows += '<button class="delete-profesor" data-id="' + profesor
+                                .id +
                                 '">Eliminar</button>';
                             tableRows += '</td>';
                             tableRows += '</tr>';
@@ -218,7 +230,7 @@
                             $('#edit-nombre').val('');
                             $('#edit-apellido').val('');
                             $('#edit-email').val('');
-                            $('#edit-password').val('');
+                            // $('#edit-password').val('');
                             $('#edit-estado').val('');
 
                             // reload the user list
@@ -230,7 +242,7 @@
                     });
                 });
 
-                function editProfesor(id, nombre, apellido, email, password, estado) {
+                function editProfesor(id, nombre, apellido, email, estado) {
                     // set the form values
                     $('#edit-id').val(id);
                     $('#edit-nombre').val(nombre);
@@ -250,64 +262,64 @@
                     var nombre = $(this).data('nombre');
                     var apellido = $(this).data('apellido');
                     var email = $(this).data('email');
-                    var password = $(this).data('password');
+                    // var password = $(this).data('password');
                     var estado = $(this).data('estado');
 
                     // llama a la funcion editUser 
-                    editProfesor(id, nombre, apellido, email, password, estado);
+                    editProfesor(id, nombre, apellido, email, estado);
                 });
             });
 
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-             // EXPORTAR
-        const btnExportar = document.getElementById('btn-exportar');
-    
-    btnExportar.addEventListener('click', () => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'expprof', true);
-        xhr.responseType = 'blob';
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-                const a = document.createElement('a');
-                a.href = window.URL.createObjectURL(xhr.response);
-                a.download = 'profesores.csv';
-                a.click();
-            }
-        };
-        xhr.send();
-    });
+            // EXPORTAR
+            const btnExportar = document.getElementById('btn-exportar');
 
-    // IMPORTAR
-    // Obtener el formulario y el elemento donde se mostrarán los resultados
-    const importForm = document.querySelector('#import-form');
-    const importResults = document.querySelector('#import-results');
+            btnExportar.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'expprof', true);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        const a = document.createElement('a');
+                        a.href = window.URL.createObjectURL(xhr.response);
+                        a.download = 'profesores.csv';
+                        a.click();
+                    }
+                };
+                xhr.send();
+            });
 
-    // Escuchar el evento "submit" del formulario
-    importForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevenir que el formulario se envíe
+            // IMPORTAR
+            // Obtener el formulario y el elemento donde se mostrarán los resultados
+            const importForm = document.querySelector('#import-form');
+            const importResults = document.querySelector('#import-results');
 
-        // Crear una instancia de FormData para enviar el archivo CSV
-        const formData = new FormData(importForm);
+            // Escuchar el evento "submit" del formulario
+            importForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevenir que el formulario se envíe
 
-        // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'impprof', true);
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    // Mostrar los resultados en el elemento correspondiente
-                    importResults.innerHTML = xhr.responseText;
-                    loadProfesores()
-                } else {
-                    // Mostrar un mensaje de error en caso de que la petición haya fallado
-                    importResults.innerHTML = '<p>Error al importar el archivo.</p>';
-                }
-            }
-        };
-        xhr.send(formData);
-    });
+                // Crear una instancia de FormData para enviar el archivo CSV
+                const formData = new FormData(importForm);
+
+                // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'impprof', true);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Mostrar los resultados en el elemento correspondiente
+                            importResults.innerHTML = xhr.responseText;
+                            loadProfesores()
+                        } else {
+                            // Mostrar un mensaje de error en caso de que la petición haya fallado
+                            importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                        }
+                    }
+                };
+                xhr.send(formData);
+            });
 
 
 

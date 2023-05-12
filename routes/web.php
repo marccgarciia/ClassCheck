@@ -137,8 +137,8 @@ Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR
 Route::get('/cursos', [CursosController::class, 'indexcursos']);
-Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
 
+Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
 
 //INSERTAR
 Route::post('/cursos', [CursosController::class, 'storecursos']);
@@ -186,7 +186,7 @@ Route::get('/pasarlista', [ProfesoresController::class, 'pasarlista'])->name('pa
 Route::get('/faltasprof', [ProfesoresController::class, 'faltasprof'])->name('faltasprof');
 
 //VER WEB HORARIO PROFESOR 
-Route::get('/horarioprof', [ProfesoresController::class, 'horarioprof'])->name('horarioprof');
+Route::get('/cursosprof', [ProfesoresController::class, 'cursosprof'])->name('cursosprof');
 
 //VER WEB DATOS PROFESOR 
 Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('datosprof');
@@ -253,9 +253,3 @@ Route::post('/impalu', [CSVController::class, 'imp']);
 Route::get('/expprof', [CSVController::class, 'expprof']);
 // //IMPORTAR PROFESOR
 Route::post('/impprof', [CSVController::class, 'impprof']);
-
-// Route::get('/expalu', [CSVController::class, 'exp']);
-// Route::post('/impalu', [CSVController::class, 'imp']);
-
-// Route::get('/expprof', [CSVController::class, 'expprof']);
-// Route::post('/impprof', [CSVController::class, 'impprof']);
