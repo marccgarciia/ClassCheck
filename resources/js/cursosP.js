@@ -27,20 +27,41 @@ function listarCursos() {
       });
       for (let i in cursos) {
         let curso = cursos[i];
-        let asignaturas = curso.elementos.map(asignatura => `<option>${asignatura}</option>`).join("");
+        let asignaturas = curso.elementos.map(asignatura => `<p>${asignatura}</p>`).join("");
         let cursoHTML = `
             
             <li>
               <i class='bx bx-library'></i>
               <span class="texto">
-                <h3 id="asignaturasN">${curso.nombre}</h3>
-                <select class="desplegable">${asignaturas}</select>
+                <h3 class="titulo" id="asignaturasN">${curso.nombre}</h3>
+                <div class="elementos">${asignaturas}</div>
               </span>
             </li>
             
           `;
         resultado.innerHTML += cursoHTML;
       }
+      // Selecciona todos los títulos de contenedor y les añade un controlador de eventos
+      document.querySelectorAll(".titulo").forEach((titulo) => {
+        titulo.addEventListener("click", (event) => {
+          // Encuentra el div de elementos que está dentro del contenedor
+          const elementos = event.currentTarget.nextElementSibling;
+          
+          // Si los elementos están ocultos, muéstralos y agranda el contenedor
+          if (elementos.style.display === "none") {
+            elementos.style.display = "block";
+            event.currentTarget.parentElement.style.height = `${event.currentTarget.parentElement.offsetHeight + elementos.offsetHeight}px`;
+          } 
+          // De lo contrario, oculta los elementos y reduce el tamaño del contenedor
+          else {
+            event.currentTarget.parentElement.style.height = `${event.currentTarget.parentElement.offsetHeight - elementos.offsetHeight}px`;
+            elementos.style.display = "none";
+          }
+        });
+      });
+
+
+
     }
   };
   ajax.send(formdata);

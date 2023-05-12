@@ -10,6 +10,28 @@ body {
     margin: 0;
 }
 
+/* .contenedor {
+    border: 1px solid black;
+    padding: 10px;
+    width: 200px;
+    margin-bottom: 10px;
+  } */
+  
+  .titulo {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .titulo:hover {
+    transform: scale(1.1);
+  }
+  .elementos {
+    display: none;
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  
+
 /* Para navegadores webkit (Chrome, Safari, Brave) */
 ::-webkit-scrollbar {
     width: 0;
