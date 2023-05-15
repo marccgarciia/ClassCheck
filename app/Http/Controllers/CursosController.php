@@ -53,6 +53,7 @@ class CursosController extends Controller
         return response()->json($horarios);
     }
 
+    //Funcion para ver la lista de alumnos de un curso
     public function alumnosCurso()
     {
         $curso = auth('profesor')->user()->id_curso;
@@ -64,6 +65,7 @@ class CursosController extends Controller
         ->get();
         return response()->json($alumnos);
     }
+
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storecursos(Request $request)

@@ -187,6 +187,10 @@ Route::get('/cursosprof', [ProfesoresController::class, 'cursosprof'])->name('cu
 Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('datosprof');
 
 
+Route::get('/claseprof', [ProfesoresController::class, 'profeClase']);
+
+
+
 //-----------------------------------------------------
 //ASIGNATURAS -----------------------------------------
 //-----------------------------------------------------

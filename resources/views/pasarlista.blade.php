@@ -14,6 +14,19 @@
     var qrDiv = document.getElementById("qrcode");
     var intervalId; // variable para almacenar el ID del intervalo
 
+    profeClase();
+    
+    function profeClase() {
+    const ajax = new XMLHttpRequest();
+    ajax.open('GET', 'claseprof');
+    ajax.onload = () => {
+        if (ajax.status == 200) {
+            console.log(ajax.responseText);
+        }
+    };
+    ajax.send();
+    }
+
     boton.addEventListener("click", function() {
         // Crear el nuevo código QR
         qrcode = new QRCode(qrDiv, {

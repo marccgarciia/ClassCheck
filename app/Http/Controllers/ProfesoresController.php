@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Profesor;
+use App\Models\Asignatura;
+
 
 
 class ProfesoresController extends Controller
@@ -106,5 +108,35 @@ class ProfesoresController extends Controller
         $profesor->delete();
         return response()->json(['message' => 'Profesor deleted']);
     }
+
+    public function profeClase()
+    {
+        $ahora = now()->format('H:i:s'); // Obtiene la hora actual en formato de hora
+    
+        $asignatura = Asignatura::join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
+        ->join('profesores', 'profesores.id', '=', 'asignaturas.id_profesor')
+        ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->select('asignaturas.nombre')
+        ->where('profesores.id', '=', 11)
+        ->whereTime('horarios.hora_inicio', '<=', now()->format('H:i:s'))
+        ->whereTime('horarios.hora_fin', '>=', now()->format('H:i:s'))
+        ->limit(1)
+        ->get();
+
+
+    
+        if ($asignatura != "") {
+            return response()->json([
+                'tieneAsignatura' => true,
+                'asignatura' => $asignatura
+            ]);
+        } else {
+            return response()->json(['tieneAsignatura' => false]);
+        }
+    }
+
+
+    
 
 }
