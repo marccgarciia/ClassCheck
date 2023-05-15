@@ -173,6 +173,7 @@
 
                         // Recargar la lista de usuarios
                         loadCursos();
+                        actualizarContadores();
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
@@ -196,6 +197,7 @@
                         },
                         success: function(response) {
                             loadCursos();
+                            actualizarContadores();
                         },
                         error: function(xhr, status, error) {
                             console.log(xhr.responseText);

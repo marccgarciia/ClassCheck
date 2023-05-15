@@ -93,4 +93,13 @@ class AsignaturasController extends Controller
         $profesores = Profesor::all();
         return response()->json($profesores);
     }
+
+    public function countasignaturas()
+    {
+            $count = Asignatura::count();
+
+            return response()->json([
+                'count' => $count
+        ]);
+    }
 }

@@ -200,6 +200,8 @@
 
                         // Recargar la lista de usuarios
                         loadAsignaturas();
+                        actualizarContadores();
+
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
@@ -223,6 +225,8 @@
                         },
                         success: function(response) {
                             loadAsignaturas();
+                            actualizarContadores();
+
                         },
                         error: function(xhr, status, error) {
                             console.log(xhr.responseText);

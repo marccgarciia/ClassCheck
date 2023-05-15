@@ -9,7 +9,11 @@ use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\EscuelasController;
 use App\Http\Controllers\CSVController;
 
+Route::get('/countcur', [CursosController::class, 'countcursos']);
 
+Route::get('/countalu', [AlumnosController::class, 'countalu']);
+
+Route::get('/countasi', [AsignaturasController::class, 'countasignaturas']);
 
 /*
 |--------------------------------------------------------------------------

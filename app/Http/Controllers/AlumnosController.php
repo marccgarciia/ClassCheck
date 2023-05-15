@@ -129,4 +129,13 @@ class AlumnosController extends Controller
         $cursos = Curso::all();
         return response()->json($cursos);
     }
+
+    public function countalu()
+    {
+            $count = Alumno::count();
+
+            return response()->json([
+                'count' => $count
+        ]);
+    }
 }
