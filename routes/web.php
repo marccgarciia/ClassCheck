@@ -120,6 +120,7 @@ Route::get('/datosalu', [AlumnosController::class, 'datosalu'])->name('datosalu'
 //VER WEB SCANER ALUMNOS 
 Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
+//DESACTIVAR
 
 
 //-----------------------------------------------------
@@ -128,6 +129,7 @@ Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
 //VER WEB
 Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
+
 Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR

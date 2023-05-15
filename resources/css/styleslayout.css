@@ -211,6 +211,9 @@ table tbody tr:last-child td {
     color: var(--color-azulmasclaro);
 }
 
+.horario{
+    overflow: scroll;
+}
 
 /* DATOS */
 .divdatos {

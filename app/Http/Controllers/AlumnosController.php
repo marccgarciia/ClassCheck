@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Alumno;
 use App\Models\Curso;
+use Illuminate\Support\Facades\DB;
 
 
 class AlumnosController extends Controller
@@ -129,4 +130,5 @@ class AlumnosController extends Controller
         $cursos = Curso::all();
         return response()->json($cursos);
     }
+
 }

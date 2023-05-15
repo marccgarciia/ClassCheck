@@ -12,10 +12,10 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="desactivar-seleccionados" type="button" class="btn"
+        onclick="updateAlumnosEstado()">Desactivar</button>
     <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
-    
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
@@ -374,6 +374,7 @@
             };
             xhr.send(formData);
         });
+
 
     </script>
 
