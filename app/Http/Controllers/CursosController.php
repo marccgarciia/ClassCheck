@@ -23,7 +23,7 @@ class CursosController extends Controller
     // CONTROLADOR PARA MOSTRAR DATOS
     public function indexcursos()
     {
-        $cursos = Curso::with('escuela')->get();
+        $cursos = Curso::with('escuela')->paginate(3);
         return response()->json($cursos);
     }
 
