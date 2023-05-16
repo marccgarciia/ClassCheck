@@ -35,6 +35,7 @@ Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
 Route::get('/password', [AuthController::class, 'verPassword'])->name('verPassword');
 
+
 //-----------------------------------------------------
 //ADMIN LOGIN -----------------------------------------
 //-----------------------------------------------------
