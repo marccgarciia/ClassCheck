@@ -189,6 +189,9 @@ Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('dato
 
 Route::get('/claseprof', [ProfesoresController::class, 'profeClase']);
 
+Route::get('/datos', [ProfesoresController::class, 'datos']);
+
+
 
 
 //-----------------------------------------------------

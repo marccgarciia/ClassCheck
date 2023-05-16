@@ -16,6 +16,11 @@ class ProfesoresController extends Controller
     {
         return view('profesores');
     }
+
+    public function datos()
+    {
+        return view('datos');
+    }
     // CONTROLADOR PARA VER FALTAS 
     public function faltasprof()
     {
