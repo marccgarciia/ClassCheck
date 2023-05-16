@@ -51,7 +51,7 @@
     
                 <button type="submit" class="btn12">Insertar</button>
             </form>
-            <a href="#" class="modal__close1">&times;</a>
+            <a href="#" id="cerrar" class="modal__close1">&times;</a>
         </div>
         </div>
     </div>
@@ -71,9 +71,9 @@
                 <select id="edit-id_profesor" name="id_profesor">
                     <option value="">Selecciona un profesor</option>
                 </select>
-                <button type="submit" class="btn13">Actualizar</button>
+                <button  type="submit" class="btn13">Actualizar</button>
             </form>
-            <a href="#" class="modal__close2">&times;</a>
+            <a href="#" id="cerrar1" class="modal__close2">&times;</a>
         </div>
         </div>
         <style>
@@ -175,7 +175,7 @@
             border-radius: 20px;
             position: relative;
             width: 275px;
-            height: 300px;
+            height: 400px;
             background: #2B4D6D;
             padding: 1em 2em;
             }
@@ -202,6 +202,9 @@
             loadAsignaturas();
             loadCursos();
             loadProfesores();
+
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -319,6 +322,7 @@
                     success: function(response) {
                         // Limpiar el formulario
                         $('form')[0].reset();
+                        document.getElementById('cerrar').click();
 
                         // Recargar la lista de usuarios
                         loadAsignaturas();
@@ -374,6 +378,8 @@
                             $('#edit-nombre').val('');
                             $('#edit-id_curso').val('');
                             $('#edit-id_profesor').val('');
+                            document.getElementById('cerrar1').click();
+
 
                             // reload the user list
                             loadAsignaturas();

@@ -595,7 +595,7 @@ table th:last-child {
 }
 
 #form-insert select {
-    width: 30%;
+    width: 80%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -614,7 +614,8 @@ table th:last-child {
 }
 
 #form-edit select {
-    width: 30%;
+    width: 80%;
+    margin-bottom: 5%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);

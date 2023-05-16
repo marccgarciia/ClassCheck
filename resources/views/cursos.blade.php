@@ -50,10 +50,11 @@
 
                     <button type="submit" class="btn12">Insertar</button>
                 </form>
-                <a href="#" class="modal__close1">&times;</a>
+                <a href="#" id="cerrar" class="modal__close1">&times;</a>
             </div>
         </div>
     </div>
+
 
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
@@ -73,7 +74,7 @@
 
                 <button type="submit" class="btn13">Actualizar</button>
             </form>
-            <a href="#" class="modal__close2">&times;</a>
+            <a href="#" id="cerrar1" class="modal__close2">&times;</a>
         </div>
         </div>
         <style>
@@ -273,6 +274,13 @@
                 });
             }
 
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // Función para cerrar modal 
+
+            
+
+
 
 
             $('#buscador').on('keyup', function() {
@@ -296,7 +304,7 @@
                     success: function(response) {
                         // Limpiar el formulario
                         $('form')[0].reset();
-
+                        document.getElementById('cerrar').click();
                         // Recargar la lista de usuarios
                         loadCursos();
                     },
@@ -351,6 +359,7 @@
                             $('#edit-nombre').val('');
                             $('#edit-promocion').val('');
                             $('#edit-id_escuela').val('');
+                            document.getElementById('cerrar1').click();
 
                             // reload the user list
                             loadCursos();
