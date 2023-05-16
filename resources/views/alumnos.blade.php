@@ -374,8 +374,6 @@
             };
             xhr.send(formData);
         });
-
-
     </script>
 
 </body>

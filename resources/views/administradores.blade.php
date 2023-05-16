@@ -105,7 +105,8 @@
                             tableRows += '<td>' + administrador.email + '</td>';
                             tableRows += '<td>' + administrador.password + '</td>';
                             tableRows += '<td>';
-                            tableRows += '<button class="edit-administrador" data-id="' + administrador.id +
+                            tableRows += '<button class="edit-administrador" data-id="' +
+                                administrador.id +
                                 '" data-nombre="' + administrador.nombre +
                                 '" data-apellido="' + administrador.apellido +
                                 '" data-email="' + administrador.email +
@@ -113,7 +114,8 @@
 
                                 '">Editar</button>';
 
-                            tableRows += '<button class="delete-administrador" data-id="' + administrador.id +
+                            tableRows += '<button class="delete-administrador" data-id="' +
+                                administrador.id +
                                 '">Eliminar</button>';
                             tableRows += '</td>';
                             tableRows += '</tr>';
