@@ -11,8 +11,18 @@
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
+    <button id="btn-exportar" class="btn">Exportar CSV</button>
 
+    <div class="importar">
+        <form id="import-form" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="csv-file" required>
+            <button type="submit" class="btn">Importar</button>
+
+        </form>
+    </div>
     <div id="asignaturas">
+    <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
@@ -36,16 +46,22 @@
         <form action="asignaturas" method="POST" id="form-insert">
             <h2 class="text">Formulario de Insertar</h2>
             @csrf
+            <div class="nombre">
             <input type="text" name="nombre" placeholder="Nombre">
-
+            <p id="nombre"></p>
+            </div>
+            <div class="cur">
             <select id="curso" name="id_curso">
                 <option value="">Selecciona un curso</option>
             </select>
-
+            <p id="cur"></p>
+            </div>
+            <div class="pr">
             <select id="profesor" name="id_profesor">
                 <option value="">Selecciona un profesor</option>
             </select>
-
+            <p id="pr"></p>
+            </div>
             <button type="submit" class="btn">Insertar</button>
         </form>
     </div>
@@ -290,6 +306,112 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+        // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+        btnExportar.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'expas', true);
+            xhr.responseType = 'blob';
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(xhr.response);
+                    a.download = 'asignaturas.csv';
+                    a.click();
+                }
+            };
+            xhr.send();
+        });
+    
+        // IMPORTAR
+        const importForm = document.querySelector('#import-form');
+        const importResults = document.querySelector('#import-results');
+    
+
+        importForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir que el formulario se envíe
+    
+            // Crear una instancia de FormData para enviar el archivo CSV
+            const formData = new FormData(importForm);
+    
+            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'impas', true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Mostrar los resultados en el elemento correspondiente
+                        importResults.innerHTML = xhr.responseText;
+                    } else {
+                        // Mostrar un mensaje de error en caso de que la petición haya fallado
+                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                    }
+                }
+            };
+            xhr.send(formData);
+            loadAsignaturas();
+            loadCursos();
+            loadProfesores();
+        });
+        const form = document.querySelector('#form-insert');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = form.querySelector('input[name="nombre"]').value.trim();
+        const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
+        const pr = form.querySelector('select[name="id_profesor"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = 'Debes insertar el nombre de la asignatura';
+        }else {
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = '';
+        }
+        if (id_curso === '') {
+            valid = false;
+            const curElement = document.getElementById('cur');
+            curElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const curElement = document.getElementById('cur');
+            curElement.textContent = '';
+        }
+        if (pr === '') {
+            valid = false;
+            const prElement = document.getElementById('pr');
+            prElement.textContent = 'Debes insertar un profesor de la lista';
+        }else {
+            const prElement = document.getElementById('pr');
+            if (window.innerWidth < 768) {
+                prElement.textContent = '';
+            } else {
+                prElement.textContent = 'ㅤ';
+            }
+        }
+
+            // Enviar el formulario a través de AJAX si todos los campos están completos
+            if (valid) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            alert('El alumno ha sido insertado correctamente.');
+                            form.reset();
+                        } else {
+                            alert('Ha ocurrido un error al insertar la asignatura. Por favor, inténtelo de nuevo más tarde.');
+                        }
+                    }
+                };
+                xhr.send(new FormData(form));
+            }
+        });
 
         });
     </script>

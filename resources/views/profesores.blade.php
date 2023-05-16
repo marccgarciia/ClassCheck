@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
     <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
@@ -53,10 +54,22 @@
         <form action="profesores" method="POST" id="form-insert">
             <h2 class="text">Formulario de Insertar</h2>
             @csrf
+            <div>
             <input type="text" name="nombre" placeholder="Nombre">
+            <p id="nombre"></p>
+            </div>
+            <div>
             <input type="text" name="apellido" placeholder="Apellido">
+            <p id="ap"></p>
+            </div>
+            <div>
             <input type="text" name="email" placeholder="Correo Electrónico">
+            <p id="email"></p>
+            </div>
+            <div class="pass2">
             <input type="text" name="password" placeholder="Contraseña">
+            <p id="pass"></p>
+            </div>
 
             <button type="submit" class="btn">Insertar</button>
         </form>
@@ -271,11 +284,11 @@
             });
 
 
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                    // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // EXPORTAR
             const btnExportar = document.getElementById('btn-exportar');
-
+            
             btnExportar.addEventListener('click', () => {
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', 'expprof', true);
@@ -292,11 +305,10 @@
             });
 
             // IMPORTAR
-            // Obtener el formulario y el elemento donde se mostrarán los resultados
             const importForm = document.querySelector('#import-form');
             const importResults = document.querySelector('#import-results');
 
-            // Escuchar el evento "submit" del formulario
+
             importForm.addEventListener('submit', (event) => {
                 event.preventDefault(); // Prevenir que el formulario se envíe
 
@@ -311,7 +323,6 @@
                         if (xhr.status === 200) {
                             // Mostrar los resultados en el elemento correspondiente
                             importResults.innerHTML = xhr.responseText;
-                            loadProfesores()
                         } else {
                             // Mostrar un mensaje de error en caso de que la petición haya fallado
                             importResults.innerHTML = '<p>Error al importar el archivo.</p>';
@@ -319,9 +330,85 @@
                     }
                 };
                 xhr.send(formData);
+                loadAsignaturas();
+                loadCursos();
+                loadProfesores();
             });
 
+            const form = document.querySelector('#form-insert');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
 
+        // Obtener los valores de los campos del formulario
+        const nombre = form.querySelector('input[name="nombre"]').value.trim();
+        const apellido = form.querySelector('input[name="apellido"]').value.trim();
+        const email = form.querySelector('input[name="email"]').value.trim();
+        const password = form.querySelector('input[name="password"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = 'Debes insertar el nombre del profesor';
+        }else {
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = '';
+        }
+        if (apellido === '') {
+            valid = false;
+            const apElement = document.getElementById('ap');
+            apElement.textContent = 'Debes insertar el apellido del profesor';
+        }else {
+            const apElement = document.getElementById('ap');
+            apElement.textContent = '';
+        }
+        if (email === '') {
+            valid = false;
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = 'Debes insertar un email para el profesor';
+        }else if (!/\S+@\S+\.\S+/.test(email)) {
+            valid = false;
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = 'El formato del correo electrónico no es válido';
+        }else if (nombre === '' || apellido === '') {
+            const emailElement = document.getElementById('email');
+            if (window.innerWidth < 768) {
+                emailElement.textContent = '';
+            } else {
+                emailElement.textContent = 'ㅤ';
+            }
+        }else {
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = '';
+        }
+        if (password === '') {
+            valid = false;
+            const passElement = document.getElementById('pass');
+            passElement.textContent = 'Debes insertar una contraseña';
+        }else {
+            const passElement = document.getElementById('pass');
+            passElement.textContent = '';
+        }
+
+            // Enviar el formulario a través de AJAX si todos los campos están completos
+            if (valid) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            alert('El alumno ha sido insertado correctamente.');
+                            form.reset();
+                        } else {
+                            alert('Ha ocurrido un error al insertar el alumno. Por favor, inténtelo de nuevo más tarde.');
+                        }
+                    }
+                };
+                xhr.send(new FormData(form));
+            }
+        });
 
         });
     </script>
