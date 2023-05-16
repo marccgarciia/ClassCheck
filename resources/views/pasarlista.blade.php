@@ -1,6 +1,17 @@
 <script src="{{ asset('../resources/js/qrcode.js') }}"></script>
 
 
+
+<div id="container">
+    <div id="hidden-div">
+        <div id="close-btn" class="disabled"><i class="fa-solid fa-xmark"></i></div>
+        <div class="airdrop">
+            <h1>Hola</h1>
+        </div>
+    </div>
+    <div id="handle"></div>
+</div>
+
 <div class="qr">
     <button id="passList" class="btn-primary btnlista"><i class='bx bxs-check-circle'></i></button>
     <div id="qrcode" style="display: none;"></div>
@@ -53,4 +64,34 @@
         qrDiv.style.display = "none";
         clearInterval(intervalId); // detener el intervalo
     });
+
+
+    const handle = document.getElementById('handle');
+        const hiddenDiv = document.getElementById('hidden-div');
+        const closeBtn = document.getElementById('close-btn');
+
+        handle.addEventListener('click', () => {
+            hiddenDiv.style.right = '0';
+            closeBtn.classList.add('visible');
+            closeBtn.classList.remove('disabled');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            hiddenDiv.style.right = '-300px';
+            closeBtn.classList.remove('visible');
+            closeBtn.classList.add('disabled');
+        });
+
+        closeBtn.addEventListener('mouseenter', () => {
+            if (closeBtn.classList.contains('disabled')) {
+                closeBtn.style.cursor = 'default';
+            } else {
+                closeBtn.style.cursor = 'pointer';
+            }
+        });
+
+        closeBtn.addEventListener('mouseleave', () => {
+            closeBtn.style.cursor = 'default';
+        });
+
 </script>

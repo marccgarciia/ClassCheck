@@ -1,0 +1,105 @@
+:root {
+    --color-negro: #000;
+    --color-azuloscuro: #142c44;
+    --color-azulclaro: #2b4d6d;
+    --color-azulmasclaro: #85b7e5;
+    --color-gris: #eee;
+    --color-blanco: #ffff;
+    --color-input: #ffff;
+    --color-texto-input: #142c44;
+    --color-texto: #142c44;
+    --rojo: #DB504A;
+    --fc-border-color: #eeeeee;
+}
+
+body.dark {
+    --color-azulclaro: #0C0C1E;
+    --color-gris: #142c44;
+    --color-blanco: #FBFBFB;
+    --color-texto: #FBFBFB;
+    --color-input: #2b4d6d;
+    --color-texto-input: #85b7e5;
+}
+
+/* TABLA DATOS */
+/* Estilo de los botones de la pestaña */
+.tabla button {
+    background-color: var(--color-azulclaro);
+    border: none;
+    border-radius: 5px 5px 0px 0px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilo de los botones de la pestaña activa */
+.tabla button.active {
+    background-color: var(--color-azuloscuro);
+}
+
+/* Estilo del contenido de la pestaña */
+.tablacontenido {
+    display: none;
+    padding: 20px;
+    border: 1px solid var(--color-azuloscuro);
+    border-radius: 0px 10px 10px 10px;
+    background-color: var(--color-azuloscuro);
+    color: white;
+    overflow: scroll;
+}
+
+/* Estilo del contenido de la pestaña activa */
+.tablacontenido.show {
+    display: block;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+thead {
+    background-color: var(--color-azulclaro);
+    color: white;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--color-azuloscuro);
+}
+
+tbody tr:hover {
+    background-color: var(--color-azulclaro);
+}
+
+th:nth-child(2) {
+    text-align: center;
+}
+
+td:nth-child(2) {
+    text-align: center;
+}
+
+#dia {
+    width: 30px;
+    text-align: center;
+}
+
+table tbody tr:last-child td {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
