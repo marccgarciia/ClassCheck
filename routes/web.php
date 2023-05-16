@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnosController;
@@ -120,6 +121,10 @@ Route::get('/datosalu', [AlumnosController::class, 'datosalu'])->name('datosalu'
 //VER WEB SCANER ALUMNOS 
 Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
+Route::post('/listaalumnos', [AlumnosController::class, 'listaalumnos']);
+
+
+//DESACTIVAR
 
 
 //-----------------------------------------------------
@@ -128,6 +133,7 @@ Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
 //VER WEB
 Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
+
 Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR

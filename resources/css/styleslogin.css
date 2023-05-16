@@ -172,28 +172,34 @@ textarea:focus {
     outline-offset: 2px;
 }
 
-.errores{
+.errores {
     font-size: 12px;
     margin: 10px;
     color: var(--rojo);
 }
+
 /* RESPONSIVE */
 @media only screen and (max-width: 1450px) {
-    #clickme, #clickme2 {
+
+    #clickme,
+    #clickme2 {
         right: 125px;
     }
 }
 
 @media only screen and (max-width: 1250px) {
-    #clickme, #clickme2 {
+
+    #clickme,
+    #clickme2 {
         right: 110px;
-    } 
+    }
 }
 
 @media only screen and (max-width: 1200px) {
     .classcheck2 {
         left: 40%;
     }
+
     .contenedorloginmediano h1 {
         font-size: 20px;
     }
@@ -209,7 +215,9 @@ textarea:focus {
         width: 100px;
         left: 29%;
     }
-    #clickme, #clickme2 {
+
+    #clickme,
+    #clickme2 {
         right: 100px;
     }
 }
@@ -226,7 +234,9 @@ textarea:focus {
     .classcheck2 {
         left: 32%;
     }
-    #clickme, #clickme2{
+
+    #clickme,
+    #clickme2 {
         right: 121px;
     }
 }
@@ -249,7 +259,9 @@ textarea:focus {
     .classcheck2 {
         left: 30%;
     }
-    #clickme, #clickme2 {
+
+    #clickme,
+    #clickme2 {
         right: 100px;
     }
 }
@@ -258,7 +270,9 @@ textarea:focus {
     .classcheck2 {
         left: 32%;
     }
-    #clickme, #clickme2 {
+
+    #clickme,
+    #clickme2 {
         right: 75px;
     }
 }

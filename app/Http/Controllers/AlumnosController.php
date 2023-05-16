@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Alumno;
 use App\Models\Curso;
+use Illuminate\Support\Facades\DB;
 
 
 class AlumnosController extends Controller
@@ -129,4 +130,14 @@ class AlumnosController extends Controller
         $cursos = Curso::all();
         return response()->json($cursos);
     }
+
+    public function listaalumnos(Request $request)
+    {
+        $curso = $request->curso;
+        $alumnos = Alumno::select('alumnos.nombre as nombre','alumnos.apellido as apellido')
+        ->where('alumnos.id_curso', $curso)
+        ->get();
+        return response()->json($alumnos);
+    }
+
 }

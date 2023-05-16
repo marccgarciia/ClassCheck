@@ -9,3 +9,6 @@
 @section('contenido')
 
 @endsection
+<div id="resultadoexcel">
+
+</div>
