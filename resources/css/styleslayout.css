@@ -16,6 +16,34 @@ body {
     width: 200px;
     margin-bottom: 10px;
   } */
+
+  .btnNolista p{
+    font-size: 40px;
+  }
+
+  .btnNolista {
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 10% 10px;
+    text-align: center;
+    margin: 3px;
+    width: 80%;
+    height: 80%;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    align-content: center;
+}
+
+#check{
+    transition: transform 0.2s ease-in-out;
+}
+
+#check:hover {
+    transform: scale(1.1);
+}
   
   .titulo {
     cursor: pointer;
@@ -467,19 +495,24 @@ html {
 }
 
 /* PASAR LISTA */
+
+.btnlista p{
+    font-size: 40px;
+}
 .btnlista {
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
     border-radius: 5px !important;
-    padding: 3px 10px;
+    padding: 10% 10px;
     text-align: center;
     margin: 3px;
     width: 80%;
     height: 80%;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     font-size: 80px;
+    align-content: center;
 }
 
 .btnstop {

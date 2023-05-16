@@ -110,33 +110,32 @@ class ProfesoresController extends Controller
     }
 
     public function profeClase()
-    {
-        $ahora = now()->format('H:i:s'); // Obtiene la hora actual en formato de hora
-    
-        $asignatura = Asignatura::join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
-        ->join('profesores', 'profesores.id', '=', 'asignaturas.id_profesor')
-        ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
-        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
-        ->select('asignaturas.nombre')
-        ->where('profesores.id', '=', 11)
-        ->whereTime('horarios.hora_inicio', '<=', now()->format('H:i:s'))
-        ->whereTime('horarios.hora_fin', '>=', now()->format('H:i:s'))
-        ->limit(1)
-        ->get();
+{
+    $asignatura = Asignatura::select('asignaturas.nombre as asignatura','cursos.nombre as curso')
+    ->join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
+    ->join('profesores', 'profesores.id', '=', 'asignaturas.id_profesor')
+    ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+    ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+    ->where('profesores.id', auth('profesor')->user()->id)
+    ->whereRaw('TIME(NOW()) BETWEEN horarios.hora_inicio AND horarios.hora_fin')
+    ->limit(1)
+    ->get();
 
-
-    
-        if ($asignatura != "") {
-            return response()->json([
-                'tieneAsignatura' => true,
-                'asignatura' => $asignatura
-            ]);
-        } else {
-            return response()->json(['tieneAsignatura' => false]);
-        }
+    if ($asignatura->isNotEmpty()) { // Verifica si hay resultados en la colección
+        return response()->json([
+            'tieneAsignatura' => true,
+            'asignatura' => $asignatura->first()->asignatura,
+            'curso' =>  $asignatura->first()->curso// Accede al primer resultado
+        ]);
+    } else {
+        return response()->json(['tieneAsignatura' => false]);
     }
+}
+
 
 
     
 
 }
+
+// auth('profesor')->user()->id
