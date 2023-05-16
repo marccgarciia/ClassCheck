@@ -61,7 +61,7 @@
         <div class="modal__content2">
             <form action="asignaturas" method="POST" id="form-edit" style="display:block;">
                 <h2 class="text13">Formulario de Editar</h2>
-                @csrf
+                @csrf   
                 @method('PUT')
                 <input type="hidden" name="id" id="edit-id">
                 <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
@@ -175,7 +175,7 @@
             border-radius: 20px;
             position: relative;
             width: 275px;
-            height: 400px;
+            height: 300px;
             background: #2B4D6D;
             padding: 1em 2em;
             }
