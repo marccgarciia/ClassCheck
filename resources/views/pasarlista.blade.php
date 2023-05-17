@@ -67,31 +67,30 @@
 
 
     const handle = document.getElementById('handle');
-        const hiddenDiv = document.getElementById('hidden-div');
-        const closeBtn = document.getElementById('close-btn');
+    const hiddenDiv = document.getElementById('hidden-div');
+    const closeBtn = document.getElementById('close-btn');
 
-        handle.addEventListener('click', () => {
-            hiddenDiv.style.right = '0';
-            closeBtn.classList.add('visible');
-            closeBtn.classList.remove('disabled');
-        });
+    handle.addEventListener('click', () => {
+        hiddenDiv.style.right = '0';
+        closeBtn.classList.add('visible');
+        closeBtn.classList.remove('disabled');
+    });
 
-        closeBtn.addEventListener('click', () => {
-            hiddenDiv.style.right = '-300px';
-            closeBtn.classList.remove('visible');
-            closeBtn.classList.add('disabled');
-        });
+    closeBtn.addEventListener('click', () => {
+        hiddenDiv.style.right = '-300px';
+        closeBtn.classList.remove('visible');
+        closeBtn.classList.add('disabled');
+    });
 
-        closeBtn.addEventListener('mouseenter', () => {
-            if (closeBtn.classList.contains('disabled')) {
-                closeBtn.style.cursor = 'default';
-            } else {
-                closeBtn.style.cursor = 'pointer';
-            }
-        });
-
-        closeBtn.addEventListener('mouseleave', () => {
+    closeBtn.addEventListener('mouseenter', () => {
+        if (closeBtn.classList.contains('disabled')) {
             closeBtn.style.cursor = 'default';
-        });
+        } else {
+            closeBtn.style.cursor = 'pointer';
+        }
+    });
 
+    closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.cursor = 'default';
+    });
 </script>
