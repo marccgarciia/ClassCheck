@@ -716,7 +716,8 @@
             }
         };
         xhr.send(JSON.stringify({ alumnos: selectedAlumnos }));
-        loadAlumnos();
+        var filtro = "";
+        loadAlumnos(filtro);
         loadCursos();
     });
 
