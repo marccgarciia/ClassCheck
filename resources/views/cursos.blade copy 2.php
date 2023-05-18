@@ -87,14 +87,6 @@
     <script>
         $(document).ready(function() {
 
-        buscador.addEventListener("keyup", () => {
-            let filtro = buscador.value;
-                if (!filtro) {
-                    loadCursos('')
-                } else {
-                    loadCursos(filtro);
-                }
-            })
         // // Variables globales para mantener el estado de la paginación
         var currentPage = 1;
         var lastPage = 1;
@@ -102,18 +94,14 @@
         // Cargar cursos al cargar la página con AJAX/JQUERY
         loadEscuelas();
         loadCursos();
-        function loadCursos(filtro) {
+        function loadCursos() {
         $.ajax({
             url: 'cursos',
             type: 'GET',
             dataType: 'json',
-            data: { 
-                page: currentPage,
-                filtro: filtro
-            }, // Envía el número de página actual al servidor
+            data: { page: currentPage }, // Envía el número de página actual al servidor
             success: function(data) {
             var tableRows = '';
-            console.log(data);
             $.each(data.data, function(i, curso) { // Accede a los datos de la página actual
                 tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
                 tableRows += '<button class="edit-curso" data-id="' + curso.id +
@@ -157,42 +145,24 @@
             $('#pagination').html(pageButtons);
 
             // Control de eventos para los botones numéricos
-            $('.page-link').click(function(event) {
-                event.preventDefault();
+            $('.page-link').click(function() {
                 currentPage = $(this).data('page');
-                let filtro = buscador.value;
-                if (!filtro) {
-                loadCursos('');
-                } else {
-                loadCursos(filtro);
-                }
+                loadCursos();
             });
 
             // Control de eventos para el botón de página anterior
-            prevBtn.click(function(event) {
-                event.preventDefault();
+            prevBtn.click(function() {
                 if (currentPage > 1) {
                 currentPage--;
-                let filtro = buscador.value;
-                if (!filtro) {
-                    loadCursos('');
-                } else {
-                    loadCursos(filtro);
-                }
+                loadCursos();
                 }
             });
 
             // Control de eventos para el botón de página siguiente
-            nextBtn.click(function(event) {
-                event.preventDefault();
+            nextBtn.click(function() {
                 if (currentPage < lastPage) {
                 currentPage++;
-                let filtro = buscador.value;
-                if (!filtro) {
-                    loadCursos('');
-                } else {
-                    loadCursos(filtro);
-                }
+                loadCursos();
                 }
             });
         }
@@ -220,48 +190,116 @@
 
 
             // Agrega un evento keyup al input del buscador
-            // $('#buscador').on('keyup', function() {
-            //     var searchTerm = $(this).val().toLowerCase(); // Obtiene el término de búsqueda y lo convierte en minúsculas
+            var buscadorFunction = function() {
+                var searchTerm = $(this).val().toLowerCase(); // Obtiene el término de búsqueda y lo convierte en minúsculas
 
-            //     // Hace una llamada AJAX para obtener los resultados filtrados
-            //     $.ajax({
-            //         url: 'cursosfiltro',
-            //         type: 'GET',
-            //         dataType: 'json',
-            //         data: {
-            //             search: searchTerm // Envía el término de búsqueda al servidor
-            //         },
-            //         success: function(data) {
-            //             var tableRows = '';
-            //             for (let i = 0; i < data.data.length; i++) {
-            //                 const curso = data.data[i];
-            //                 console.log(curso);
-            //                 tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
-            //                 tableRows += '<button class="edit-curso" data-id="' + curso.id +
-            //                             '" data-nombre="' + curso.nombre +
-            //                             '" data-promocion="' + curso.promocion +
-            //                             '" data-id_escuela="' + curso.id_escuela +
-            //                             '">Editar</button>';
-            //                 tableRows += '<button class="delete-curso" data-id="' + curso.id +
-            //                             '">Eliminar</button>';
-            //                 tableRows += '</td>';
-            //                 tableRows += '</tr>';
-                            
-            //             }
-            //             $('#cursos-tbody').html(tableRows); // Actualiza la tabla con los datos filtrados
-            //             currentPage = data.current_page; // Actualiza el número de página actual
-            //             lastPage = data.last_page; // Actualiza el número de la última página
-            //             console.log("PAGINACION BUSCADOR")
-            //             console.log(currentPage);
-            //             console.log(lastPage);
-            //             console.log("-------");
-            //             // Actualiza los controles de paginación
-            //             updatePagination();
+                // Hace una llamada AJAX para obtener los resultados filtrados
+                $.ajax({
+                    url: 'cursosfiltro',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                    search: searchTerm // Envía el término de búsqueda al servidor
+                    },
+                    success: function(data) {
+                    var tableRows = '';
+                    for (let i = 0; i < data.data.length; i++) {
+                        const curso = data.data[i];
+                        console.log(curso);
+                        tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
+                        tableRows += '<button class="edit-curso" data-id="' + curso.id +
+                        '" data-nombre="' + curso.nombre +
+                        '" data-promocion="' + curso.promocion +
+                        '" data-id_escuela="' + curso.id_escuela +
+                        '">Editar</button>';
+                        tableRows += '<button class="delete-curso" data-id="' + curso.id +
+                        '">Eliminar</button>';
+                        tableRows += '</td>';
+                        tableRows += '</tr>';
+                    }
+                    $('#cursos-tbody').html(tableRows); // Actualiza la tabla con los datos filtrados
+                    currentPage = data.current_page; // Actualiza el número de página actual
+                    lastPage = data.last_page; // Actualiza el número de la última página
+                    console.log("PAGINACION BUSCADOR")
+                    console.log(currentPage);
+                    console.log(lastPage);
+                    console.log("-------");
+                    // Actualiza los controles de paginación
+                    var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
 
-                        
-            //         }
-            //     });
-            // });
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function() {
+                    currentPage = $(this).data('page');
+                    $('#buscador').on('keyup', buscadorFunction);
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        $('#buscador').on('keyup', buscadorFunction);
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function() {
+                    if (currentPage < lastPage) {
+                        currentPage++;
+                        $('#buscador').on('keyup', buscadorFunction);
+                    }
+                });
+                    }
+                });
+            };
+
+            // para llamar la función
+            $('#buscador').on('keyup', buscadorFunction);
+
+            function updatePagination2() {
+                var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
+
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function() {
+                    currentPage = $(this).data('page');
+                    $('#buscador').on('keyup', buscadorFunction);
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        $('#buscador').on('keyup', buscadorFunction);
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function() {
+                    if (currentPage < lastPage) {
+                        currentPage++;
+                        $('#buscador').on('keyup', buscadorFunction);
+                    }
+                });
+            }
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

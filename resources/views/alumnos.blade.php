@@ -45,10 +45,12 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="alumnos-tbody">
             </tbody>
         </table>
     </div>
+
+    <ul id="pagination" class="pagination"></ul>
 
     <div>
         <form action="alumnos" method="POST" id="form-insert">
@@ -89,50 +91,73 @@
         </form>
     </div>
 
-    <div class="pagination" id="pagination"></div>
+    {{-- <div class="pagination" id="pagination"></div> --}}
 
     <script>
         $(document).ready(function() {
+
+            buscador.addEventListener("keyup", () => {
+            let filtro = buscador.value;
+                if (!filtro) {
+                    loadAlumnos('')
+                } else {
+                    loadAlumnos(filtro);
+                }
+            })
+
+             // // Variables globales para mantener el estado de la paginación
+            var currentPage = 1;
+            var lastPage = 1;
+
 
             // Cargar usuarios al cargar la página con AJAX/JQUERY
             loadAlumnos();
             loadCursos();
 
+
+
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // FUNCIÓN PARA CARGAR USUARIOS CON AJAX/JQUERY Y BUSCAR SI ES NECESARIO
-            function loadAlumnos() {
+            function loadAlumnos(filtro) {
                 // Obtener las categorías y agregar opciones al desplegable
                 $.ajax({
                     url: 'alumnos',
                     type: 'GET',
                     dataType: 'json',
+                    data: {
+                        // Aquí voy a mandar el current page y el filtro
+                        page: currentPage,
+                        filtro: filtro
+                    },
                     success: function(data) {
                         var tableRows = '';
-                        var searchString = $('#buscador').val()
-                            .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
-                        $.each(data, function(i, alumno) {
-                            var nombre = alumno.nombre.toLowerCase();
-                            var apellido = alumno.apellido.toLowerCase();
-                            var email = alumno.email.toLowerCase();
+                        // BUSCADOR MARC COMENTADO
+                        // var searchString = $('#buscador').val()
+                        //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
+                        $.each(data.data, function(i, alumno) {
+                            console.log(filtro);
+                            // var nombre = alumno.nombre.toLowerCase();
+                            // var apellido = alumno.apellido.toLowerCase();
+                            // var email = alumno.email.toLowerCase();
                             // var password = alumno.password.toLowerCase();
-                            var email_padre = alumno.email_padre.toLowerCase();
-                            var curso = alumno.curso.nombre.toLowerCase();
-                            var estado = alumno.estado;
+                            // var email_padre = alumno.email_padre.toLowerCase();
+                            // var curso = alumno.curso.nombre.toLowerCase();
+                            // var estado = alumno.estado;
 
 
-                            // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            if (searchString && nombre.indexOf(searchString) == -1 &&
-                                apellido.indexOf(searchString) == -1 &&
-                                email.indexOf(searchString) == -1 &&
-                                curso.indexOf(searchString) == -1 &&
-                                email_padre.indexOf(searchString) == -1 &&
-                                // password.indexOf(searchString) == -1 &&
+                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
+                            // if (filtro && nombre.indexOf(filtro) == -1 &&
+                            //     apellido.indexOf(filtro) == -1 &&
+                            //     email.indexOf(filtro) == -1 &&
+                            //     curso.indexOf(filtro) == -1 &&
+                            //     email_padre.indexOf(filtro) == -1 &&
+                            //     // password.indexOf(filtro) == -1 &&
 
-                                estado != searchString) {
+                            //     estado != filtro) {
 
-                                return true; // Continue
-                            }
+                            //     return true; // Continue
+                            // }
 
                             tableRows += '<tr>';
                             tableRows += '<td>' + alumno.nombre + '</td>';
@@ -170,7 +195,70 @@
                             tableRows += '</td>';
                             tableRows += '</tr>';
                         });
-                        $('#alumnos tbody').html(tableRows);
+                        $('#alumnos-tbody').html(tableRows);
+                        currentPage = data.current_page; // Actualiza el número de página actual
+                        lastPage = data.last_page; // Actualiza el número de la última página
+                        console.log("PAGINACION LOAD ALUMNOS")
+                        console.log(currentPage);
+                        console.log(lastPage);
+                        console.log("-------");
+                        // Actualiza los controles de paginación
+                        updatePagination();
+                    }
+                });
+            }
+
+            function updatePagination() {
+                var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
+                currentPage = 1;
+
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function(event) {
+                    event.preventDefault();
+                    currentPage = $(this).data('page');
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                    loadAlumnos('');
+                    } else {
+                    loadAlumnos(filtro);
+                    }
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage > 1) {
+                    currentPage--;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadAlumnos('');
+                    } else {
+                        loadAlumnos(filtro);
+                    }
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage < lastPage) {
+                    currentPage++;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadAlumnos('');
+                    } else {
+                        loadAlumnos(filtro);
+                    }
                     }
                 });
             }
@@ -181,7 +269,7 @@
             function loadCursos() {
                 // Obtener los cursos y agregar opciones al desplegable
                 $.ajax({
-                    url: 'cursos',
+                    url: 'cursosload',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
@@ -197,9 +285,9 @@
 
 
 
-            $('#buscador').on('keyup', function() {
-                loadAlumnos();
-            });
+            // $('#buscador').on('keyup', function() {
+            //     loadAlumnos();
+            // });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -331,51 +419,51 @@
         });
 
         // EXPORTAR
-        const btnExportar = document.getElementById('btn-exportar');
+        // const btnExportar = document.getElementById('btn-exportar');
 
-        btnExportar.addEventListener('click', () => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'expalu', true);
-            xhr.responseType = 'blob';
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const a = document.createElement('a');
-                    a.href = window.URL.createObjectURL(xhr.response);
-                    a.download = 'alumnos.csv';
-                    a.click();
-                }
-            };
-            xhr.send();
-        });
+        // btnExportar.addEventListener('click', () => {
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open('GET', 'expalu', true);
+        //     xhr.responseType = 'blob';
+        //     xhr.onload = () => {
+        //         if (xhr.status === 200) {
+        //             const a = document.createElement('a');
+        //             a.href = window.URL.createObjectURL(xhr.response);
+        //             a.download = 'alumnos.csv';
+        //             a.click();
+        //         }
+        //     };
+        //     xhr.send();
+        // });
 
         // IMPORTAR
         // Obtener el formulario y el elemento donde se mostrarán los resultados
-        const importForm = document.querySelector('#import-form');
-        const importResults = document.querySelector('#import-results');
+        // const importForm = document.querySelector('#import-form');
+        // const importResults = document.querySelector('#import-results');
 
-        // Escuchar el evento "submit" del formulario
-        importForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevenir que el formulario se envíe
+        // // Escuchar el evento "submit" del formulario
+        // importForm.addEventListener('submit', (event) => {
+        //     event.preventDefault(); // Prevenir que el formulario se envíe
 
-            // Crear una instancia de FormData para enviar el archivo CSV
-            const formData = new FormData(importForm);
+        //     // Crear una instancia de FormData para enviar el archivo CSV
+        //     const formData = new FormData(importForm);
 
-            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'impalu', true);
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Mostrar los resultados en el elemento correspondiente
-                        importResults.innerHTML = xhr.responseText;
-                    } else {
-                        // Mostrar un mensaje de error en caso de que la petición haya fallado
-                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
-                    }
-                }
-            };
-            xhr.send(formData);
-        });
+        //     // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open('POST', 'impalu', true);
+        //     xhr.onreadystatechange = () => {
+        //         if (xhr.readyState === 4) {
+        //             if (xhr.status === 200) {
+        //                 // Mostrar los resultados en el elemento correspondiente
+        //                 importResults.innerHTML = xhr.responseText;
+        //             } else {
+        //                 // Mostrar un mensaje de error en caso de que la petición haya fallado
+        //                 importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+        //             }
+        //         }
+        //     };
+        //     xhr.send(formData);
+        // });
 
     </script>
 

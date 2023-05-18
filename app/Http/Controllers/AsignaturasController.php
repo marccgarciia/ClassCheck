@@ -18,10 +18,27 @@ class AsignaturasController extends Controller
     }
 
     // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexasignaturas()
+    public function indexasignaturas(Request $request)
     {
-        $asignaturas = Asignatura::with('curso', 'profesor')->get();
+        $filtro = $request->query('filtro');
+        if(empty($filtro)){
+            $asignaturas = Asignatura::with('curso', 'profesor')->paginate(5);
+        } else {
+            $asignaturas = Asignatura::with('curso', 'profesor')
+            ->where('nombre', 'like', '%' . $filtro . '%')
+            ->orWhereHas('curso', function($query) use ($filtro) {
+                $query->where('nombre', 'like', '%' . $filtro . '%');
+            })
+            ->orWhereHas('profesor', function($query) use ($filtro) {
+                $query->where('nombre', 'like', '%' . $filtro . '%');
+            })
+            ->paginate(5);
+        }
+
         return response()->json($asignaturas);
+
+        // $asignaturas = Asignatura::with('curso', 'profesor')->get();
+        // return response()->json($asignaturas);
     }
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE

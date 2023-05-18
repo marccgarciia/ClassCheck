@@ -41,6 +41,12 @@ class ProfesoresController extends Controller
         return response()->json($profesores);
     }
 
+    public function indexprofesoresload()
+    {
+        $profesores = Profesor::all();
+        return response()->json($profesores);
+    }
+
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storeprofesores(Request $request)
     {

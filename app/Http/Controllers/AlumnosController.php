@@ -39,10 +39,27 @@ class AlumnosController extends Controller
     }
 
     // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexalumnos()
+    public function indexalumnos(Request $request)
     {
-        $alumnos = Alumno::with('curso')->get();
+        $filtro = $request->query('filtro');
+        if(empty($filtro)){
+            $alumnos = Alumno::with('curso')->paginate(10);
+
+        } else {
+            $alumnos = Alumno::with('curso')
+                ->where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('apellido', 'like', '%' . $filtro . '%')
+                ->orWhere('email', 'like', '%' . $filtro . '%')
+                ->orWhere('email_padre', 'like', '%' . $filtro . '%')
+                ->orWhereHas('curso', function($query) use ($filtro) {
+                    $query->where('nombre', 'like', '%' . $filtro . '%');
+                })    
+                ->paginate(10);
+        }
         return response()->json($alumnos);
+        // OLD, RECUPERAR SI NO SIRVE MI CODIGO Y QUITAR LOS REQUEST
+        // $alumnos = Alumno::with('curso')->get();
+        // return response()->json($alumnos);
     }
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
