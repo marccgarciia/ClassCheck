@@ -45,13 +45,14 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="profesores-tbody">
             </tbody>
         </table>
     </div>
-
+    {{-- !!!!! PAGINACIÓN UL NO TOCAR --}}
+    <ul id="pagination" class="pagination"></ul>
     <div>
-        
+
 
         <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
@@ -107,37 +108,56 @@
     <script>
         $(document).ready(function() {
 
+            buscador.addEventListener("keyup", () => {
+            let filtro = buscador.value;
+                if (!filtro) {
+                    loadProfesores('')
+                } else {
+                    loadProfesores(filtro);
+                }
+            })
+
+            // // Variables globales para mantener el estado de la paginación
+            var currentPage = 1;
+            var lastPage = 1;
+
+
             // Cargar usuarios al cargar la página con AJAX/JQUERY
             loadProfesores();
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // FUNCIÓN PARA CARGAR USUARIOS CON AJAX/JQUERY Y BUSCAR SI ES NECESARIO
-            function loadProfesores() {
+            function loadProfesores(filtro) {
                 // Obtener las categorías y agregar opciones al desplegable
                 $.ajax({
                     url: 'profesores',
                     type: 'GET',
                     dataType: 'json',
+                    data: {
+                        // Aquí voy a mandar el current page y el filtro
+                        page: currentPage,
+                        filtro: filtro
+                    },
                     success: function(data) {
                         var tableRows = '';
-                        var searchString = $('#buscador').val()
-                            .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
-                        $.each(data, function(i, profesor) {
-                            var nombre = profesor.nombre.toLowerCase();
-                            var apellido = profesor.apellido.toLowerCase();
-                            var email = profesor.email.toLowerCase();
-                            var estado = profesor.estado;
+                        // var searchString = $('#buscador').val()
+                        //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
+                        $.each(data.data, function(i, profesor) {
+                            // var nombre = profesor.nombre.toLowerCase();
+                            // var apellido = profesor.apellido.toLowerCase();
+                            // var email = profesor.email.toLowerCase();
+                            // var estado = profesor.estado;
 
 
-                            // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            if (searchString && nombre.indexOf(searchString) == -1 &&
-                                apellido.indexOf(searchString) == -1 &&
-                                email.indexOf(searchString) == -1 &&
-                                estado != searchString) {
+                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
+                            // if (searchString && nombre.indexOf(searchString) == -1 &&
+                            //     apellido.indexOf(searchString) == -1 &&
+                            //     email.indexOf(searchString) == -1 &&
+                            //     estado != searchString) {
 
-                                return true; // Continue
-                            }
+                            //     return true; // Continue
+                            // }
 
                             tableRows += '<tr>';
                             tableRows += '<td>' + profesor.nombre + '</td>';
@@ -171,7 +191,70 @@
                             tableRows += '</td>';
                             tableRows += '</tr>';
                         });
-                        $('#profesores tbody').html(tableRows);
+                        $('#profesores-tbody').html(tableRows);
+                        currentPage = data.current_page; // Actualiza el número de página actual
+                        lastPage = data.last_page; // Actualiza el número de la última página
+                        console.log("PAGINACION LOAD PROFESORES")
+                        console.log(currentPage);
+                        console.log(lastPage);
+                        console.log("-------");
+                        // Actualiza los controles de paginación
+                        updatePagination();
+                    }
+                });
+            }
+
+            function updatePagination() {
+                var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
+                currentPage = 1;
+
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function(event) {
+                    event.preventDefault();
+                    currentPage = $(this).data('page');
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                    loadProfesores('');
+                    } else {
+                    loadProfesores(filtro);
+                    }
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage > 1) {
+                    currentPage--;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadProfesores('');
+                    } else {
+                        loadProfesores(filtro);
+                    }
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage < lastPage) {
+                    currentPage++;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadProfesores('');
+                    } else {
+                        loadProfesores(filtro);
+                    }
                     }
                 });
             }
@@ -185,9 +268,9 @@
 
 
 
-            $('#buscador').on('keyup', function() {
-                loadProfesores();
-            });
+            // $('#buscador').on('keyup', function() {
+            //     loadProfesores();
+            // });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
