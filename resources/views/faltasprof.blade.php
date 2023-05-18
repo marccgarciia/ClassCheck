@@ -8,8 +8,8 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
                     <th scope="col">Curso</th>
-                    <th scope="col">Año</th>
-                    <th scope="col">%</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Faltas</th>
                 </tr>
             </thead>
