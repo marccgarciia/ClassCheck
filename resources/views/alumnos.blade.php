@@ -49,7 +49,7 @@
             </tbody>
         </table>
     </div>
-
+    {{-- !!!!! PAGINACIÓN UL NO TOCAR --}}
     <ul id="pagination" class="pagination"></ul>
 
     <div>
@@ -416,6 +416,7 @@
 
 
 
+        
         });
 
         // EXPORTAR
