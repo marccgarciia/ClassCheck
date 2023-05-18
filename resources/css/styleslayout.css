@@ -179,7 +179,7 @@ table tbody tr:last-child td {
     margin: 3px;
 }
 
-.ca:hover{
+.ca:hover {
     background: var(--color-negro);
 }
 
@@ -1313,23 +1313,7 @@ textarea:focus {
     margin: 3px;
 }
 
-.modal__content2 {
-    border-radius: 20px;
-    position: relative;
-    width: 275px;
-    height: 300px;
-    background: #2B4D6D;
-    padding: 1em 2em;
-}
 
-.modal__close2 {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-}
 
 /* VALIDACIONES */
 

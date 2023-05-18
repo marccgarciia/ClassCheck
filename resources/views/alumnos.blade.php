@@ -55,81 +55,84 @@
     <div>
         <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
-        <div class="modal__content1">
-            <form action="asignaturas" method="POST" id="form-insert" style="display:block;">
-                <h2 class="text12">Formulario de Insertar</h2>
-            @csrf
-            <div class="nom">
-            <input type="text" name="nombre" placeholder="Nombre">
-            <p id="nom"></p>
+            <div class="modal__content1">
+                <form action="asignaturas" method="POST" id="form-insert" style="display:block;">
+                    <h2 class="text12">Formulario de Insertar</h2>
+                    @csrf
+                    <div class="nom">
+                        <input type="text" name="nombre" placeholder="Nombre">
+                        <p id="nom"></p>
+                    </div>
+                    <div class="ap">
+                        <input type="text" name="apellido" placeholder="Apellidos">
+                        <p id="ap"></p>
+                    </div>
+                    <div class="email">
+                        <input type="text" name="email" placeholder="Correo Electrónico">
+                        <p id="email"></p>
+                    </div>
+                    <div class="pass">
+                        <input type="text" name="password" placeholder="Contraseña">
+                        <p id="pass"></p>
+                    </div>
+                    <div class="pad">
+                        <input type="text" name="email_padre" placeholder="Contacto Padres">
+                        <p id="email_p"></p>
+                    </div>
+
+                    {{-- <input type="text" name="estado" placeholder="Estado"> --}}
+                    <div class="curso">
+                        <select id="curso" name="id_curso">
+                            <option value="">Selecciona un curso</option>
+                        </select>
+                        <p id="id_curso"></p>
+                    </div>
+                    <p></p>
+                    <button type="submit" class="btn12">Insertar</button>
+                </form>
+                <a href="#" id="cerrar" class="modal__close1">&times;</a>
             </div>
-            <div class="ap">
-            <input type="text" name="apellido" placeholder="Apellidos">
-            <p id="ap"></p>
-            </div>
-            <div class="email">
-            <input type="text" name="email" placeholder="Correo Electrónico">
-            <p id="email"></p>
-            </div>
-            <div class="pass">
-            <input type="text" name="password" placeholder="Contraseña">
-            <p id="pass"></p>
-            </div>
-            <div class="pad">
-            <input type="text" name="email_padre" placeholder="Contacto Padres">
-            <p id="email_p"></p>
-            </div>
-            
-            {{-- <input type="text" name="estado" placeholder="Estado"> --}}
-            <div class="curso">
-            <select id="curso" name="id_curso">
-                <option value="">Selecciona un curso</option>
-            </select>
-            <p id="id_curso"></p>
-            </div>
-            <p></p>
-                <button type="submit" class="btn12">Insertar</button>
-            </form>
-            <a href="#" id="cerrar" class="modal__close1">&times;</a>
-        </div>
         </div>
     </div>
 
     <div>
         <div id="asignaturas2" class="modal2">
-        <div class="modal__content2">
-        <!-- Agregar un nuevo formulario para la edición de usuarios -->
-            <form action="alumnos" method="POST" id="form-edit" style="display:block;">
-                <h2 class="text13">Formulario de Editar</h2>
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="id" id="edit-id">
-            <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-            <p id="nom-p"></p>
-            <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
-            <p id="ap-p"></p>
-            <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
-            <p id="email-p"></p>
-            {{-- <input type="text" name="password" id="edit-password" placeholder="Contraseña"> --}}
-            <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
-            <p id="email_p-p"></p>
-            <select id="edit-estado" name="estado">
-                <option value="Desactivado">Desactivado</option>
-                <option value="Activado">Activado</option>
-            </select>
-            <p id="es-p"></p>
-            <select id="edit-id_curso" name="id_curso">
-                
-            </select>
-            <p id="id_curso-p"></p>
-            <p></p>
-            <button type="submit" class="btn13">Actualizar</button>
-            </form>
-            <a href="#" id="cerrar1" class="modal__close2">&times;</a>
-        </div>
+            <div class="modal__content2">
+                <!-- Agregar un nuevo formulario para la edición de usuarios -->
+                <form action="alumnos" method="POST" id="form-edit"
+                    style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+
+
+                    <h2 class="text13">Formulario de Editar</h2>
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="edit-id">
+                    <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                    <p id="nom-p"></p>
+                    <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
+                    <p id="ap-p"></p>
+                    <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+                    <p id="email-p"></p>
+                    {{-- <input type="text" name="password" id="edit-password" placeholder="Contraseña"> --}}
+                    <input type="text" name="email_padre" id="edit-email_padre" placeholder="Contacto Padres">
+                    <p id="email_p-p"></p>
+                    <select id="edit-estado" name="estado">
+                        <option value="Desactivado">Desactivado</option>
+                        <option value="Activado">Activado</option>
+                    </select>
+                    <p id="es-p"></p>
+                    <select id="edit-id_curso" name="id_curso">
+
+                    </select>
+                    <p id="id_curso-p"></p>
+                    <p></p>
+                    <button type="submit" class="btn13">Actualizar</button>
+                </form>
+                <a href="#" id="cerrar1" class="modal__close2">&times;</a>
+            </div>
         </div>
 
-        
+
 
     </div>
 
@@ -137,7 +140,7 @@
         $(document).ready(function() {
 
             buscador.addEventListener("keyup", () => {
-            let filtro = buscador.value;
+                let filtro = buscador.value;
                 if (!filtro) {
                     loadAlumnos('')
                 } else {
@@ -145,7 +148,7 @@
                 }
             })
 
-             // // Variables globales para mantener el estado de la paginación
+            // // Variables globales para mantener el estado de la paginación
             var currentPage = 1;
             var lastPage = 1;
 
@@ -219,7 +222,9 @@
                             }
 
                             tableRows += '<td>';
-                            tableRows += '<a href="#asignaturas2"><button class="edit-alumno" data-id="' + alumno.id +
+                            tableRows +=
+                                '<a href="#asignaturas2"><button class="edit-alumno" data-id="' +
+                                alumno.id +
                                 '" data-nombre="' + alumno.nombre +
                                 '" data-apellido="' + alumno.apellido +
                                 '" data-email="' + alumno.email +
@@ -256,7 +261,8 @@
 
                 // Agrega botones numéricos para todas las páginas disponibles
                 for (var i = 1; i <= lastPage; i++) {
-                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' +
+                        i + '</a></li>';
                 }
 
                 // Actualiza el contenido de la lista desordenada con los botones numéricos
@@ -268,9 +274,9 @@
                     currentPage = $(this).data('page');
                     let filtro = buscador.value;
                     if (!filtro) {
-                    loadAlumnos('');
+                        loadAlumnos('');
                     } else {
-                    loadAlumnos(filtro);
+                        loadAlumnos(filtro);
                     }
                 });
 
@@ -278,13 +284,13 @@
                 prevBtn.click(function(event) {
                     event.preventDefault();
                     if (currentPage > 1) {
-                    currentPage--;
-                    let filtro = buscador.value;
-                    if (!filtro) {
-                        loadAlumnos('');
-                    } else {
-                        loadAlumnos(filtro);
-                    }
+                        currentPage--;
+                        let filtro = buscador.value;
+                        if (!filtro) {
+                            loadAlumnos('');
+                        } else {
+                            loadAlumnos(filtro);
+                        }
                     }
                 });
 
@@ -292,13 +298,13 @@
                 nextBtn.click(function(event) {
                     event.preventDefault();
                     if (currentPage < lastPage) {
-                    currentPage++;
-                    let filtro = buscador.value;
-                    if (!filtro) {
-                        loadAlumnos('');
-                    } else {
-                        loadAlumnos(filtro);
-                    }
+                        currentPage++;
+                        let filtro = buscador.value;
+                        if (!filtro) {
+                            loadAlumnos('');
+                        } else {
+                            loadAlumnos(filtro);
+                        }
                     }
                 });
             }
@@ -325,17 +331,17 @@
 
             //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
             document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
-            // Obtén el formulario y establece los valores de los campos en vacío
-            var formulario = document.getElementById("form-insert");
-            formulario.reset();
+                // Obtén el formulario y establece los valores de los campos en vacío
+                var formulario = document.getElementById("form-insert");
+                formulario.reset();
             });
 
             //*Sirve para cuando hagas click fuera del modal salga de el *//
             var modal = document.getElementById('asignaturas1');
 
-            window.addEventListener('click', function (e) {
+            window.addEventListener('click', function(e) {
                 if (e.target == modal) {
-                cerrarModal();
+                    cerrarModal();
                 }
             });
 
@@ -447,7 +453,8 @@
                     $('#edit-id_curso').val(id_curso);
                     if (estado === false) {
                         $('#edit-estado').val("Desactivado");
-                    }if (estado === true) {
+                    }
+                    if (estado === true) {
                         $('#edit-estado').val("Activado");
                     }
 
@@ -477,218 +484,216 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-        // EXPORTAR
-        const btnExportar = document.getElementById('btn-exportar');
+            // EXPORTAR
+            const btnExportar = document.getElementById('btn-exportar');
 
-        btnExportar.addEventListener('click', () => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'expalu', true);
-            xhr.responseType = 'blob';
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const a = document.createElement('a');
-                    a.href = window.URL.createObjectURL(xhr.response);
-                    a.download = 'alumnos.csv';
-                    a.click();
-                }
-            };
-            xhr.send();
-        });
-
-        // IMPORTAR
-        // Obtener el formulario y el elemento donde se mostrarán los resultados
-        const importForm = document.querySelector('#import-form');
-        const importResults = document.querySelector('#import-results');
-
-        // // Escuchar el evento "submit" del formulario
-        importForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevenir que el formulario se envíe
-
-        //     // Crear una instancia de FormData para enviar el archivo CSV
-            const formData = new FormData(importForm);
-
-        //     // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'impalu', true);
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
+            btnExportar.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'expalu', true);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
                     if (xhr.status === 200) {
-                        // Mostrar los resultados en el elemento correspondiente
-                        importResults.innerHTML = xhr.responseText;
-                    } else {
-                        // Mostrar un mensaje de error en caso de que la petición haya fallado
-                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                        const a = document.createElement('a');
+                        a.href = window.URL.createObjectURL(xhr.response);
+                        a.download = 'alumnos.csv';
+                        a.click();
                     }
+                };
+                xhr.send();
+            });
+
+            // IMPORTAR
+            // Obtener el formulario y el elemento donde se mostrarán los resultados
+            const importForm = document.querySelector('#import-form');
+            const importResults = document.querySelector('#import-results');
+
+            // // Escuchar el evento "submit" del formulario
+            importForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevenir que el formulario se envíe
+
+                //     // Crear una instancia de FormData para enviar el archivo CSV
+                const formData = new FormData(importForm);
+
+                //     // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'impalu', true);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Mostrar los resultados en el elemento correspondiente
+                            importResults.innerHTML = xhr.responseText;
+                        } else {
+                            // Mostrar un mensaje de error en caso de que la petición haya fallado
+                            importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                        }
+                    }
+                };
+                xhr.send(formData);
+                loadAlumnos();
+                loadCursos();
+            });
+
+            const form = document.querySelector('#form-insert');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // cancelar envío normal del formulario
+
+                // Obtener los valores de los campos del formulario
+                const nombre = form.querySelector('input[name="nombre"]').value.trim();
+                const apellido = form.querySelector('input[name="apellido"]').value.trim();
+                const email = form.querySelector('input[name="email"]').value.trim();
+                const password = form.querySelector('input[name="password"]').value.trim();
+                const email_padre = form.querySelector('input[name="email_padre"]').value.trim();
+                const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
+
+                // Validar que los campos no estén vacíos
+                let valid = true;
+                if (nombre === '') {
+                    valid = false;
+                    const nomElement = document.getElementById('nom');
+                    nomElement.textContent = 'Debes insertar el nombre del alumno';
+                } else {
+                    const nomElement = document.getElementById('nom');
+                    nomElement.textContent = '';
                 }
-            };
-            xhr.send(formData);
-            loadAlumnos();
-            loadCursos();
-        });
-
-    const form = document.querySelector('#form-insert');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // cancelar envío normal del formulario
-
-        // Obtener los valores de los campos del formulario
-        const nombre = form.querySelector('input[name="nombre"]').value.trim();
-        const apellido = form.querySelector('input[name="apellido"]').value.trim();
-        const email = form.querySelector('input[name="email"]').value.trim();
-        const password = form.querySelector('input[name="password"]').value.trim();
-        const email_padre = form.querySelector('input[name="email_padre"]').value.trim();
-        const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
-
-        // Validar que los campos no estén vacíos
-        let valid = true;
-        if (nombre === '') {
-            valid = false;
-            const nomElement = document.getElementById('nom');
-            nomElement.textContent = 'Debes insertar el nombre del alumno';
-        }else {
-            const nomElement = document.getElementById('nom');
-            nomElement.textContent = '';
-        }
-        if (apellido === '') {
-            valid = false;
-            const apElement = document.getElementById('ap');
-            apElement.textContent = 'Debes insertar el apellido del alumno';
-        }else {
-            const apElement = document.getElementById('ap');
-            apElement.textContent = '';
-        }
-        if (email === '') {
-            valid = false;
-            const emailElement = document.getElementById('email');
-            emailElement.textContent = 'Debes insertar un email para el alumno';
-        }else if (!/\S+@\S+\.\S+/.test(email)) {
-            valid = false;
-            const emailElement = document.getElementById('email');
-            emailElement.textContent = 'El formato del correo electrónico no es válido';
-        }else if (nombre === '' || apellido === '') {
-            const emailElement = document.getElementById('email');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
-        }else {
-            const emailElement = document.getElementById('email');
-            emailElement.textContent = '';
-        }
-        if (password === '') {
-            valid = false;
-            const passElement = document.getElementById('pass');
-            passElement.textContent = 'Debes insertar una contraseña';
-        }else {
-            const passElement = document.getElementById('pass');
-            passElement.textContent = '';
-        }
-        if (email_padre === '') {
-            valid = false;
-            const padElement = document.getElementById('email_p');
-            padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
-        }else if (!/\S+@\S+\.\S+/.test(email_padre)) {
-            valid = false;
-            const padElement = document.getElementById('email_p');
-            padElement.textContent = 'El formato del correo electrónico no es válido';
-        }
-        else {
-            const padElement = document.getElementById('email_p');
-            padElement.textContent = '';
-        }
-        if (id_curso === '') {
-            valid = false;
-            const curElement = document.getElementById('id_curso');
-            curElement.textContent = 'Debes insertar un curso de la lista';
-        }else {
-            const curElement = document.getElementById('id_curso');
-            curElement.textContent = '';
-        }
-
-            
-        });
-
-        const formE = document.querySelector('#form-edit');
-    formE.addEventListener('submit', (e) => {
-        e.preventDefault(); // cancelar envío normal del formulario
-
-        // Obtener los valores de los campos del formulario
-        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
-        const apellido = formE.querySelector('input[name="apellido"]').value.trim();
-        const email = formE.querySelector('input[name="email"]').value.trim();
-        const email_padre = formE.querySelector('input[name="email_padre"]').value.trim();
-        const estado = formE.querySelector('select[name="estado"]').value.trim();
-        const id_curso = formE.querySelector('select[name="id_curso"]').value.trim();
-
-        // Validar que los campos no estén vacíos
-        let valid = true;
-        if (nombre === '') {
-            valid = false;
-            const nomElement = document.getElementById('nom-p');
-            nomElement.textContent = 'Debes insertar el nombre del alumno';
-        }else {
-            const nomElement = document.getElementById('nom-p');
-            nomElement.textContent = '';
-        }
-        if (apellido === '') {
-            valid = false;
-            const apElement = document.getElementById('ap-p');
-            apElement.textContent = 'Debes insertar el apellido del alumno';
-        }else {
-            const apElement = document.getElementById('ap-p');
-            apElement.textContent = '';
-        }
-        if (email === '') {
-            valid = false;
-            const emailElement = document.getElementById('email-p');
-            emailElement.textContent = 'Debes insertar un email para el alumno';
-        }else if (!/\S+@\S+\.\S+/.test(email)) {
-            valid = false;
-            const emailElement = document.getElementById('email-p');
-            emailElement.textContent = 'El formato del correo electrónico no es válido';
-        }else if (nombre === '' || apellido === '') {
-            const emailElement = document.getElementById('email-p');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
-        }else {
-            const emailElement = document.getElementById('email-p');
-            emailElement.textContent = '';
-        }
-        if (estado === '') {
-            valid = false;
-            const esElement = document.getElementById('es-p');
-            esElement.textContent = 'Debes insertar una contraseña';
-        }else {
-            const esElement = document.getElementById('es-p');
-            esElement.textContent = '';
-        }
-        if (email_padre === '') {
-            valid = false;
-            const padElement = document.getElementById('email_p-p');
-            padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
-        }else if (!/\S+@\S+\.\S+/.test(email_padre)) {
-            valid = false;
-            const padElement = document.getElementById('email_p-p');
-            padElement.textContent = 'El formato del correo electrónico no es válido';
-        }
-        else {
-            const padElement = document.getElementById('email_p-p');
-            padElement.textContent = '';
-        }
-        if (id_curso === '') {
-            valid = false;
-            const curElement = document.getElementById('id_curso-p');
-            curElement.textContent = 'Debes insertar un curso de la lista';
-        }else {
-            const curElement = document.getElementById('id_curso-p');
-            curElement.textContent = '';
-        }
+                if (apellido === '') {
+                    valid = false;
+                    const apElement = document.getElementById('ap');
+                    apElement.textContent = 'Debes insertar el apellido del alumno';
+                } else {
+                    const apElement = document.getElementById('ap');
+                    apElement.textContent = '';
+                }
+                if (email === '') {
+                    valid = false;
+                    const emailElement = document.getElementById('email');
+                    emailElement.textContent = 'Debes insertar un email para el alumno';
+                } else if (!/\S+@\S+\.\S+/.test(email)) {
+                    valid = false;
+                    const emailElement = document.getElementById('email');
+                    emailElement.textContent = 'El formato del correo electrónico no es válido';
+                } else if (nombre === '' || apellido === '') {
+                    const emailElement = document.getElementById('email');
+                    if (window.innerWidth < 768) {
+                        emailElement.textContent = '';
+                    } else {
+                        emailElement.textContent = 'ㅤ';
+                    }
+                } else {
+                    const emailElement = document.getElementById('email');
+                    emailElement.textContent = '';
+                }
+                if (password === '') {
+                    valid = false;
+                    const passElement = document.getElementById('pass');
+                    passElement.textContent = 'Debes insertar una contraseña';
+                } else {
+                    const passElement = document.getElementById('pass');
+                    passElement.textContent = '';
+                }
+                if (email_padre === '') {
+                    valid = false;
+                    const padElement = document.getElementById('email_p');
+                    padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
+                } else if (!/\S+@\S+\.\S+/.test(email_padre)) {
+                    valid = false;
+                    const padElement = document.getElementById('email_p');
+                    padElement.textContent = 'El formato del correo electrónico no es válido';
+                } else {
+                    const padElement = document.getElementById('email_p');
+                    padElement.textContent = '';
+                }
+                if (id_curso === '') {
+                    valid = false;
+                    const curElement = document.getElementById('id_curso');
+                    curElement.textContent = 'Debes insertar un curso de la lista';
+                } else {
+                    const curElement = document.getElementById('id_curso');
+                    curElement.textContent = '';
+                }
 
 
-        });
+            });
+
+            const formE = document.querySelector('#form-edit');
+            formE.addEventListener('submit', (e) => {
+                e.preventDefault(); // cancelar envío normal del formulario
+
+                // Obtener los valores de los campos del formulario
+                const nombre = formE.querySelector('input[name="nombre"]').value.trim();
+                const apellido = formE.querySelector('input[name="apellido"]').value.trim();
+                const email = formE.querySelector('input[name="email"]').value.trim();
+                const email_padre = formE.querySelector('input[name="email_padre"]').value.trim();
+                const estado = formE.querySelector('select[name="estado"]').value.trim();
+                const id_curso = formE.querySelector('select[name="id_curso"]').value.trim();
+
+                // Validar que los campos no estén vacíos
+                let valid = true;
+                if (nombre === '') {
+                    valid = false;
+                    const nomElement = document.getElementById('nom-p');
+                    nomElement.textContent = 'Debes insertar el nombre del alumno';
+                } else {
+                    const nomElement = document.getElementById('nom-p');
+                    nomElement.textContent = '';
+                }
+                if (apellido === '') {
+                    valid = false;
+                    const apElement = document.getElementById('ap-p');
+                    apElement.textContent = 'Debes insertar el apellido del alumno';
+                } else {
+                    const apElement = document.getElementById('ap-p');
+                    apElement.textContent = '';
+                }
+                if (email === '') {
+                    valid = false;
+                    const emailElement = document.getElementById('email-p');
+                    emailElement.textContent = 'Debes insertar un email para el alumno';
+                } else if (!/\S+@\S+\.\S+/.test(email)) {
+                    valid = false;
+                    const emailElement = document.getElementById('email-p');
+                    emailElement.textContent = 'El formato del correo electrónico no es válido';
+                } else if (nombre === '' || apellido === '') {
+                    const emailElement = document.getElementById('email-p');
+                    if (window.innerWidth < 768) {
+                        emailElement.textContent = '';
+                    } else {
+                        emailElement.textContent = 'ㅤ';
+                    }
+                } else {
+                    const emailElement = document.getElementById('email-p');
+                    emailElement.textContent = '';
+                }
+                if (estado === '') {
+                    valid = false;
+                    const esElement = document.getElementById('es-p');
+                    esElement.textContent = 'Debes insertar una contraseña';
+                } else {
+                    const esElement = document.getElementById('es-p');
+                    esElement.textContent = '';
+                }
+                if (email_padre === '') {
+                    valid = false;
+                    const padElement = document.getElementById('email_p-p');
+                    padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
+                } else if (!/\S+@\S+\.\S+/.test(email_padre)) {
+                    valid = false;
+                    const padElement = document.getElementById('email_p-p');
+                    padElement.textContent = 'El formato del correo electrónico no es válido';
+                } else {
+                    const padElement = document.getElementById('email_p-p');
+                    padElement.textContent = '';
+                }
+                if (id_curso === '') {
+                    valid = false;
+                    const curElement = document.getElementById('id_curso-p');
+                    curElement.textContent = 'Debes insertar un curso de la lista';
+                } else {
+                    const curElement = document.getElementById('id_curso-p');
+                    curElement.textContent = '';
+                }
+
+
+            });
 
 
         });
