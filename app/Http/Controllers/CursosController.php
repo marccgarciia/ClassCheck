@@ -21,9 +21,34 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexcursos()
+    public function indexcursos(Request $request)
     {
+        $filtro = $request->query('filtro');
+        if(empty($filtro)){
+            $cursos = Curso::with('escuela')->paginate(2);
+        } else {
+            $cursos = Curso::with('escuela')
+                ->where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('promocion', 'like', '%' . $filtro . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(2);
+        }
+        return response()->json($cursos);
+    }
+
+    public function indexcursosload() {
         $cursos = Curso::with('escuela')->get();
+        return response()->json($cursos);
+    }
+
+    public function cursosfiltro(Request $request)
+    {
+        $searchTerm = $request->query('search');
+        $cursos = Curso::with('escuela')
+                    ->where('nombre', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('promocion', 'like', '%' . $searchTerm . '%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(2);
         return response()->json($cursos);
     }
 
@@ -129,4 +154,14 @@ class CursosController extends Controller
         $escuelas = Escuela::all();
         return response()->json($escuelas);
     }
+
+    public function countcursos()
+    {
+            $count = Curso::count();
+
+            return response()->json([
+                'count' => $count
+        ]);
+    }
+
 }

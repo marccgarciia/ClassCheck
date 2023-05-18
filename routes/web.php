@@ -10,7 +10,11 @@ use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\EscuelasController;
 use App\Http\Controllers\CSVController;
 
+Route::get('/countcur', [CursosController::class, 'countcursos']);
 
+Route::get('/countalu', [AlumnosController::class, 'countalu']);
+
+Route::get('/countasi', [AsignaturasController::class, 'countasignaturas']);
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +143,12 @@ Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR
 Route::get('/cursos', [CursosController::class, 'indexcursos']);
+    // IMPORTANTE!!!!!!
+    // CURSOS LOAD SE UTILIZA PARA EDITAR ALUMNOS CON SUS CURSOS
+    // NO BORRAR!!!!
+Route::get('/cursosload', [CursosController::class, 'indexcursosload']);
+
+Route::get('/cursosfiltro', [CursosController::class, 'cursosfiltro']);
 
 Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
 
@@ -167,6 +177,9 @@ Route::get('/webprofesores', [ProfesoresController::class, 'webprofesores'])->na
 
 //MOSTRAR Y BUSCAR
 Route::get('/profesores', [ProfesoresController::class, 'indexprofesores']);
+
+Route::get('/profesoresload', [ProfesoresController::class, 'indexprofesoresload']);
+
 
 //INSERTAR
 Route::post('/profesores', [ProfesoresController::class, 'storeprofesores']);

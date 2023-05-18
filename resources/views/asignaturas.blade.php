@@ -27,10 +27,12 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="asignaturas-tbody">
             </tbody>
         </table>
     </div>
+
+    <ul id="pagination" class="pagination"></ul>
 
     <div>
         <form action="asignaturas" method="POST" id="form-insert">
@@ -75,8 +77,21 @@
 
     <script>
         $(document).ready(function() {
-
+            // BUSCADOR, DESCOEMNTAR CUANDO YA ESTÁ TODO ESTRUCTURADO
+            buscador.addEventListener("keyup", () => {
+            let filtro = buscador.value;
+                if (!filtro) {
+                    loadAsignaturas('')
+                } else {
+                    loadAsignaturas(filtro);
+                }
+            })
             // Cargar usuarios al cargar la página con AJAX/JQUERY
+
+            // Variables globales para mantener el estado de la paginación !!!
+            var currentPage = 1;
+            var lastPage = 1;
+
             loadAsignaturas();
             loadCursos();
             loadProfesores();
@@ -84,30 +99,36 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // FUNCIÓN PARA CARGAR USUARIOS CON AJAX/JQUERY Y BUSCAR SI ES NECESARIO
-            function loadAsignaturas() {
+            function loadAsignaturas(filtro) {
                 // Obtener las categorías y agregar opciones al desplegable
                 $.ajax({
                     url: 'asignaturas',
                     type: 'GET',
                     dataType: 'json',
+                    data: {
+                        // Aquí voy a mandar el current page y el filtro
+                        page: currentPage,
+                        filtro: filtro
+                    },
                     success: function(data) {
                         var tableRows = '';
-                        var searchString = $('#buscador').val()
-                            .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
-                        $.each(data, function(i, asignatura) {
-                            var nombre = asignatura.nombre.toLowerCase();
-                            var curso = asignatura.curso.nombre.toLowerCase();
-                            var profesor = asignatura.profesor.nombre.toLowerCase();
+                        // BUSCADOR MARC COMENTADO
+                        // var searchString = $('#buscador').val()
+                        //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
+                        $.each(data.data, function(i, asignatura) {
+                            // var nombre = asignatura.nombre.toLowerCase();
+                            // var curso = asignatura.curso.nombre.toLowerCase();
+                            // var profesor = asignatura.profesor.nombre.toLowerCase();
 
 
-                            // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            if (searchString && nombre.indexOf(searchString) == -1 &&
-                                curso.indexOf(searchString) == -1 &&
-                                profesor.indexOf(searchString) == -1) {
+                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
+                            // if (searchString && nombre.indexOf(searchString) == -1 &&
+                            //     curso.indexOf(searchString) == -1 &&
+                            //     profesor.indexOf(searchString) == -1) {
 
-                                return true; // Continue
-                            }
-                            console.log(asignatura)
+                            //     return true; // Continue
+                            // }
+                            // console.log(asignatura)
                             tableRows += '<tr>';
                             tableRows += '<td>' + asignatura.nombre + '</td>';
                             tableRows += '<td>' + asignatura.curso.nombre + '</td>';
@@ -128,7 +149,69 @@
                             tableRows += '</td>';
                             tableRows += '</tr>';
                         });
-                        $('#asignaturas tbody').html(tableRows);
+                        $('#asignaturas-tbody').html(tableRows);
+                        currentPage = data.current_page; // Actualiza el número de página actual
+                        lastPage = data.last_page; // Actualiza el número de la última página
+                        console.log("PAGINACION LOAD ASIGNATURAS")
+                        console.log(currentPage);
+                        console.log(lastPage);
+                        console.log("-------");
+                        // Actualiza los controles de paginación
+                        updatePagination();
+                    }
+                });
+            }
+
+            function updatePagination() {
+                var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
+
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function(event) {
+                    event.preventDefault();
+                    currentPage = $(this).data('page');
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadAsignaturas('');
+                    } else {
+                         loadAsignaturas(filtro);
+                    }
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage > 1) {
+                    currentPage--;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadAsignaturas('');
+                    } else {
+                        loadAsignaturas(filtro);
+                    }
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage < lastPage) {
+                    currentPage++;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadAsignaturas('');
+                    } else {
+                        loadAsignaturas(filtro);
+                    }
                     }
                 });
             }
@@ -140,7 +223,7 @@
             function loadCursos() {
                 // Obtener los cursos y agregar opciones al desplegable
                 $.ajax({
-                    url: 'cursos',
+                    url: 'cursosload',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
@@ -161,7 +244,7 @@
             function loadProfesores() {
                 // Obtener los cursos y agregar opciones al desplegable
                 $.ajax({
-                    url: 'profesores',
+                    url: 'profesoresload',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
@@ -177,9 +260,9 @@
             }
 
 
-            $('#buscador').on('keyup', function() {
-                loadAsignaturas();
-            });
+            // $('#buscador').on('keyup', function() {
+            //     loadAsignaturas();
+            // });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -201,6 +284,8 @@
 
                         // Recargar la lista de usuarios
                         loadAsignaturas();
+                        actualizarContadores();
+
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
@@ -224,6 +309,8 @@
                         },
                         success: function(response) {
                             loadAsignaturas();
+                            actualizarContadores();
+
                         },
                         error: function(xhr, status, error) {
                             console.log(xhr.responseText);

@@ -179,6 +179,43 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
+    function actualizarContadores() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countcur", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("cursosN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+        };
+        xhttp.send();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countalu", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("alumnosN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+        };
+        xhttp.send();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countasi", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("asignaturasN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+    };
+    xhttp.send();
+}
+
+// Llamar a la función cada 5 segundos
+actualizarContadores();
     // MARCAR SELECCION SIDEBAR
     const sidemenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
