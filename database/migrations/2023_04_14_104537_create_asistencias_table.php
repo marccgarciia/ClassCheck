@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_profe_asistencia');
             $table->unsignedBigInteger('id_horarioasignatura_asistencia');
             $table->unsignedBigInteger('id_tipo_asistencia');
+            $table->date('fecha_asistencia');
 
             $table->foreign('id_alumno_asistencia')->references('id')->on('alumnos')->onDelete('cascade');
             $table->foreign('id_profe_asistencia')->references('id')->on('profesores')->onDelete('cascade');

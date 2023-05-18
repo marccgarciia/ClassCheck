@@ -55,7 +55,7 @@ class CursosController extends Controller
     public function cursosprofe()
     //->where('profesores.id','=',auth('profesor')->user()->id)
     {
-        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso')
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso','cursos.id as idC')
         ->join('profesores','profesores.id','=','asignaturas.id_profesor')
         ->join('cursos','cursos.id','=','asignaturas.id_curso')
         ->where('profesores.id','=',auth('profesor')->user()->id)
@@ -78,6 +78,7 @@ class CursosController extends Controller
         return response()->json($horarios);
     }
 
+    //Funcion para ver la lista de alumnos de un curso
     public function alumnosCurso()
     {
         $curso = auth('profesor')->user()->id_curso;
@@ -89,6 +90,7 @@ class CursosController extends Controller
         ->get();
         return response()->json($alumnos);
     }
+
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storecursos(Request $request)

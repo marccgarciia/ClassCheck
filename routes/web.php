@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnosController;
@@ -30,6 +31,7 @@ Route::get('/countasi', [AsignaturasController::class, 'countasignaturas']);
 //-----------------------------------------------------
 //PROCESAR LOGIN Y CAMBIAR PASSWORD -------------------
 //-----------------------------------------------------
+
 Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
 Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin');
@@ -37,6 +39,7 @@ Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin
 Route::post('/enviar', [AuthController::class, 'mail'])->name('enviar');
 
 Route::get('/password', [AuthController::class, 'verPassword'])->name('verPassword');
+
 
 //-----------------------------------------------------
 //ADMIN LOGIN -----------------------------------------
@@ -124,6 +127,10 @@ Route::get('/datosalu', [AlumnosController::class, 'datosalu'])->name('datosalu'
 //VER WEB SCANER ALUMNOS 
 Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
+Route::post('/listaalumnos', [AlumnosController::class, 'listaalumnos']);
+
+
+//DESACTIVAR
 
 
 //-----------------------------------------------------
@@ -132,6 +139,7 @@ Route::get('/scanalu', [AlumnosController::class, 'scanalu'])->name('scanalu');
 
 //VER WEB
 Route::get('/webcursos', [CursosController::class, 'webcursos'])->name('webcursos');
+
 Route::get('/horariosCurso', [CursosController::class, 'horarioCurso']);
 
 //MOSTRAR Y BUSCAR
@@ -200,6 +208,13 @@ Route::get('/cursosprof', [ProfesoresController::class, 'cursosprof'])->name('cu
 Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('datosprof');
 
 
+Route::get('/claseprof', [ProfesoresController::class, 'profeClase']);
+
+Route::get('/datos/{id}', [ProfesoresController::class, 'datos']);
+
+
+
+
 //-----------------------------------------------------
 //ASIGNATURAS -----------------------------------------
 //-----------------------------------------------------
@@ -224,6 +239,9 @@ Route::get('cursosasignaturas', [AsignaturasController::class, 'cursosasignatura
 
 //VER PROFESORES EN ASIGNATURAS
 Route::get('profesoresasignaturas', [AsignaturasController::class, 'profesoresasignaturas']);
+
+Route::get('listarFaltas', [AsignaturasController::class, 'listarFaltas']);
+
 
 
 //-----------------------------------------------------
@@ -261,6 +279,15 @@ Route::post('/impalu', [CSVController::class, 'imp']);
 Route::get('/expprof', [CSVController::class, 'expprof']);
 // //IMPORTAR PROFESOR
 Route::post('/impprof', [CSVController::class, 'impprof']);
+// //EXPORTAR PROFESOR
+Route::get('/expcur', [CSVController::class, 'expcur']);
+// //IMPORTAR PROFESOR
+Route::post('/impcur', [CSVController::class, 'impcur']);
+
+// //EXPORTAR PROFESOR
+Route::get('/expas', [CSVController::class, 'expas']);
+// //IMPORTAR PROFESOR
+Route::post('/impas', [CSVController::class, 'impas']);
 
 Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 

@@ -12,7 +12,7 @@
         <label for="newpass">Nueva contraseña: </label>
         <input type="text" id="newpass" name="newpass" required>
 
-        <button type="submit" class="btndatos">Cambiar</button>
+        <button type="submit" class="btndatos" id="cambiar">Cambiar</button>
     </form>
 
 </div>
