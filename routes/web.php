@@ -292,3 +292,5 @@ Route::post('/impas', [CSVController::class, 'impas']);
 Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 
 Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
+
+Route::post('/desactivar', [AlumnosController::class, 'des']);

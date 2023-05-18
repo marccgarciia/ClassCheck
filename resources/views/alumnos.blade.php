@@ -12,8 +12,7 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <button id="desactivar-seleccionados" type="button" class="btn"
-        onclick="updateAlumnosEstado()">Desactivar</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
     <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
     <div class="importar">
@@ -207,7 +206,7 @@
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
                             tableRows +=
-                                '<td><input type="checkbox" name="seleccionar[]" value="' +
+                                '<td><input type="checkbox" name="seleccionar" value="' +
                                 alumno.id + '"></td>';
 
 
@@ -689,6 +688,37 @@
 
 
         });
+        // ACTIVAR / DESACTIVAR
+        document.getElementById('desactivar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#alumnos-tbody input[name="seleccionar"]:checked');
+        var selectedAlumnos = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'desactivar', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ alumnos: selectedAlumnos }));
+        loadAlumnos();
+        loadCursos();
+    });
 
 
         });
