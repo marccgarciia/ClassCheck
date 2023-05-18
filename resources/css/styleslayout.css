@@ -107,7 +107,6 @@ table tbody tr:last-child td {
 .elementos {
     display: none;
     margin-top: 10px;
-    padding-left: 20px;
 }
 
 
@@ -173,10 +172,11 @@ table tbody tr:last-child td {
 
 
 /* COSAS VARIAS */
-.ca{
+.ca {
     background: var(--color-azuloscuro);
     border-radius: 5px;
     padding: 10px;
+    margin: 3px;
 }
 
 .ca:hover{
@@ -1163,6 +1163,7 @@ textarea:focus {
     border-radius: 20px;
     display: flex;
     align-items: center;
+    overflow: scroll;
     grid-gap: 24px;
 }
 
