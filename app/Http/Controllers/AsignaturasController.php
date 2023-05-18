@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\Asignatura;
 use App\Models\Curso;
 use App\Models\Profesor;
@@ -92,5 +93,16 @@ class AsignaturasController extends Controller
     {
         $profesores = Profesor::all();
         return response()->json($profesores);
+    }
+
+    public function listarFaltas()
+    {
+        $faltas = DB::table('asistencias')
+        ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
+        ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
+        ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso')
+        ->where('asistencias.id_profe_asistencia', '=',auth('profesor')->user()->id)
+        ->get();
+        return response()->json($faltas);
     }
 }

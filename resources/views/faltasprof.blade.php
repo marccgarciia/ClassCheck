@@ -1,3 +1,5 @@
+<script src="{!! asset('../resources/js/faltasProf.js') !!}"></script>
+
 <div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
         <table>
@@ -29,7 +31,9 @@
             center: "title"
         },
         locale: 'es',
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth',
+        firstDay: 1 // 1 representa el lunes
     });
-    calendar.render()
+    calendar.render();
+
 </script>

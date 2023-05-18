@@ -195,7 +195,7 @@ Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('dato
 
 Route::get('/claseprof', [ProfesoresController::class, 'profeClase']);
 
-Route::get('/datos', [ProfesoresController::class, 'datos']);
+Route::get('/datos/{id}', [ProfesoresController::class, 'datos']);
 
 
 
@@ -224,6 +224,9 @@ Route::get('cursosasignaturas', [AsignaturasController::class, 'cursosasignatura
 
 //VER PROFESORES EN ASIGNATURAS
 Route::get('profesoresasignaturas', [AsignaturasController::class, 'profesoresasignaturas']);
+
+Route::get('listarFaltas', [AsignaturasController::class, 'listarFaltas']);
+
 
 
 //-----------------------------------------------------

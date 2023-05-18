@@ -5,12 +5,7 @@
 
 
 <div id="container">
-    <div id="hidden-div">
-        <div id="close-btn" class="disabled"><i class="fa-solid fa-xmark"></i></div>
-        <div id="listaClase" class="airdrop">
-        </div>
-    </div>
-    <div id="handle"></div>
+    
 </div>
 
 
@@ -31,6 +26,14 @@
                 <p>Tienes preparada tu clase, pase la lista</p></button>
                 <div id="qrcode" style="display: none;"></div>
                 <button id="stopQr" class="btnstop btn-primary" style="display: none;"><i class='bx bx-stop-circle'></i></button>
+                `
+                document.getElementById("container").innerHTML = `
+                <div id="hidden-div">
+                    <div id="close-btn" class="disabled"><i class="fa-solid fa-xmark"></i></div>
+                    <div id="listaClase" class="airdrop">
+                    </div>
+                </div>
+                <div id="handle"></div>
                 `
                 let boton = document.getElementById("passList");
                 let botonStop = document.getElementById("stopQr");

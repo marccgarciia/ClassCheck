@@ -19,28 +19,28 @@ function listarCursos() {
         if (cursoIndex === -1) {
           cursos.push({
             nombre: element.curso,
-            elementos: [element.nombre]
+            elementos: [{ nombre: element.nombre, id: element.id }],
           });
         } else {
-          cursos[cursoIndex].elementos.push(element.nombre);
+          cursos[cursoIndex].elementos.push({ nombre: element.nombre, id: element.id });
         }
-      });
+      });      
       for (let i in cursos) {
         let curso = cursos[i];
-        let asignaturas = curso.elementos.map(asignatura => `<a href="./datos"><p>- ${asignatura}</p></a>`).join("");
+        console.log(curso);
+        let asignaturas = curso.elementos.map(asignatura => `<a href="./datos/${asignatura.id}"><p>- ${asignatura.nombre}</p></a>`).join("");
         let cursoHTML = `
-            
-            <li>
-              <i class='bx bx-library'></i>
-              <span class="texto">
-                <h3 class="titulo" id="asignaturasN">${curso.nombre}</h3>
-                <div class="elementos">${asignaturas}</div>
-              </span>
-            </li>
-            
-          `;
+          <li>
+            <i class='bx bx-library'></i>
+            <span class="texto">
+              <h3 class="titulo" id="asignaturasN">${curso.nombre}</h3>
+              <div class="elementos">${asignaturas}</div>
+            </span>
+          </li>
+        `;
         resultado.innerHTML += cursoHTML;
       }
+      
       // Selecciona todos los títulos de contenedor y les añade un controlador de eventos
       document.querySelectorAll(".titulo").forEach((titulo) => {
         titulo.addEventListener("click", (event) => {
@@ -87,7 +87,8 @@ function cargaCurso() {
               if (xhr.readyState === 4 && xhr.status === 200) {
                   // actualiza el contenido del contenedor principal con la respuesta de la solicitud
                   contenedorContenido.innerHTML = xhr.responseText;
-              }
+                  listaClase();
+                }
           };
 
           // envía una solicitud AJAX para obtener el contenido del archivo blade

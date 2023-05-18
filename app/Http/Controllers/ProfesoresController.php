@@ -17,9 +17,70 @@ class ProfesoresController extends Controller
         return view('profesores');
     }
 
-    public function datos()
+    public function datos($id)
     {
-        return view('datos');
+        $idC = Asignatura::select('asignaturas.id_curso')
+        ->where('asignaturas.id', $id)
+        ->get();
+
+        $horasTotales = Asignatura::select(Asignatura::raw('(TIMESTAMPDIFF(WEEK, fecha_inicio, fecha_fin) +
+        CASE WHEN WEEKDAY(fecha_inicio) > WEEKDAY(fecha_fin) THEN 2 ELSE 1 END) * COUNT(asignaturas.id) AS resultado'))
+        ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+        ->join('horarios', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
+        ->where('asignaturas.id', $id)
+        ->groupBy('asignaturas.fecha_fin', 'asignaturas.fecha_inicio') // Incluye 'asignaturas.fecha_fin' en GROUP BY
+        ->get();
+
+        $horasTotales = $horasTotales[0]['resultado'];
+
+        $diasSemana = [
+            'Lunes' => 0,
+            'Martes' => 1,
+            'Miércoles' => 2,
+            'Jueves' => 3,
+            'Viernes' => 4,
+            'Sábado' => 5,
+            'Domingo' => 6
+        ];
+        
+        $dias = Asignatura::join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+        ->join('horarios', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
+        ->where('asignaturas.id', $id)
+        ->pluck('horarios.dia')
+        ->map(function ($dia) use ($diasSemana) {
+            return $diasSemana[$dia];
+        })
+        ->toArray();
+        // dd($dias);
+
+        $fechaIni = Asignatura::where('id', $id)
+        ->selectRaw('WEEKDAY(fecha_inicio) as inicio')
+        ->get();
+
+        $fechaIni = $fechaIni[0]['inicio'];
+
+        $fechaFin = Asignatura::where('id', $id)
+        ->selectRaw('WEEKDAY(fecha_fin) as fin')
+        ->get();
+
+        $fechaFin = $fechaFin[0]['fin'];
+
+        $horasRest = 0;
+        foreach ($dias as $dia) {
+            // Accede a cada resultado individualmente aquí
+            if($dia < $fechaIni){
+                $horasRest++;
+            }
+            if($dia > $fechaFin){
+                $horasRest++;
+            }
+            // dd($dia);
+        }
+
+        $horasTotales = $horasTotales - $horasRest;
+        
+        
+        return view('datos', compact('id','idC','horasTotales'));
     }
     // CONTROLADOR PARA VER FALTAS 
     public function faltasprof()
