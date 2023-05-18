@@ -115,6 +115,7 @@ table tbody tr:last-child td {
 }
 
 
+
 /* MODALES */
 
 /* CURSOS */
@@ -612,7 +613,7 @@ table th:last-child {
 
 
 #form-insert input {
-    width: 30%;
+    width: 80%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -621,17 +622,17 @@ table th:last-child {
 }
 
 #form-insert select {
-    width: 30%;
+    width: 80%;
+    margin: 10px 73.6px 10px 3px;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
     border: 0.5px solid var(--color-texto-input);
-    margin: 10px 3px;
 }
 
 
 #form-edit input {
-    width: 30%;
+    width: 80%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -640,7 +641,8 @@ table th:last-child {
 }
 
 #form-edit select {
-    width: 30%;
+    width: 80%;
+    margin-bottom: 5%;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
@@ -649,7 +651,6 @@ table th:last-child {
 
 
 input {
-    width: 20%;
     border-radius: 10px !important;
 }
 
@@ -1131,7 +1132,137 @@ textarea:focus {
     color: var(--color-blanco);
 }
 
+#modalinsertar{
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
 
+#modaleditar{
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+/*MODALES*/
+
+#asignaturas1 {
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(0, 0, 0, 0.8);
+    transition: all .4s; */
+    backdrop-filter: blur(2px);
+}
+
+.text12{
+    padding-top: 8px;
+    color: #fff;
+    font-size: 20px;
+}
+
+#asignaturas1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn12 {
+    background-color: var(--color-azuloscuro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.modal__content1 {
+    border-radius: 20px;
+    position: relative;
+    width: 275px;
+    height: 300px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+    }
+
+.modal__close1 {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* separador */
+
+#asignaturas2 {
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(0, 0, 0, 0.8);
+    transition: all .4s; */
+    backdrop-filter: blur(2px);
+}
+
+.text13{
+    padding-top: 8px;
+    color: #fff;
+    font-size: 20px;
+}
+
+#asignaturas2:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn13 {
+    background-color: var(--color-azuloscuro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.modal__content2 {
+    border-radius: 20px;
+    position: relative;
+    width: 275px;
+    height: 300px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+    }
+
+.modal__close2 {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
 
 
 /* :::::::::::::::::::::::::: */
@@ -1378,4 +1509,18 @@ textarea:focus {
     button:not(:disabled) {
         width: 100%;
     }
+}
+/* VALIDACIONES */
+
+#form-insert p {
+    color: #c92626;
+}
+@media only screen and (max-width: 600px) {
+    #form-insert {
+        width: 100%;
+    }
+    #form-insert div {
+        width: 100%;
+    }
+
 }

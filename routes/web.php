@@ -31,6 +31,7 @@ Route::get('/countasi', [AsignaturasController::class, 'countasignaturas']);
 //-----------------------------------------------------
 //PROCESAR LOGIN Y CAMBIAR PASSWORD -------------------
 //-----------------------------------------------------
+
 Route::get('/', [AuthController::class, 'verLogin'])->name('verLogin');
 
 Route::post('/login', [AuthController::class, 'login_post'])->name('procesologin');
@@ -278,6 +279,15 @@ Route::post('/impalu', [CSVController::class, 'imp']);
 Route::get('/expprof', [CSVController::class, 'expprof']);
 // //IMPORTAR PROFESOR
 Route::post('/impprof', [CSVController::class, 'impprof']);
+// //EXPORTAR PROFESOR
+Route::get('/expcur', [CSVController::class, 'expcur']);
+// //IMPORTAR PROFESOR
+Route::post('/impcur', [CSVController::class, 'impcur']);
+
+// //EXPORTAR PROFESOR
+Route::get('/expas', [CSVController::class, 'expas']);
+// //IMPORTAR PROFESOR
+Route::post('/impas', [CSVController::class, 'impas']);
 
 Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 

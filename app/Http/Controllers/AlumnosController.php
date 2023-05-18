@@ -124,7 +124,12 @@ class AlumnosController extends Controller
         // }
 
         $alumno->email_padre = $request->email_padre;
-        $alumno->estado = $request->estado;
+        if ($request->estado === "Desactivado") {
+            $estado = false;
+        }elseif ($request->estado === "Activado") {
+            $estado = true;
+        }
+        $alumno->estado = $estado;
         $alumno->id_curso = $request->id_curso;
         $alumno->save();
 
