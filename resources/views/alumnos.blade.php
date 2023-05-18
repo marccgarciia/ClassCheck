@@ -419,51 +419,51 @@
         });
 
         // EXPORTAR
-        // const btnExportar = document.getElementById('btn-exportar');
+        const btnExportar = document.getElementById('btn-exportar');
 
-        // btnExportar.addEventListener('click', () => {
-        //     const xhr = new XMLHttpRequest();
-        //     xhr.open('GET', 'expalu', true);
-        //     xhr.responseType = 'blob';
-        //     xhr.onload = () => {
-        //         if (xhr.status === 200) {
-        //             const a = document.createElement('a');
-        //             a.href = window.URL.createObjectURL(xhr.response);
-        //             a.download = 'alumnos.csv';
-        //             a.click();
-        //         }
-        //     };
-        //     xhr.send();
-        // });
+        btnExportar.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'expalu', true);
+            xhr.responseType = 'blob';
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(xhr.response);
+                    a.download = 'alumnos.csv';
+                    a.click();
+                }
+            };
+            xhr.send();
+        });
 
         // IMPORTAR
         // Obtener el formulario y el elemento donde se mostrarán los resultados
-        // const importForm = document.querySelector('#import-form');
-        // const importResults = document.querySelector('#import-results');
+        const importForm = document.querySelector('#import-form');
+        const importResults = document.querySelector('#import-results');
 
         // // Escuchar el evento "submit" del formulario
-        // importForm.addEventListener('submit', (event) => {
-        //     event.preventDefault(); // Prevenir que el formulario se envíe
+        importForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir que el formulario se envíe
 
         //     // Crear una instancia de FormData para enviar el archivo CSV
-        //     const formData = new FormData(importForm);
+            const formData = new FormData(importForm);
 
         //     // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-        //     const xhr = new XMLHttpRequest();
-        //     xhr.open('POST', 'impalu', true);
-        //     xhr.onreadystatechange = () => {
-        //         if (xhr.readyState === 4) {
-        //             if (xhr.status === 200) {
-        //                 // Mostrar los resultados en el elemento correspondiente
-        //                 importResults.innerHTML = xhr.responseText;
-        //             } else {
-        //                 // Mostrar un mensaje de error en caso de que la petición haya fallado
-        //                 importResults.innerHTML = '<p>Error al importar el archivo.</p>';
-        //             }
-        //         }
-        //     };
-        //     xhr.send(formData);
-        // });
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'impalu', true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Mostrar los resultados en el elemento correspondiente
+                        importResults.innerHTML = xhr.responseText;
+                    } else {
+                        // Mostrar un mensaje de error en caso de que la petición haya fallado
+                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
 
     </script>
 
