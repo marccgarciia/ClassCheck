@@ -11,8 +11,18 @@
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
+    <button id="btn-exportar" class="btn">Exportar CSV</button>
 
+    <div class="importar">
+        <form id="import-form" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="csv-file" required>
+            <button type="submit" class="btn">Importar</button>
+
+        </form>
+    </div>
     <div id="cursos">
+    <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
@@ -35,19 +45,25 @@
 
     <div>
         <button class="btn" onclick="location.href='#asignaturas1'">Insertar</button>
-        {{-- <a href="#asignaturas1"><button class="btn">Insertar</button></a> --}}
         <div id="asignaturas1" class="modal">
-            <div class="modal__content1">
+            <div class="modal__content5">
                 <form action="cursos" method="POST" id="form-insert">
                     <h2 class="text12">Formulario de Insertar</h2>
                     @csrf
+                    <div>
                     <input type="text" name="nombre" placeholder="Nombre">
+                    <p id="nombre"></p>
+                    </div>
+                    <div>
                     <input type="text" name="promocion" placeholder="Promoción">
-
+                    <p id="pr"></p>
+                    </div>
+                    <div>
                     <select id="escuela" name="id_escuela">
                         <option value="">Selecciona un escuela</option>
                     </select>
-
+                    <p id="es"></p>
+                    </div>
                     <button type="submit" class="btn12">Insertar</button>
                 </form>
                 <a href="#" id="cerrar" class="modal__close1">&times;</a>
@@ -59,7 +75,7 @@
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <div id="asignaturas2" class="modal2">
-        <div class="modal__content2">
+        <div class="modal__content6">
             <form action="cursos" method="POST" id="form-edit" style="display:none;">
                 <h2 class="text13">Formulario de Editar</h2>
                 @csrf
@@ -77,120 +93,7 @@
             <a href="#" id="cerrar1" class="modal__close2">&times;</a>
         </div>
         </div>
-        <style>
-            #asignaturas1 {
-                z-index: 999;
-                visibility: hidden;
-                opacity: 0;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                /* background: rgba(0, 0, 0, 0.8);
-                transition: all .4s; */
-                backdrop-filter: blur(2px);
-            }
-    
-            .text12{
-                padding-top: 8px;
-                color: #fff;
-                font-size: 20px;
-            }
-    
-            #asignaturas1:target {
-                visibility: visible;
-                opacity: 1;
-            }
-    
-            .btn12 {
-                background-color: var(--color-azuloscuro);
-                color: var(--color-blanco);
-                border-radius: 5px !important;
-                padding: 3px 10px;
-                text-align: center;
-                margin: 3px;
-            }
-    
-            .modal__content1 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-                }
-    
-            .modal__close1 {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                color: #fff;
-                text-decoration: none;
-                font-size: 20px;
-            }
-    
-            /* separador */
-    
-            #asignaturas2 {
-                z-index: 999;
-                visibility: hidden;
-                opacity: 0;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                /* background: rgba(0, 0, 0, 0.8);
-                transition: all .4s; */
-                backdrop-filter: blur(2px);
-            }
-    
-            .text13{
-                padding-top: 8px;
-                color: #fff;
-                font-size: 20px;
-            }
-    
-            #asignaturas2:target {
-                visibility: visible;
-                opacity: 1;
-            }
-    
-            .btn13 {
-                background-color: var(--color-azuloscuro);
-                color: var(--color-blanco);
-                border-radius: 5px !important;
-                padding: 3px 10px;
-                text-align: center;
-                margin: 3px;
-            }
-    
-            .modal__content2 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-                }
-    
-            .modal__close2 {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                color: #fff;
-                text-decoration: none;
-                font-size: 20px;
-            }
-    
-            </style>
+
     </div>
 
 
@@ -274,10 +177,12 @@
                 });
             }
 
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // Función para cerrar modal 
-
+            //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
+            document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
+            // Obtén el formulario y establece los valores de los campos en vacío
+            var formulario = document.getElementById("form-insert");
+            formulario.reset();
+            });
             
 
 
@@ -398,8 +303,93 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+        // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+        btnExportar.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'expcur', true);
+            xhr.responseType = 'blob';
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(xhr.response);
+                    a.download = 'cursos.csv';
+                    a.click();
+                }
+            };
+            xhr.send();
+        });
+    
+        // IMPORTAR
+        const importForm = document.querySelector('#import-form');
+        const importResults = document.querySelector('#import-results');
+    
 
+        importForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir que el formulario se envíe
+    
+            // Crear una instancia de FormData para enviar el archivo CSV
+            const formData = new FormData(importForm);
+    
+            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'impcur', true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Mostrar los resultados en el elemento correspondiente
+                        importResults.innerHTML = xhr.responseText;
+                    } else {
+                        // Mostrar un mensaje de error en caso de que la petición haya fallado
+                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                    }
+                }
+            };
+            xhr.send(formData);
+            loadCursos();
+            loadEscuelas();
+        });
+        const form = document.querySelector('#form-insert');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
 
+        // Obtener los valores de los campos del formulario
+        const nombre = form.querySelector('input[name="nombre"]').value.trim();
+        const pr = form.querySelector('input[name="promocion"]').value.trim();
+        const escuela = form.querySelector('select[name="id_escuela"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = 'Debes insertar el nombre del curso';
+        }else {
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = '';
+        }
+        if (pr === '') {
+            valid = false;
+            const prElement = document.getElementById('pr');
+            prElement.textContent = 'Debes insertar una promoción válida';
+        }else {
+            const prElement = document.getElementById('pr');
+            prElement.textContent = '';
+        }if (escuela === '') {
+            valid = false;
+            const esElement = document.getElementById('es');
+            esElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const esElement = document.getElementById('es');
+            if (window.innerWidth < 768) {
+                esElement.textContent = '';
+            } else {
+                esElement.textContent = 'ㅤ';
+            }
+        }
+
+        });
 
         });
     </script>

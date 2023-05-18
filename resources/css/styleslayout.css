@@ -110,6 +110,7 @@ html {
 }
 
 
+
 /* MODALES */
 
 /* CURSOS */
@@ -596,11 +597,11 @@ table th:last-child {
 
 #form-insert select {
     width: 80%;
+    margin: 10px 73.6px 10px 3px;
     border-radius: 10px;
     background-color: var(--color-input);
     color: var(--color-texto-input);
     border: 0.5px solid var(--color-texto-input);
-    margin: 10px 3px;
 }
 
 
@@ -1475,4 +1476,35 @@ textarea:focus {
     [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
         width: 100%;
     }
+}
+/* VALIDACIONES */
+
+#form-insert {
+    width: 100%;
+}
+
+form div{
+    display: flex;
+    align-items: center;
+}
+
+.pass2 {
+    width: 33.3%;
+}
+#form-insert input {
+    width: 80%;
+    margin-right: 10%;
+    float: left;
+}
+#form-insert p {
+    color: #c92626;
+}
+@media only screen and (max-width: 600px) {
+    #form-insert {
+        width: 100%;
+    }
+    #form-insert div {
+        width: 100%;
+    }
+
 }
