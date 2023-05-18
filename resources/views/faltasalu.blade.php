@@ -18,7 +18,16 @@
 
 </ul>
 <br>
-<div id='calendar'></div>
+
+<div class="grande">
+    <div class="peque porcentaje">
+        <h1>REDES</h1>
+        <h1 id="por">10%</h1>
+    </div>
+    <div class="peque cal">
+        <div id='calendar'></div>
+    </div>
+</div>
 
 
 <script>
@@ -29,7 +38,8 @@
             center: "title"
         },
         locale: 'es',
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth',
+        firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
 </script>
