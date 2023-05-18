@@ -19,7 +19,8 @@ class ProfesoresController extends Controller
 
     public function datos($id)
     {
-        $idC = Asignatura::select('asignaturas.id_curso')
+        $idC = Asignatura::select('asignaturas.id_curso','asignaturas.nombre as asignatura','cursos.nombre as curso')
+        ->join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
         ->where('asignaturas.id', $id)
         ->get();
 

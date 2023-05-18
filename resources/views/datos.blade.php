@@ -3,7 +3,9 @@
 <p id="asignaturaId" style="display: none;">{{ $id }}</p>
 <p id="horasTotales" style="display: none;">{{ $horasTotales }}</p>
 
-
+    <div class="encabezado">
+    <h1>{{ $idC[0]['asignatura'] }} - {{ $idC[0]['curso'] }}, Sesiones totales de la asignatura: {{ $horasTotales }}</h1>
+    </div>
     <div class="tabla">
         <button class="tablalinks active" onclick="opentabla(event, 'mayo')">Mayo</button>
         <button class="tablalinks" onclick="opentabla(event, 'junio')">Junio</button>
