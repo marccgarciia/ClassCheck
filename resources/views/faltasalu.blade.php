@@ -30,7 +30,6 @@
 </div>
 
 
-
 <script>
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -39,7 +38,8 @@
             center: "title"
         },
         locale: 'es',
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth',
+        firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
 </script>

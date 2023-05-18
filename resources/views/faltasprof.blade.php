@@ -37,5 +37,4 @@
         firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
-
 </script>
