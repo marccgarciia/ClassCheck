@@ -181,9 +181,16 @@ table tbody tr:last-child td {
     cursor: default;
 }
 
+#close-btn:hover{
+    color: var(--color-azuloscuro);
+    transition: 0.2s;
+}
+
 
 
 /* COSAS VARIAS */
+
+
 .fc-view-harness {
     height: 500px !important;
 }
@@ -275,6 +282,7 @@ table tbody tr:last-child td {
     color: var(--color-blanco);
     border-radius: 10px;
     font-size: 20px;
+    overflow: scroll;
 }
 
 .divdatos input {
@@ -1101,17 +1109,7 @@ textarea:focus {
     align-items: center;
 }
 
-#contenido main .box-info li:nth-child(1) .bx {
-    background: var(--color-azuloscuro);
-    color: var(--color-azulmasclaro);
-}
-
-#contenido main .box-info li:nth-child(2) .bx {
-    background: var(--color-azuloscuro);
-    color: var(--color-azulmasclaro);
-}
-
-#contenido main .box-info li:nth-child(3) .bx {
+#contenido main .box-info .bx {
     background: var(--color-azuloscuro);
     color: var(--color-azulmasclaro);
 }
@@ -1289,6 +1287,12 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+
+    #cambiar {
+        margin: 20px 0px 0px 0px;
+    }
+
+
     #contenido main .box-info li .bx {
         width: 140px;
         height: 80px;

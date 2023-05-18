@@ -145,4 +145,7 @@
         ajax.send(formdata);
     }
 
+    closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.cursor = 'default';
+    });
 </script>
