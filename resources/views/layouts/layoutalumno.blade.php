@@ -74,7 +74,7 @@
             <li class="logout">
                 <form action="{{ route('procesologoutalumno') }}" method="POST">
                     @csrf
-                    <button type="submit"><i class='bx bxs-exit'></i></button>
+                    <button type="submit" class="log"><i class='bx bx-log-out'></i></button>
                 </form>
             </li>
         </ul>
