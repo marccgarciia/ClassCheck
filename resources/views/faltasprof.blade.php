@@ -1,4 +1,5 @@
 <script src="{!! asset('../resources/js/faltasProf.js') !!}"></script>
+<link rel="stylesheet" href="{!! asset('../resources/css/stylesfaltasprof.css') !!}">
 
 <div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
@@ -15,10 +16,10 @@
                     <th scope="col">Faltas</th>
                 </tr>
             </thead>
-            
+
             <tbody class="tbody" id="resultado">
-    
-    
+
+
             </tbody>
         </table>
     </div>
