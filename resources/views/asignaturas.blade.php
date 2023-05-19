@@ -83,12 +83,13 @@
                 @method('PUT')
                 <input type="hidden" name="id" id="edit-id">
                 <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                <p id="nombre2"></p>
                 <select id="edit-id_curso" name="id_curso">
-                    <option value="">Selecciona un curso</option>
                 </select>
+                <p id="cur2"></p>
                 <select id="edit-id_profesor" name="id_profesor">
-                    <option value="">Selecciona un profesor</option>
                 </select>
+                <p id="pr2"></p>
                 <button  type="submit" class="btn13">Actualizar</button>
             </form>
             <a href="#" id="cerrar1" class="modal__close2">&times;</a>
@@ -495,11 +496,44 @@
             prElement.textContent = 'Debes insertar un profesor de la lista';
         }else {
             const prElement = document.getElementById('pr');
-            if (window.innerWidth < 768) {
-                prElement.textContent = '';
-            } else {
-                prElement.textContent = 'ㅤ';
-            }
+            prElement.textContent = '';
+        }
+    });
+
+        const formE = document.querySelector('#form-edit');
+    formE.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
+        const id_curso = formE.querySelector('select[name="id_curso"]').value.trim();
+        const pr = formE.querySelector('select[name="id_profesor"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = 'Debes insertar el nombre de la asignatura';
+        }else {
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = '';
+        }
+        if (id_curso === '') {
+            valid = false;
+            const curElement = document.getElementById('cur2');
+            curElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const curElement = document.getElementById('cur2');
+            curElement.textContent = '';
+        }
+        if (pr === '') {
+            valid = false;
+            const prElement = document.getElementById('pr2');
+            prElement.textContent = 'Debes insertar un profesor de la lista';
+        }else {
+            const prElement = document.getElementById('pr2');
+            prElement.textContent = '';
         }
 
             // Enviar el formulario a través de AJAX si todos los campos están completos

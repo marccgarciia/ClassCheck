@@ -294,3 +294,9 @@ Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('r
 Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
 
 Route::post('/desactivar', [AlumnosController::class, 'des']);
+
+Route::post('/activar', [AlumnosController::class, 'act']);
+
+Route::post('/desactivarp', [ProfesoresController::class, 'des']);
+
+Route::post('/activarp', [ProfesoresController::class, 'act']);

@@ -45,7 +45,7 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="profesores-tbody">
             </tbody>
         </table>
     </div>
@@ -91,10 +91,17 @@
                 @method('PUT')
                 <input type="hidden" name="id" id="edit-id">
                 <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                <p id="nombre2"></p>
                 <input type="text" name="apellido" id="edit-apellido" placeholder="Apellido">
+                <p id="ap2"></p>
                 <input type="text" name="email" id="edit-email" placeholder="Correo Electrónico">
+                <p id="em2"></p>
                 {{-- <input type="text" name="password" id="edit-password" placeholder="Contraseña"> --}}
-                <input type="text" name="estado" id="edit-estado" placeholder="Estado">
+                <select id="edit-estado" name="estado">
+                    <option value="Desactivado">Desactivado</option>
+                    <option value="Activado">Activado</option>
+                </select>
+                <p id="es2"></p>
                 <button  type="submit" class="btn13">Actualizar</button>
             </form>
             <a href="#" id="cerrar1" class="modal__close2">&times;</a>
@@ -171,7 +178,8 @@
                             tableRows += '</td>';
                             tableRows += '</tr>';
                         });
-                        $('#profesores tbody').html(tableRows);
+                        // $('#profesores tbody').html(tableRows);
+                        $('#profesores-tbody').html(tableRows);
                     }
                 });
             }
@@ -282,7 +290,11 @@
                     $('#edit-apellido').val(apellido);
                     $('#edit-email').val(email);
                     // $('#edit-password').val(password);
-                    $('#edit-estado').val(estado);
+                    if (estado === false) {
+                        $('#edit-estado').val("Desactivado");
+                    }if (estado === true) {
+                        $('#edit-estado').val("Activado");
+                    }
 
 
                     // mostrar el form de editar
@@ -391,13 +403,6 @@
             valid = false;
             const emailElement = document.getElementById('email');
             emailElement.textContent = 'El formato del correo electrónico no es válido';
-        }else if (nombre === '' || apellido === '') {
-            const emailElement = document.getElementById('email');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
         }else {
             const emailElement = document.getElementById('email');
             emailElement.textContent = '';
@@ -412,8 +417,120 @@
         }
 
         });
+        const formE = document.querySelector('#form-edit');
+    formE.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
+        const apellido = formE.querySelector('input[name="apellido"]').value.trim();
+        const email = formE.querySelector('input[name="email"]').value.trim();
+        const estado = formE.querySelector('select[name="estado"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = 'Debes insertar el nombre del profesor';
+        }else {
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = '';
+        }
+        if (apellido === '') {
+            valid = false;
+            const apElement = document.getElementById('ap2');
+            apElement.textContent = 'Debes insertar el apellido del profesor';
+        }else {
+            const apElement = document.getElementById('ap2');
+            apElement.textContent = '';
+        }
+        if (email === '') {
+            valid = false;
+            const emailElement = document.getElementById('em2');
+            emailElement.textContent = 'Debes insertar un email para el profesor';
+        }else if (!/\S+@\S+\.\S+/.test(email)) {
+            valid = false;
+            const emailElement = document.getElementById('em2');
+            emailElement.textContent = 'El formato del correo electrónico no es válido';
+        }else {
+            const emailElement = document.getElementById('em2');
+            emailElement.textContent = '';
+        }
+        if (estado === 'Activado' || estado === 'Desactivado') {
+            valid = false;
+            const passElement = document.getElementById('es2');
+            passElement.textContent = '';
+        }else{
+            const passElement = document.getElementById('es2');
+            passElement.textContent = 'Debes insertar un estado válido';
+        }
 
         });
+
+                // ACTIVAR / DESACTIVAR
+        document.getElementById('desactivar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#profesores-tbody input[name="seleccionar"]:checked');
+        var selectedProfesores = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'desactivarp', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadAlumnos();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ profesores: selectedProfesores }));
+    });
+    document.getElementById('activar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#profesores-tbody input[name="seleccionar"]:checked');
+        var selectedProfesores = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'activarp', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadAlumnos();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ profesores: selectedProfesores }));
+    });
+
+
+        });
+
     </script>
 </body>
 
