@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -177,27 +179,6 @@
                         //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
                         $.each(data.data, function(i, alumno) {
                             console.log(filtro);
-                            // var nombre = alumno.nombre.toLowerCase();
-                            // var apellido = alumno.apellido.toLowerCase();
-                            // var email = alumno.email.toLowerCase();
-                            // var password = alumno.password.toLowerCase();
-                            // var email_padre = alumno.email_padre.toLowerCase();
-                            // var curso = alumno.curso.nombre.toLowerCase();
-                            // var estado = alumno.estado;
-
-
-                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            // if (filtro && nombre.indexOf(filtro) == -1 &&
-                            //     apellido.indexOf(filtro) == -1 &&
-                            //     email.indexOf(filtro) == -1 &&
-                            //     curso.indexOf(filtro) == -1 &&
-                            //     email_padre.indexOf(filtro) == -1 &&
-                            //     // password.indexOf(filtro) == -1 &&
-
-                            //     estado != filtro) {
-
-                            //     return true; // Continue
-                            // }
 
                             tableRows += '<tr>';
                             tableRows += '<td>' + alumno.nombre + '</td>';
@@ -330,15 +311,6 @@
             formulario.reset();
             });
 
-            //*Sirve para cuando hagas click fuera del modal salga de el *//
-            var modal = document.getElementById('asignaturas1');
-
-            window.addEventListener('click', function (e) {
-                if (e.target == modal) {
-                cerrarModal();
-                }
-            });
-
 
             // $('#buscador').on('keyup', function() {
             //     loadAlumnos();
@@ -379,25 +351,44 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-alumno', function() {
-                var checkId = $(this).data('id');
+            var checkId = $(this).data('id');
 
-                if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                    $.ajax({
-                        url: 'alumnos/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadAlumnos();
-                            actualizarContadores();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
+            // Llamar a SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $.ajax({
+                    url: 'alumnos/' + checkId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: {
+                    '_token': $('input[name=_token]').val()
+                    },
+                    success: function(response) {
+                    loadAlumnos();
+                    actualizarContadores();
+
+                    // Llamar a SweetAlert de éxito después de eliminar
+                    Swal.fire(
+                        'Eliminado',
+                        'El usuario ha sido eliminado',
+                        'success'
+                    );
+                    },
+                    error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    }
+                });
                 }
+            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -566,11 +557,7 @@
             emailElement.textContent = 'El formato del correo electrónico no es válido';
         }else if (nombre === '' || apellido === '') {
             const emailElement = document.getElementById('email');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
+            emailElement.textContent = '';
         }else {
             const emailElement = document.getElementById('email');
             emailElement.textContent = '';
@@ -648,11 +635,7 @@
             emailElement.textContent = 'El formato del correo electrónico no es válido';
         }else if (nombre === '' || apellido === '') {
             const emailElement = document.getElementById('email-p');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
+            emailElement.textContent = '';
         }else {
             const emailElement = document.getElementById('email-p');
             emailElement.textContent = '';

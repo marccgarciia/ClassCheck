@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profesores</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -221,24 +223,43 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-profesor', function() {
-                var checkId = $(this).data('id');
+            var checkId = $(this).data('id');
 
-                if (confirm('¿Estás seguro de que quieres eliminar este profesor?')) {
-                    $.ajax({
-                        url: 'profesores/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadProfesores();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
+            // Llamar a SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $.ajax({
+                    url: 'profesores/' + checkId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: {
+                    '_token': $('input[name=_token]').val()
+                    },
+                    success: function(response) {
+                    loadProfesores();
+
+                    // Llamar a SweetAlert de éxito después de eliminar
+                    Swal.fire(
+                        'Eliminado',
+                        'El profesor ha sido eliminado',
+                        'success'
+                    );
+                    },
+                    error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    }
+                });
                 }
+            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
