@@ -32,17 +32,32 @@ table {
 }
 
 td {
-    border: 1px solid var(--color-azuloscuro);
+    border: 1px solid var(--fc-border-color);
     padding: 10px;
     text-align: center;
     min-width: 100px;
     height: 60px;
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 14px;
+    /* font-weight: bold; */
     font-family: Arial, sans-serif;
 }
+
+
+#horario {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+  
+  #horario tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+  
+  #horario tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
 
 table tbody tr:last-child td {
     border-bottom-left-radius: 0px;

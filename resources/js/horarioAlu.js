@@ -29,7 +29,7 @@ function listarHorario() {
         let encontrado = false;
         box += `
           <tr>
-            <td>${horaInicio.format('HH:mm')} ${horaFin.format('HH:mm')}</td>`;
+            <td>${horaInicio.format('HH:mm')}<br>${horaFin.format('HH:mm')}</td>`;
         for (var i = 0; i < horario.length; i++) {
           var sesion = horario[i];
           if(dia <= 4){
