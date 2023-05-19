@@ -78,7 +78,12 @@
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <div id="asignaturas2" class="modal2">
         <div class="modal__content6">
-            <form action="cursos" method="POST" id="form-edit" style="display:none;">
+            <form action="cursos" method="POST" id="form-edit" style="    display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;">
+
+            
                 <h2 class="text13">Formulario de Editar</h2>
                 @csrf
                 @method('PUT')
