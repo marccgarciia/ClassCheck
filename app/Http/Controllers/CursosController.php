@@ -52,6 +52,18 @@ class CursosController extends Controller
         return response()->json($cursos);
     }
 
+    public function cursoAlu()
+    //->where('profesores.id','=',auth('profesor')->user()->id)
+    {
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso','cursos.id as idC')
+        ->join('profesores','profesores.id','=','asignaturas.id_profesor')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->join('alumnos','alumnos.id_curso','=','cursos.id')
+        ->where('alumnos.id','=',auth('alumno')->user()->id)
+        ->get();
+        return response()->json($cursos);
+    }
+
     public function cursosprofe()
     //->where('profesores.id','=',auth('profesor')->user()->id)
     {

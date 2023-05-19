@@ -151,7 +151,10 @@ Route::get('/cursosload', [CursosController::class, 'indexcursosload']);
 
 Route::get('/cursosfiltro', [CursosController::class, 'cursosfiltro']);
 
-Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
+Route::get('/getCurso_profe', [CursosController::class, 'cursosprofe']);
+
+Route::get('/getCurso_alu', [CursosController::class, 'cursoAlu']);
+
 
 //INSERTAR
 Route::post('/cursos', [CursosController::class, 'storecursos']);
