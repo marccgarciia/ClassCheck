@@ -64,9 +64,15 @@ table tbody tr:last-child td {
     border-bottom-right-radius: 10px;
 }
 
+.modal p {
+    color: var(--rojo);
+}
+
+.modal2 p {
+    color: var(--rojo);
+}
 
 
-  
 
 .btnNolista p {
     font-size: 40px;
@@ -183,6 +189,23 @@ table tbody tr:last-child td {
 .ca:hover {
     background: var(--color-negro);
 }
+
+.lialu {
+    width: 33.33% !important;
+}
+
+.co {
+    background: var(--color-azuloscuro);
+    width: 100%;
+    height: 90px;
+    padding: 20px 10px;
+    border-radius: 5px;
+}
+
+.co:hover {
+    background: var(--color-negro);
+}
+
 
 
 .fc-direction-ltr .fc-toolbar>*>:not(:first-child) {
@@ -505,6 +528,8 @@ table tbody tr:last-child td {
     padding: 0 10px;
     width: 58%;
 }
+
+
 
 .main h2 {
     color: #333;
@@ -1201,6 +1226,8 @@ textarea:focus {
 
 #contenido main .box-info li .texto p {
     color: var(--color-blanco);
+    display: flex;
+    align-items: center;
 }
 
 #modalinsertar {
@@ -1260,14 +1287,6 @@ textarea:focus {
     margin: 3px;
 }
 
-.modal__content1 {
-    border-radius: 20px;
-    position: relative;
-    width: 275px;
-    height: 300px;
-    background: #2B4D6D;
-    padding: 1em 2em;
-}
 
 .modal__close1 {
     position: absolute;
@@ -1379,6 +1398,10 @@ textarea:focus {
     .porcentaje {
         width: 100%;
     }
+
+    .lialu {
+        width: 50% !important;
+    }
 }
 
 @media screen and (max-width: 860px) {
@@ -1386,6 +1409,7 @@ textarea:focus {
         width: 450px;
         height: 500px;
     }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -1499,6 +1523,10 @@ textarea:focus {
     .edit-curso,
     .edit-asignatura {
         width: 100%;
+    }
+
+    .lialu {
+        width: 100% !important;
     }
 }
 

@@ -8,7 +8,6 @@
 </div>
 
 @section('contenido')
-
 @endsection
 <div id="resultadoexcel">
 

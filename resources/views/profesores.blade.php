@@ -15,6 +15,7 @@
     <button id="btn-exportar" class="btn">Exportar CSV</button>
     <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
     <button id="activar-seleccionados" type="button" class="btn">Activar</button>
+    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
 
 
     <div class="importar">
@@ -53,9 +54,8 @@
     <div>
 
 
-        <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
-            <div class="modal__content1">
+            <div class="modal__content7">
                 <form action="asignaturas" method="POST" id="form-insert"
                     style="display: flex; align-items: center;justify-content: center;flex-direction: column;">
 
@@ -87,8 +87,12 @@
         <div>
             <!-- Agregar un nuevo formulario para la edición de usuarios -->
             <div id="asignaturas2" class="modal2">
-                <div class="modal__content2">
-                    <form action="asignaturas" method="POST" id="form-edit" style="display:block;">
+                <div class="modal__content8">
+                    <form action="asignaturas" method="POST" id="form-edit"
+                        style="display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;">
                         <h2 class="text13">Formulario de Editar</h2>
                         @csrf
                         @method('PUT')

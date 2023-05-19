@@ -12,6 +12,7 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
 
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
@@ -22,7 +23,7 @@
         </form>
     </div>
     <div id="asignaturas">
-    <div id="import-results"></div>
+        <div id="import-results"></div>
         {{-- Filtro para filtrar por cursos --}}
         {{-- <select id="select-filtro">
             <option value="">Filtrar por curso</option>
@@ -45,56 +46,56 @@
     <ul id="pagination" class="pagination"></ul>
 
     <div>
-        <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
-        <div class="modal__content3">
-            <form action="asignaturas" method="POST" id="form-insert">
-                <h2 class="text12">Formulario de Insertar</h2>
-                @csrf
-                <div class="nombre">
-                <input type="text" name="nombre" placeholder="Nombre">
-                <p id="nombre"></p>
-                </div>
-                <div class="cur">
-                <select id="curso" name="id_curso">
-                    <option value="">Selecciona un curso</option>
-                </select>
-                <p id="cur"></p>
-                </div>
-                <div class="pr">
-                <select id="profesor" name="id_profesor">
-                    <option value="">Selecciona un profesor</option>
-                </select>
-                <p id="pr"></p>
-                </div>
-                <button type="submit" class="btn12">Insertar</button>
-            </form>
-            <a href="#" id="cerrar" class="modal__close1">&times;</a>
-        </div>
+            <div class="modal__content3">
+                <form action="asignaturas" method="POST" id="form-insert">
+                    <h2 class="text12">Formulario de Insertar</h2>
+                    @csrf
+                    <div class="nombre">
+                        <input type="text" name="nombre" placeholder="Nombre">
+                        <p id="nombre"></p>
+                    </div>
+                    <div class="cur">
+                        <select id="curso" name="id_curso">
+                            <option value="">Selecciona un curso</option>
+                        </select>
+                        <p id="cur"></p>
+                    </div>
+                    <div class="pr">
+                        <select id="profesor" name="id_profesor">
+                            <option value="">Selecciona un profesor</option>
+                        </select>
+                        <p id="pr"></p>
+                    </div>
+                    <button type="submit" class="btn12">Insertar</button>
+                </form>
+                <a href="#" id="cerrar" class="modal__close1">&times;</a>
+            </div>
         </div>
     </div>
 
     <div>
         <div id="asignaturas2" class="modal2">
-        <div class="modal__content4">
-            <form action="asignaturas" method="POST" id="form-edit" style="display:block;">
-                <h2 class="text13">Formulario de Editar</h2>
-                @csrf   
-                @method('PUT')
-                <input type="hidden" name="id" id="edit-id">
-                <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-                <select id="edit-id_curso" name="id_curso">
-                    <option value="">Selecciona un curso</option>
-                </select>
-                <select id="edit-id_profesor" name="id_profesor">
-                    <option value="">Selecciona un profesor</option>
-                </select>
-                <button  type="submit" class="btn13">Actualizar</button>
-            </form>
-            <a href="#" id="cerrar1" class="modal__close2">&times;</a>
+            <div class="modal__content4">
+                <form action="asignaturas" method="POST" id="form-edit"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h2 class="text13">Formulario de Editar</h2>
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="edit-id">
+                    <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                    <select id="edit-id_curso" name="id_curso">
+                        <option value="">Selecciona un curso</option>
+                    </select>
+                    <select id="edit-id_profesor" name="id_profesor">
+                        <option value="">Selecciona un profesor</option>
+                    </select>
+                    <button type="submit" class="btn13">Actualizar</button>
+                </form>
+                <a href="#" id="cerrar1" class="modal__close2">&times;</a>
+            </div>
         </div>
-        </div>
-    </div> 
+    </div>
 
 
 
@@ -102,7 +103,7 @@
         $(document).ready(function() {
             // BUSCADOR, DESCOEMNTAR CUANDO YA ESTÁ TODO ESTRUCTURADO
             buscador.addEventListener("keyup", () => {
-            let filtro = buscador.value;
+                let filtro = buscador.value;
                 if (!filtro) {
                     loadAsignaturas('')
                 } else {
@@ -161,7 +162,8 @@
                             tableRows += '<td>' + asignatura.profesor.nombre + " " + asignatura
                                 .profesor.apellido + '</td>';
                             tableRows += '<td>';
-                            tableRows += '<a href="#asignaturas2"><button class="edit-asignatura" data-id="' +
+                            tableRows +=
+                                '<a href="#asignaturas2"><button class="edit-asignatura" data-id="' +
                                 asignatura.id +
                                 '" data-nombre="' + asignatura.nombre +
                                 '" data-id_curso="' + asignatura.id_curso +
@@ -195,7 +197,8 @@
 
                 // Agrega botones numéricos para todas las páginas disponibles
                 for (var i = 1; i <= lastPage; i++) {
-                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' +
+                        i + '</a></li>';
                 }
 
                 // Actualiza el contenido de la lista desordenada con los botones numéricos
@@ -209,7 +212,7 @@
                     if (!filtro) {
                         loadAsignaturas('');
                     } else {
-                         loadAsignaturas(filtro);
+                        loadAsignaturas(filtro);
                     }
                 });
 
@@ -217,13 +220,13 @@
                 prevBtn.click(function(event) {
                     event.preventDefault();
                     if (currentPage > 1) {
-                    currentPage--;
-                    let filtro = buscador.value;
-                    if (!filtro) {
-                        loadAsignaturas('');
-                    } else {
-                        loadAsignaturas(filtro);
-                    }
+                        currentPage--;
+                        let filtro = buscador.value;
+                        if (!filtro) {
+                            loadAsignaturas('');
+                        } else {
+                            loadAsignaturas(filtro);
+                        }
                     }
                 });
 
@@ -231,13 +234,13 @@
                 nextBtn.click(function(event) {
                     event.preventDefault();
                     if (currentPage < lastPage) {
-                    currentPage++;
-                    let filtro = buscador.value;
-                    if (!filtro) {
-                        loadAsignaturas('');
-                    } else {
-                        loadAsignaturas(filtro);
-                    }
+                        currentPage++;
+                        let filtro = buscador.value;
+                        if (!filtro) {
+                            loadAsignaturas('');
+                        } else {
+                            loadAsignaturas(filtro);
+                        }
                     }
                 });
             }
@@ -287,9 +290,9 @@
 
             //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
             document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
-            // Obtén el formulario y establece los valores de los campos en vacío
-            var formulario = document.getElementById("form-insert");
-            formulario.reset();
+                // Obtén el formulario y establece los valores de los campos en vacío
+                var formulario = document.getElementById("form-insert");
+                formulario.reset();
             });
 
 
@@ -414,97 +417,97 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-        // EXPORTAR
-        const btnExportar = document.getElementById('btn-exportar');
-    
-        btnExportar.addEventListener('click', () => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'expas', true);
-            xhr.responseType = 'blob';
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const a = document.createElement('a');
-                    a.href = window.URL.createObjectURL(xhr.response);
-                    a.download = 'asignaturas.csv';
-                    a.click();
-                }
-            };
-            xhr.send();
-        });
-    
-        // IMPORTAR
-        const importForm = document.querySelector('#import-form');
-        const importResults = document.querySelector('#import-results');
-    
+            // EXPORTAR
+            const btnExportar = document.getElementById('btn-exportar');
 
-        importForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevenir que el formulario se envíe
-    
-            // Crear una instancia de FormData para enviar el archivo CSV
-            const formData = new FormData(importForm);
-    
-            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'impas', true);
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
+            btnExportar.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'expas', true);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
                     if (xhr.status === 200) {
-                        // Mostrar los resultados en el elemento correspondiente
-                        importResults.innerHTML = xhr.responseText;
+                        const a = document.createElement('a');
+                        a.href = window.URL.createObjectURL(xhr.response);
+                        a.download = 'asignaturas.csv';
+                        a.click();
+                    }
+                };
+                xhr.send();
+            });
+
+            // IMPORTAR
+            const importForm = document.querySelector('#import-form');
+            const importResults = document.querySelector('#import-results');
+
+
+            importForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevenir que el formulario se envíe
+
+                // Crear una instancia de FormData para enviar el archivo CSV
+                const formData = new FormData(importForm);
+
+                // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'impas', true);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Mostrar los resultados en el elemento correspondiente
+                            importResults.innerHTML = xhr.responseText;
+                        } else {
+                            // Mostrar un mensaje de error en caso de que la petición haya fallado
+                            importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                        }
+                    }
+                };
+                xhr.send(formData);
+                loadAsignaturas();
+                loadCursos();
+                loadProfesores();
+            });
+            const form = document.querySelector('#form-insert');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // cancelar envío normal del formulario
+
+                // Obtener los valores de los campos del formulario
+                const nombre = form.querySelector('input[name="nombre"]').value.trim();
+                const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
+                const pr = form.querySelector('select[name="id_profesor"]').value.trim();
+
+                // Validar que los campos no estén vacíos
+                let valid = true;
+                if (nombre === '') {
+                    valid = false;
+                    const nomElement = document.getElementById('nombre');
+                    nomElement.textContent = 'Debes insertar el nombre de la asignatura';
+                } else {
+                    const nomElement = document.getElementById('nombre');
+                    nomElement.textContent = '';
+                }
+                if (id_curso === '') {
+                    valid = false;
+                    const curElement = document.getElementById('cur');
+                    curElement.textContent = 'Debes insertar un curso de la lista';
+                } else {
+                    const curElement = document.getElementById('cur');
+                    curElement.textContent = '';
+                }
+                if (pr === '') {
+                    valid = false;
+                    const prElement = document.getElementById('pr');
+                    prElement.textContent = 'Debes insertar un profesor de la lista';
+                } else {
+                    const prElement = document.getElementById('pr');
+                    if (window.innerWidth < 768) {
+                        prElement.textContent = '';
                     } else {
-                        // Mostrar un mensaje de error en caso de que la petición haya fallado
-                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
+                        prElement.textContent = 'ㅤ';
                     }
                 }
-            };
-            xhr.send(formData);
-            loadAsignaturas();
-            loadCursos();
-            loadProfesores();
-        });
-        const form = document.querySelector('#form-insert');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // cancelar envío normal del formulario
 
-        // Obtener los valores de los campos del formulario
-        const nombre = form.querySelector('input[name="nombre"]').value.trim();
-        const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
-        const pr = form.querySelector('select[name="id_profesor"]').value.trim();
+                // Enviar el formulario a través de AJAX si todos los campos están completos
 
-        // Validar que los campos no estén vacíos
-        let valid = true;
-        if (nombre === '') {
-            valid = false;
-            const nomElement = document.getElementById('nombre');
-            nomElement.textContent = 'Debes insertar el nombre de la asignatura';
-        }else {
-            const nomElement = document.getElementById('nombre');
-            nomElement.textContent = '';
-        }
-        if (id_curso === '') {
-            valid = false;
-            const curElement = document.getElementById('cur');
-            curElement.textContent = 'Debes insertar un curso de la lista';
-        }else {
-            const curElement = document.getElementById('cur');
-            curElement.textContent = '';
-        }
-        if (pr === '') {
-            valid = false;
-            const prElement = document.getElementById('pr');
-            prElement.textContent = 'Debes insertar un profesor de la lista';
-        }else {
-            const prElement = document.getElementById('pr');
-            if (window.innerWidth < 768) {
-                prElement.textContent = '';
-            } else {
-                prElement.textContent = 'ㅤ';
-            }
-        }
-
-            // Enviar el formulario a través de AJAX si todos los campos están completos
-
-        });
+            });
 
         });
     </script>

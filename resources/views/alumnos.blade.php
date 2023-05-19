@@ -15,6 +15,7 @@
     <button id="desactivar-seleccionados" type="button" class="btn"
         onclick="updateAlumnosEstado()">Desactivar</button>
     <button id="activar-seleccionados" type="button" class="btn">Activar</button>
+    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
 
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
@@ -53,7 +54,6 @@
     <ul id="pagination" class="pagination"></ul>
 
     <div>
-        <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
             <div class="modal__content1">
                 <form action="asignaturas" method="POST" id="form-insert" style="display:block;">
