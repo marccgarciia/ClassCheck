@@ -245,59 +245,14 @@
             }
 
             //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
-            document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
-                // Obtén el formulario y establece los valores de los campos en vacío
-                var formulario = document.getElementById("form-insert");
-                formulario.reset();
-            });
-
-
-
-
-
-            // Agrega un evento keyup al input del buscador
-            // $('#buscador').on('keyup', function() {
-            //     var searchTerm = $(this).val().toLowerCase(); // Obtiene el término de búsqueda y lo convierte en minúsculas
-
-            //     // Hace una llamada AJAX para obtener los resultados filtrados
-            //     $.ajax({
-            //         url: 'cursosfiltro',
-            //         type: 'GET',
-            //         dataType: 'json',
-            //         data: {
-            //             search: searchTerm // Envía el término de búsqueda al servidor
-            //         },
-            //         success: function(data) {
-            //             var tableRows = '';
-            //             for (let i = 0; i < data.data.length; i++) {
-            //                 const curso = data.data[i];
-            //                 console.log(curso);
-            //                 tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
-            //                 tableRows += '<button class="edit-curso" data-id="' + curso.id +
-            //                             '" data-nombre="' + curso.nombre +
-            //                             '" data-promocion="' + curso.promocion +
-            //                             '" data-id_escuela="' + curso.id_escuela +
-            //                             '">Editar</button>';
-            //                 tableRows += '<button class="delete-curso" data-id="' + curso.id +
-            //                             '">Eliminar</button>';
-            //                 tableRows += '</td>';
-            //                 tableRows += '</tr>';
-
-            //             }
-            //             $('#cursos-tbody').html(tableRows); // Actualiza la tabla con los datos filtrados
-            //             currentPage = data.current_page; // Actualiza el número de página actual
-            //             lastPage = data.last_page; // Actualiza el número de la última página
-            //             console.log("PAGINACION BUSCADOR")
-            //             console.log(currentPage);
-            //             console.log(lastPage);
-            //             console.log("-------");
-            //             // Actualiza los controles de paginación
-            //             updatePagination();
-
-
-            //         }
-            //     });
+            // document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
+            //     // Obtén el formulario y establece los valores de los campos en vacío
+            //     var formulario = document.getElementById("form-insert");
+            //     formulario.reset();
             // });
+
+
+
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
