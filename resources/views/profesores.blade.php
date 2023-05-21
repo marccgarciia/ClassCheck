@@ -52,7 +52,8 @@
             </tbody>
         </table>
     </div>
-
+    {{-- !!!!! PAGINACIÓN UL NO TOCAR --}}
+    <ul id="pagination" class="pagination"></ul>
     <div>
 
 
@@ -112,12 +113,93 @@
 
 
         </div>
+    <script>
+        $(document).ready(function() {
 
-        <script>
-            $(document).ready(function() {
+            buscador.addEventListener("keyup", () => {
+            let filtro = buscador.value;
+                if (!filtro) {
+                    loadProfesores('')
+                } else {
+                    loadProfesores(filtro);
+                }
+            })
 
-                // Cargar usuarios al cargar la página con AJAX/JQUERY
-                loadProfesores();
+            // // Variables globales para mantener el estado de la paginación
+            var currentPage = 1;
+            var lastPage = 1;
+
+
+            // Cargar usuarios al cargar la página con AJAX/JQUERY
+            loadProfesores();
+
+            function updatePagination() {
+                var prevBtn = $('#pagination-prev');
+                var nextBtn = $('#pagination-next');
+                var pageButtons = '';
+                currentPage = 1;
+
+                // Agrega botones numéricos para todas las páginas disponibles
+                for (var i = 1; i <= lastPage; i++) {
+                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                }
+
+                // Actualiza el contenido de la lista desordenada con los botones numéricos
+                $('#pagination').html(pageButtons);
+
+                // Control de eventos para los botones numéricos
+                $('.page-link').click(function(event) {
+                    event.preventDefault();
+                    currentPage = $(this).data('page');
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                    loadProfesores('');
+                    } else {
+                    loadProfesores(filtro);
+                    }
+                });
+
+                // Control de eventos para el botón de página anterior
+                prevBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage > 1) {
+                    currentPage--;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadProfesores('');
+                    } else {
+                        loadProfesores(filtro);
+                    }
+                    }
+                });
+
+                // Control de eventos para el botón de página siguiente
+                nextBtn.click(function(event) {
+                    event.preventDefault();
+                    if (currentPage < lastPage) {
+                    currentPage++;
+                    let filtro = buscador.value;
+                    if (!filtro) {
+                        loadProfesores('');
+                    } else {
+                        loadProfesores(filtro);
+                    }
+                    }
+                });
+            }
+
+            //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
+            document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
+            // Obtén el formulario y establece los valores de los campos en vacío
+            var formulario = document.getElementById("form-insert");
+            formulario.reset();
+            });
+
+
+
+            // $('#buscador').on('keyup', function() {
+            //     loadProfesores();
+            // });
 
                 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
                 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

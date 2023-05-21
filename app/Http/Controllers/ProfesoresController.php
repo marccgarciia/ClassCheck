@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Profesor;
 use App\Models\Asignatura;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -104,11 +106,22 @@ class ProfesoresController extends Controller
         return view('pasarlista');
     }
     // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexprofesores()
+    public function indexprofesores(Request $request)
     {
-        $profesores = Profesor::all();
+        $filtro = $request->query('filtro');
+
+        if (empty($filtro)) {
+            $profesores = Profesor::paginate(5);
+        } else {
+            $profesores = Profesor::where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('apellido', 'like', '%' . $filtro . '%')
+                ->orWhere('email', 'like', '%' . $filtro . '%')
+                ->paginate(5);
+        }
+
         return response()->json($profesores);
     }
+
 
     public function indexprofesoresload()
     {

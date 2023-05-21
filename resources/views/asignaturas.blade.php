@@ -44,7 +44,7 @@
             </tbody>
         </table>
     </div>
-
+    {{-- !!!!! PAGINACIÓN UL NO TOCAR --}}
     <ul id="pagination" class="pagination"></ul>
 
     <div>
@@ -180,6 +180,7 @@
                 var prevBtn = $('#pagination-prev');
                 var nextBtn = $('#pagination-next');
                 var pageButtons = '';
+                currentPage = 1;
 
                 // Agrega botones numéricos para todas las páginas disponibles
                 for (var i = 1; i <= lastPage; i++) {

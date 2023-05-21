@@ -25,13 +25,16 @@ class CursosController extends Controller
     {
         $filtro = $request->query('filtro');
         if(empty($filtro)){
-            $cursos = Curso::with('escuela')->paginate(2);
+            $cursos = Curso::with('escuela')->paginate(5);
         } else {
             $cursos = Curso::with('escuela')
                 ->where('nombre', 'like', '%' . $filtro . '%')
                 ->orWhere('promocion', 'like', '%' . $filtro . '%')
+                ->orWhereHas('escuela', function($query) use ($filtro) {
+                    $query->where('nombre', 'like', '%' . $filtro . '%');
+                })    
                 ->orderBy('id', 'desc')
-                ->paginate(2);
+                ->paginate(5);
         }
         return response()->json($cursos);
     }

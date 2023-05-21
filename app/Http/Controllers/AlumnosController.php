@@ -44,7 +44,7 @@ class AlumnosController extends Controller
     {
         $filtro = $request->query('filtro');
         if(empty($filtro)){
-            $alumnos = Alumno::with('curso')->paginate(10);
+            $alumnos = Alumno::with('curso')->paginate(5);
 
         } else {
             $alumnos = Alumno::with('curso')
@@ -55,7 +55,7 @@ class AlumnosController extends Controller
                 ->orWhereHas('curso', function($query) use ($filtro) {
                     $query->where('nombre', 'like', '%' . $filtro . '%');
                 })    
-                ->paginate(10);
+                ->paginate(5);
         }
         return response()->json($alumnos);
         // OLD, RECUPERAR SI NO SIRVE MI CODIGO Y QUITAR LOS REQUEST
