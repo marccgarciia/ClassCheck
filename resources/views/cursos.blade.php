@@ -14,7 +14,6 @@
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <button class="btn" onclick="location.href='#asignaturas1'">Insertar</button>
 
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
@@ -43,26 +42,27 @@
     </div>
 
     <ul id="pagination" class="pagination"></ul>
-
+ 
     <div>
+        <button class="btn" onclick="location.href='#asignaturas1'">Insertar</button>
         <div id="asignaturas1" class="modal">
             <div class="modal__content5">
                 <form action="cursos" method="POST" id="form-insert">
                     <h2 class="text12">Formulario de Insertar</h2>
                     @csrf
                     <div>
-                        <input type="text" name="nombre" placeholder="Nombre">
-                        <p id="nombre"></p>
+                    <input type="text" name="nombre" placeholder="Nombre">
+                    <p id="nombre"></p>
                     </div>
                     <div>
-                        <input type="text" name="promocion" placeholder="Promoción">
-                        <p id="pr"></p>
+                    <input type="text" name="promocion" placeholder="Promoción">
+                    <p id="pr"></p>
                     </div>
                     <div>
-                        <select id="escuela" name="id_escuela">
-                            <option value="">Selecciona un escuela</option>
-                        </select>
-                        <p id="es"></p>
+                    <select id="escuela" name="id_escuela">
+                        <option value="">Selecciona un escuela</option>
+                    </select>
+                    <p id="es"></p>
                     </div>
                     <button type="submit" class="btn12">Insertar</button>
                 </form>
@@ -75,29 +75,23 @@
     <div>
         <!-- Agregar un nuevo formulario para la edición de usuarios -->
         <div id="asignaturas2" class="modal2">
-            <div class="modal__content6">
-                <form action="cursos" method="POST" id="form-edit"
-                    style="    display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;">
+        <div class="modal__content6">
+            <form action="cursos" method="POST" id="form-edit" style="display:block;">
+                <h2 class="text13">Formulario de Editar</h2>
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="edit-id">
+                <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                <input type="text" name="promocion" id="edit-promocion" placeholder="Promoción">
 
+                <select id="edit-id_escuela" name="id_escuela">
+                    <option value="">Selecciona un escuela</option>
+                </select>
 
-                    <h2 class="text13">Formulario de Editar</h2>
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id" id="edit-id">
-                    <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-                    <input type="text" name="promocion" id="edit-promocion" placeholder="Promoción">
-
-                    <select id="edit-id_escuela" name="id_escuela">
-                        <option value="">Selecciona un escuela</option>
-                    </select>
-
-                    <button type="submit" class="btn13">Actualizar</button>
-                </form>
-                <a href="#" id="cerrar1" class="modal__close2">&times;</a>
-            </div>
+                <button type="submit" class="btn13">Actualizar</button>
+            </form>
+            <a href="#" id="cerrar1" class="modal__close2">&times;</a>
+        </div>
         </div>
 
     </div>
@@ -179,9 +173,9 @@
                 tableRows += '</td>';
                 tableRows += '</tr>';
 
-                            // ... Código para crear las filas de la tabla ...
-                        });
-                        $('#cursos-tbody').html(tableRows);
+                // ... Código para crear las filas de la tabla ...
+            });
+            $('#cursos-tbody').html(tableRows);
 
             currentPage = data.current_page; // Actualiza el número de página actual
             lastPage = data.last_page; // Actualiza el número de la última página
@@ -247,79 +241,65 @@
                 pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
             }
 
+            // Actualiza el contenido de la lista desordenada con los botones numéricos
+            $('#pagination').html(pageButtons);
 
-            function updatePagination() {
-                var prevBtn = $('#pagination-prev');
-                var nextBtn = $('#pagination-next');
-                var pageButtons = '';
-
-                // Agrega botones numéricos para todas las páginas disponibles
-                for (var i = 1; i <= lastPage; i++) {
-                    pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' +
-                        i + '</a></li>';
-                }
-
-                // Actualiza el contenido de la lista desordenada con los botones numéricos
-                $('#pagination').html(pageButtons);
-
-                // Control de eventos para los botones numéricos
-                $('.page-link').click(function(event) {
-                    event.preventDefault();
-                    currentPage = $(this).data('page');
-                    let filtro = buscador.value;
-                    if (!filtro) {
-                        loadCursos('');
-                    } else {
-                        loadCursos(filtro);
-                    }
-                });
-
-                // Control de eventos para el botón de página anterior
-                prevBtn.click(function(event) {
-                    event.preventDefault();
-                    if (currentPage > 1) {
-                        currentPage--;
-                        let filtro = buscador.value;
-                        if (!filtro) {
-                            loadCursos('');
-                        } else {
-                            loadCursos(filtro);
-                        }
-                    }
-                });
-
-                // Control de eventos para el botón de página siguiente
-                nextBtn.click(function(event) {
-                    event.preventDefault();
-                    if (currentPage < lastPage) {
-                        currentPage++;
-                        let filtro = buscador.value;
-                        if (!filtro) {
-                            loadCursos('');
-                        } else {
-                            loadCursos(filtro);
-                        }
-                    }
-                });
-            }
-            //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
-            // document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
-            //     // Obtén el formulario y establece los valores de los campos en vacío
-            //     var formulario = document.getElementById("form-insert");
-            //     formulario.reset();
-            // });
-
-            $(document).ready(function() {
-
-            buscador.addEventListener("keyup", () => {
+            // Control de eventos para los botones numéricos
+            $('.page-link').click(function(event) {
+                event.preventDefault();
+                currentPage = $(this).data('page');
                 let filtro = buscador.value;
-                    if (!filtro) {
-                        loadCursos('')
-                    } else {
-                        loadCursos(filtro);
-                    }
-                })
+                if (!filtro) {
+                loadCursos('');
+                } else {
+                loadCursos(filtro);
+                }
+            });
 
+            // Control de eventos para el botón de página anterior
+            prevBtn.click(function(event) {
+                event.preventDefault();
+                if (currentPage > 1) {
+                currentPage--;
+                let filtro = buscador.value;
+                if (!filtro) {
+                    loadCursos('');
+                } else {
+                    loadCursos(filtro);
+                }
+                }
+            });
+
+            // Control de eventos para el botón de página siguiente
+            nextBtn.click(function(event) {
+                event.preventDefault();
+                if (currentPage < lastPage) {
+                currentPage++;
+                let filtro = buscador.value;
+                if (!filtro) {
+                    loadCursos('');
+                } else {
+                    loadCursos(filtro);
+                }
+                }
+            });
+        }
+        $(document).ready(function() {
+
+        buscador.addEventListener("keyup", () => {
+            let filtro = buscador.value;
+                if (!filtro) {
+                    loadCursos('')
+                } else {
+                    loadCursos(filtro);
+                }
+            })
+
+
+
+            // $('#buscador').on('keyup', function() {
+            //     loadCursos();
+            // });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -391,94 +371,93 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-            // EXPORTAR
-            const btnExportar = document.getElementById('btn-exportar');
+        // EXPORTAR
+        const btnExportar = document.getElementById('btn-exportar');
+    
+        btnExportar.addEventListener('click', () => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'expcur', true);
+            xhr.responseType = 'blob';
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(xhr.response);
+                    a.download = 'cursos.csv';
+                    a.click();
+                }
+            };
+            xhr.send();
+        });
+    
+        // IMPORTAR
+        const importForm = document.querySelector('#import-form');
+        const importResults = document.querySelector('#import-results');
+    
 
-            btnExportar.addEventListener('click', () => {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', 'expcur', true);
-                xhr.responseType = 'blob';
-                xhr.onload = () => {
+        importForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir que el formulario se envíe
+    
+            // Crear una instancia de FormData para enviar el archivo CSV
+            const formData = new FormData(importForm);
+    
+            // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'impcur', true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        const a = document.createElement('a');
-                        a.href = window.URL.createObjectURL(xhr.response);
-                        a.download = 'cursos.csv';
-                        a.click();
-                    }
-                };
-                xhr.send();
-            });
-
-            // IMPORTAR
-            const importForm = document.querySelector('#import-form');
-            const importResults = document.querySelector('#import-results');
-
-
-            importForm.addEventListener('submit', (event) => {
-                event.preventDefault(); // Prevenir que el formulario se envíe
-
-                // Crear una instancia de FormData para enviar el archivo CSV
-                const formData = new FormData(importForm);
-
-                // Crear una instancia de XMLHttpRequest para enviar el formulario mediante AJAX
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'impcur', true);
-                xhr.onreadystatechange = () => {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            // Mostrar los resultados en el elemento correspondiente
-                            importResults.innerHTML = xhr.responseText;
-                        } else {
-                            // Mostrar un mensaje de error en caso de que la petición haya fallado
-                            importResults.innerHTML = '<p>Error al importar el archivo.</p>';
-                        }
-                    }
-                };
-                xhr.send(formData);
-                loadCursos();
-                loadEscuelas();
-            });
-            const form = document.querySelector('#form-insert');
-            form.addEventListener('submit', (e) => {
-                e.preventDefault(); // cancelar envío normal del formulario
-
-                // Obtener los valores de los campos del formulario
-                const nombre = form.querySelector('input[name="nombre"]').value.trim();
-                const pr = form.querySelector('input[name="promocion"]').value.trim();
-                const escuela = form.querySelector('select[name="id_escuela"]').value.trim();
-
-                // Validar que los campos no estén vacíos
-                let valid = true;
-                if (nombre === '') {
-                    valid = false;
-                    const nomElement = document.getElementById('nombre');
-                    nomElement.textContent = 'Debes insertar el nombre del curso';
-                } else {
-                    const nomElement = document.getElementById('nombre');
-                    nomElement.textContent = '';
-                }
-                if (pr === '') {
-                    valid = false;
-                    const prElement = document.getElementById('pr');
-                    prElement.textContent = 'Debes insertar una promoción válida';
-                } else {
-                    const prElement = document.getElementById('pr');
-                    prElement.textContent = '';
-                }
-                if (escuela === '') {
-                    valid = false;
-                    const esElement = document.getElementById('es');
-                    esElement.textContent = 'Debes insertar un curso de la lista';
-                } else {
-                    const esElement = document.getElementById('es');
-                    if (window.innerWidth < 768) {
-                        esElement.textContent = '';
+                        // Mostrar los resultados en el elemento correspondiente
+                        importResults.innerHTML = xhr.responseText;
                     } else {
-                        esElement.textContent = 'ㅤ';
+                        // Mostrar un mensaje de error en caso de que la petición haya fallado
+                        importResults.innerHTML = '<p>Error al importar el archivo.</p>';
                     }
                 }
+            };
+            xhr.send(formData);
+            loadCursos();
+            loadEscuelas();
+        });
+        const form = document.querySelector('#form-insert');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
 
-            });
+        // Obtener los valores de los campos del formulario
+        const nombre = form.querySelector('input[name="nombre"]').value.trim();
+        const pr = form.querySelector('input[name="promocion"]').value.trim();
+        const escuela = form.querySelector('select[name="id_escuela"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = 'Debes insertar el nombre del curso';
+        }else {
+            const nomElement = document.getElementById('nombre');
+            nomElement.textContent = '';
+        }
+        if (pr === '') {
+            valid = false;
+            const prElement = document.getElementById('pr');
+            prElement.textContent = 'Debes insertar una promoción válida';
+        }else {
+            const prElement = document.getElementById('pr');
+            prElement.textContent = '';
+        }if (escuela === '') {
+            valid = false;
+            const esElement = document.getElementById('es');
+            esElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const esElement = document.getElementById('es');
+            if (window.innerWidth < 768) {
+                esElement.textContent = '';
+            } else {
+                esElement.textContent = 'ㅤ';
+            }
+        }
+
+        });
 
         });
     </script>
