@@ -170,4 +170,45 @@ class AlumnosController extends Controller
                 'count' => $count
         ]);
     }
+    public function des(Request $request)
+    {
+        $alumnos = $request->input('alumnos');
+        $alumnosJson = [];
+
+        foreach ($alumnos as $indice => $alumno) {
+            $alumnosJson[] = ['id' => $alumno];
+            $usuario = Alumno::where('id', $alumno)
+            ->Where('estado', 1)
+            ->first();
+
+            if ($usuario) {
+                $usuario->estado = 0;
+                $usuario->save();
+                // Actualizar el campo 'estado' del usuario
+            }
+        }
+        
+        echo json_encode($alumnosJson);
+        
+    }
+    public function act(Request $request)
+    {
+        $alumnos = $request->input('alumnos');
+        $alumnosJson = [];
+
+        foreach ($alumnos as $indice => $alumno) {
+            $alumnosJson[] = ['id' => $alumno];
+            $usuario = Alumno::where('id', $alumno)
+            ->Where('estado', 0)
+            ->first();
+
+            if ($usuario) {
+                $usuario->estado = 1;
+                $usuario->save();
+                // Actualizar el campo 'estado' del usuario
+            }
+        }
+        echo json_encode($alumnosJson);
+        
+    }
 }

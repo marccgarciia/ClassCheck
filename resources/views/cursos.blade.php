@@ -82,12 +82,13 @@
                 @method('PUT')
                 <input type="hidden" name="id" id="edit-id">
                 <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
+                <p id="nombre2"></p>
                 <input type="text" name="promocion" id="edit-promocion" placeholder="Promoción">
-
+                <p id="pr2"></p>
                 <select id="edit-id_escuela" name="id_escuela">
-                    <option value="">Selecciona un escuela</option>
-                </select>
 
+                </select>
+                <p id="es2"></p>
                 <button type="submit" class="btn13">Actualizar</button>
             </form>
             <a href="#" id="cerrar1" class="modal__close2">&times;</a>
@@ -450,14 +451,47 @@
             esElement.textContent = 'Debes insertar un curso de la lista';
         }else {
             const esElement = document.getElementById('es');
-            if (window.innerWidth < 768) {
-                esElement.textContent = '';
-            } else {
-                esElement.textContent = 'ㅤ';
-            }
+            esElement.textContent = '';
         }
 
         });
+        const formE = document.querySelector('#form-edit');
+    formE.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
+        const pr = formE.querySelector('input[name="promocion"]').value.trim();
+        const escuela = formE.querySelector('select[name="id_escuela"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = 'Debes insertar el nombre del curso';
+        }else {
+            const nomElement = document.getElementById('nombre2');
+            nomElement.textContent = '';
+        }
+        if (pr === '') {
+            valid = false;
+            const prElement = document.getElementById('pr2');
+            prElement.textContent = 'Debes insertar una promoción válida';
+        }else {
+            const prElement = document.getElementById('pr2');
+            prElement.textContent = '';
+        }if (escuela === '') {
+            valid = false;
+            const esElement = document.getElementById('es2');
+            esElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const esElement = document.getElementById('es2');
+            esElement.textContent = '';
+        }
+
+        });
+
 
         });
     </script>
