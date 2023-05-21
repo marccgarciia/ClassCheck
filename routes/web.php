@@ -245,6 +245,9 @@ Route::get('profesoresasignaturas', [AsignaturasController::class, 'profesoresas
 
 Route::get('listarFaltas', [AsignaturasController::class, 'listarFaltas']);
 
+Route::get('getFaltas_Alu/{id}', [AsignaturasController::class, 'getFaltas_Alu']);
+
+
 
 
 //-----------------------------------------------------

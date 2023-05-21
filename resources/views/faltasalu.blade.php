@@ -6,6 +6,7 @@
 
 <div class="grande">
     <div class="peque porcentaje">
+        <p id="asignaturaAlu" style="font-size: 18px;"></p>
         <h1>% de</h1>
         <h1 id="por">Faltas</h1>
     </div>

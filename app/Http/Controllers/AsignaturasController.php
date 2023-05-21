@@ -134,4 +134,17 @@ class AsignaturasController extends Controller
                 'count' => $count
         ]);
     }
+
+    public function getFaltas_Alu($id){
+        $faltas = DB::table('asistencias')
+        ->select('asistencias.*', 'asignaturas.id as asignatura', 'asignaturas.nombre as asNombre', 'horarios.hora_inicio', 'horarios.hora_fin')
+        ->join('horario_asignaturas', 'horario_asignaturas.id', '=', 'asistencias.id_horarioasignatura_asistencia')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
+        ->where('asistencias.id_alumno_asistencia', '=', auth('alumno')->user()->id)
+        ->where('asignaturas.id', '=', $id)
+        ->get();
+    
+        return response()->json($faltas);
+    }
 }
