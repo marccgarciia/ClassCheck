@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursos</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -23,11 +25,7 @@
         </form>
     </div>
     <div id="cursos">
-        <div id="import-results"></div>
-        {{-- Filtro para filtrar por cursos --}}
-        {{-- <select id="select-filtro">
-            <option value="">Filtrar por curso</option>
-        </select> --}}
+    <div id="import-results"></div>
 
         <table class="table">
             <thead>
@@ -107,65 +105,146 @@
 
 
     <script>
-        $(document).ready(function() {
+        loadEscuelas();
+        loadCursos();
+        // // Variables globales para mantener el estado de la paginación
+        var currentPage = 1;
+        var lastPage = 1;
 
-            buscador.addEventListener("keyup", () => {
-                let filtro = buscador.value;
-                if (!filtro) {
-                    loadCursos('')
-                } else {
-                    loadCursos(filtro);
-                }
-            })
-            // // Variables globales para mantener el estado de la paginación
-            var currentPage = 1;
-            var lastPage = 1;
-
-            // Cargar cursos al cargar la página con AJAX/JQUERY
-            loadEscuelas();
-            loadCursos();
-
-            function loadCursos(filtro) {
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // FUNCIÓN PARA CARGAR CURSOS
+            function loadEscuelas() {
+                // Obtener los cursos y agregar opciones al desplegable
                 $.ajax({
-                    url: 'cursos',
+                    url: 'escuelas',
                     type: 'GET',
                     dataType: 'json',
-                    data: {
-                        page: currentPage,
-                        filtro: filtro
-                    }, // Envía el número de página actual al servidor
                     success: function(data) {
-                        var tableRows = '';
-                        console.log(data);
-                        $.each(data.data, function(i, curso) { // Accede a los datos de la página actual
-                            tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso
-                                .promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
-                            tableRows +=
-                                '<a href="#asignaturas2"><button class="edit-curso" data-id="' +
-                                curso.id +
-                                '" data-nombre="' + curso.nombre +
-                                '" data-promocion="' + curso.promocion +
-                                '" data-id_escuela="' + curso.id_escuela +
-                                '">Editar</button></a>';
-                            tableRows += '<button class="delete-curso" data-id="' + curso.id +
-                                '">Eliminar</button>';
-                            tableRows += '</td>';
-                            tableRows += '</tr>';
+                        var options = '<option value="">Selecciona una escuela</option>';
+                        $.each(data, function(i, escuela) {
+                            options += '<option value="' + escuela.id + '">' + escuela.nombre +
+                                '</option>';
+                        });
+                        $('#escuela, #edit-id_escuela, #select-filtro').html(options);
+                    }
+                });
+            }
+
+        function editCurso(id, nombre, promocion, id_escuela) {
+            // // set the form values
+            $('#edit-id').val(id);
+            $('#edit-nombre').val(nombre);
+            $('#edit-promocion').val(promocion);
+            $('#edit-id_escuela').val(id_escuela);
+            // // mostrar el form de editar
+            $('#form-edit').show();
+        }
+
+        // FUNCION QUE AL CLICAR RECOGE LOS DATOS ENVIADOS Y ACTIVA LA FUNCION DE ARRIBA PARA ENVIAR LOS DATOS AL SERVIDOR
+        $('body').on('click', '.edit-curso', function() {
+                    var id = $(this).data('id');
+                    var nombre = $(this).data('nombre');
+                    var promocion = $(this).data('promocion');
+                    var id_escuela = $(this).data('id_escuela');
+
+                    // // llama a la funcion editUser 
+                    editCurso(id, nombre, promocion, id_escuela);
+        });
+
+        function loadCursos(filtro) {
+        $.ajax({
+            url: 'cursos',
+            type: 'GET',
+            dataType: 'json',
+            data: { 
+                page: currentPage,
+                filtro: filtro
+            }, // Envía el número de página actual al servidor
+            success: function(data) {
+            var tableRows = '';
+            console.log(data);
+            $.each(data.data, function(i, curso) { // Accede a los datos de la página actual
+                tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
+                    tableRows += '<a href="#asignaturas2"><button class="edit-curso" data-id="' + 
+                        curso.id +
+                        '" data-nombre="' + curso.nombre +
+                        '" data-promocion="' + curso.promocion +
+                        '" data-id_escuela="' + curso.id_escuela +
+
+                        '">Editar</button></a>';
+
+                tableRows += '<button onclick="eliminarCurso('+ curso.id +')" class="delete-curso" data-id="' + curso.id +
+                            '">Eliminar</button>';
+                tableRows += '</td>';
+                tableRows += '</tr>';
 
                             // ... Código para crear las filas de la tabla ...
                         });
                         $('#cursos-tbody').html(tableRows);
 
-                        currentPage = data.current_page; // Actualiza el número de página actual
-                        lastPage = data.last_page; // Actualiza el número de la última página
-                        console.log("PAGINACION LOAD CURSOS")
-                        console.log(currentPage);
-                        console.log(lastPage);
-                        console.log("-------");
-                        // Actualiza los controles de paginación
-                        updatePagination();
-                    }
-                });
+            currentPage = data.current_page; // Actualiza el número de página actual
+            lastPage = data.last_page; // Actualiza el número de la última página
+            console.log("PAGINACION LOAD CURSOS")
+            console.log(currentPage);
+             console.log(lastPage);
+            console.log("-------");
+            // Actualiza los controles de paginación
+            updatePagination();
+            }
+        });
+        }
+        
+        function eliminarCurso(id) {
+        // Llamar a SweetAlert de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            var checkId = id;
+
+            $.ajax({
+                url: 'cursos/' + checkId,
+                type: 'DELETE',
+                dataType: 'json',
+                data: {
+                '_token': $('input[name=_token]').val()
+                },
+                success: function(response) {
+                loadCursos();
+                actualizarContadores();
+                
+                // Llamar a SweetAlert de éxito después de eliminar
+                Swal.fire(
+                    'Eliminado',
+                    'El curso ha sido eliminado',
+                    'success'
+                );
+                },
+                error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                }
+            });
+            }
+        });
+        };
+
+            
+            function updatePagination() {
+            var prevBtn = $('#pagination-prev');
+            var nextBtn = $('#pagination-next');
+            var pageButtons = '';
+
+            // Agrega botones numéricos para todas las páginas disponibles
+            for (var i = 1; i <= lastPage; i++) {
+                pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
             }
 
 
@@ -223,27 +302,6 @@
                     }
                 });
             }
-
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // FUNCIÓN PARA CARGAR CURSOS
-            function loadEscuelas() {
-                // Obtener los cursos y agregar opciones al desplegable
-                $.ajax({
-                    url: 'escuelas',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        var options = '<option value="">Selecciona una escuela</option>';
-                        $.each(data, function(i, escuela) {
-                            options += '<option value="' + escuela.id + '">' + escuela.nombre +
-                                '</option>';
-                        });
-                        $('#escuela, #edit-id_escuela, #select-filtro').html(options);
-                    }
-                });
-            }
-
             //*Sirve para vaciar la informacion del modal cada vez que haces click en el boton *//
             // document.querySelector('a[href="#asignaturas1"]').addEventListener('click', function(event) {
             //     // Obtén el formulario y establece los valores de los campos en vacío
@@ -251,7 +309,16 @@
             //     formulario.reset();
             // });
 
+            $(document).ready(function() {
 
+            buscador.addEventListener("keyup", () => {
+                let filtro = buscador.value;
+                    if (!filtro) {
+                        loadCursos('')
+                    } else {
+                        loadCursos(filtro);
+                    }
+                })
 
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -285,27 +352,7 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
-            $('body').on('click', '.delete-curso', function() {
-                var checkId = $(this).data('id');
-
-                if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
-                    $.ajax({
-                        url: 'cursos/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadCursos();
-                            actualizarContadores();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                }
-            });
+            
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -317,7 +364,7 @@
                     var formData = $(this).serialize();
                     var id = $('#edit-id').val();
                     $.ajax({
-                        url: 'cursos/' + id,
+                        url: 'cursos/' + id,    
                         type: 'PUT',
                         dataType: 'json',
                         data: formData,
@@ -337,30 +384,7 @@
                             console.log(xhr.responseText);
                         }
                     });
-                });
-
-                function editCurso(id, nombre, promocion, id_escuela) {
-                    // set the form values
-                    $('#edit-id').val(id);
-                    $('#edit-nombre').val(nombre);
-                    $('#edit-promocion').val(promocion);
-                    $('#edit-id_escuela').val(id_escuela);
-
-
-                    // mostrar el form de editar
-                    $('#form-edit').show();
-                }
-
-                // FUNCION QUE AL CLICAR RECOGE LOS DATOS ENVIADOS Y ACTIVA LA FUNCION DE ARRIBA PARA ENVIAR LOS DATOS AL SERVIDOR
-                $('body').on('click', '.edit-curso', function() {
-                    var id = $(this).data('id');
-                    var nombre = $(this).data('nombre');
-                    var promocion = $(this).data('promocion');
-                    var id_escuela = $(this).data('id_escuela');
-
-                    // llama a la funcion editUser 
-                    editCurso(id, nombre, promocion, id_escuela);
-                });
+                }); 
             });
 
 

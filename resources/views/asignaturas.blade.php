@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignaturas</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -138,24 +140,8 @@
                         filtro: filtro
                     },
                     success: function(data) {
-                        var tableRows = '';
-                        // BUSCADOR MARC COMENTADO
-                        // var searchString = $('#buscador').val()
-                        //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
-                        $.each(data.data, function(i, asignatura) {
-                            // var nombre = asignatura.nombre.toLowerCase();
-                            // var curso = asignatura.curso.nombre.toLowerCase();
-                            // var profesor = asignatura.profesor.nombre.toLowerCase();
-
-
-                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            // if (searchString && nombre.indexOf(searchString) == -1 &&
-                            //     curso.indexOf(searchString) == -1 &&
-                            //     profesor.indexOf(searchString) == -1) {
-
-                            //     return true; // Continue
-                            // }
-                            // console.log(asignatura)
+                    var tableRows = '';
+                    $.each(data.data, function(i, asignatura) {
                             tableRows += '<tr>';
                             tableRows += '<td>' + asignatura.nombre + '</td>';
                             tableRows += '<td>' + asignatura.curso.nombre + '</td>';
@@ -334,26 +320,44 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-asignatura', function() {
-                var checkId = $(this).data('id');
+            var checkId = $(this).data('id');
 
-                if (confirm('¿Estás seguro de que quieres eliminar esta asignatura?')) {
-                    $.ajax({
-                        url: 'asignaturas/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadAsignaturas();
-                            actualizarContadores();
+            // Llamar a SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $.ajax({
+                    url: 'asignaturas/' + checkId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: {
+                    '_token': $('input[name=_token]').val()
+                    },
+                    success: function(response) {
+                    loadAsignaturas();
+                    actualizarContadores();
 
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
+                    // Llamar a SweetAlert de éxito después de eliminar
+                    Swal.fire(
+                        'Eliminada',
+                        'La asignatura ha sido eliminada',
+                        'success'
+                    );
+                    },
+                    error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    }
+                });
                 }
+            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

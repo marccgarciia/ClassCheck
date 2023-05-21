@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -180,27 +182,6 @@
                         //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
                         $.each(data.data, function(i, alumno) {
                             console.log(filtro);
-                            // var nombre = alumno.nombre.toLowerCase();
-                            // var apellido = alumno.apellido.toLowerCase();
-                            // var email = alumno.email.toLowerCase();
-                            // var password = alumno.password.toLowerCase();
-                            // var email_padre = alumno.email_padre.toLowerCase();
-                            // var curso = alumno.curso.nombre.toLowerCase();
-                            // var estado = alumno.estado;
-
-
-                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            // if (filtro && nombre.indexOf(filtro) == -1 &&
-                            //     apellido.indexOf(filtro) == -1 &&
-                            //     email.indexOf(filtro) == -1 &&
-                            //     curso.indexOf(filtro) == -1 &&
-                            //     email_padre.indexOf(filtro) == -1 &&
-                            //     // password.indexOf(filtro) == -1 &&
-
-                            //     estado != filtro) {
-
-                            //     return true; // Continue
-                            // }
 
                             tableRows += '<tr>';
                             tableRows += '<td>' + alumno.nombre + '</td>';
@@ -335,17 +316,6 @@
                 var formulario = document.getElementById("form-insert");
                 formulario.reset();
             });
-
-            //*Sirve para cuando hagas click fuera del modal salga de el *//
-            var modal = document.getElementById('asignaturas1');
-
-            window.addEventListener('click', function(e) {
-                if (e.target == modal) {
-                    cerrarModal();
-                }
-            });
-
-
             // $('#buscador').on('keyup', function() {
             //     loadAlumnos();
             // });
@@ -385,25 +355,44 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-alumno', function() {
-                var checkId = $(this).data('id');
+            var checkId = $(this).data('id');
 
-                if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                    $.ajax({
-                        url: 'alumnos/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadAlumnos();
-                            actualizarContadores();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
+            // Llamar a SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $.ajax({
+                    url: 'alumnos/' + checkId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: {
+                    '_token': $('input[name=_token]').val()
+                    },
+                    success: function(response) {
+                    loadAlumnos();
+                    actualizarContadores();
+
+                    // Llamar a SweetAlert de éxito después de eliminar
+                    Swal.fire(
+                        'Eliminado',
+                        'El usuario ha sido eliminado',
+                        'success'
+                    );
+                    },
+                    error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    }
+                });
                 }
+            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -610,6 +599,164 @@
                     const curElement = document.getElementById('id_curso');
                     curElement.textContent = '';
                 }
+            };
+            xhr.send(formData);
+            loadAlumnos();
+            loadCursos();
+        });
+
+    const form = document.querySelector('#form-insert');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = form.querySelector('input[name="nombre"]').value.trim();
+        const apellido = form.querySelector('input[name="apellido"]').value.trim();
+        const email = form.querySelector('input[name="email"]').value.trim();
+        const password = form.querySelector('input[name="password"]').value.trim();
+        const email_padre = form.querySelector('input[name="email_padre"]').value.trim();
+        const id_curso = form.querySelector('select[name="id_curso"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nom');
+            nomElement.textContent = 'Debes insertar el nombre del alumno';
+        }else {
+            const nomElement = document.getElementById('nom');
+            nomElement.textContent = '';
+        }
+        if (apellido === '') {
+            valid = false;
+            const apElement = document.getElementById('ap');
+            apElement.textContent = 'Debes insertar el apellido del alumno';
+        }else {
+            const apElement = document.getElementById('ap');
+            apElement.textContent = '';
+        }
+        if (email === '') {
+            valid = false;
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = 'Debes insertar un email para el alumno';
+        }else if (!/\S+@\S+\.\S+/.test(email)) {
+            valid = false;
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = 'El formato del correo electrónico no es válido';
+        }else if (nombre === '' || apellido === '') {
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = '';
+        }else {
+            const emailElement = document.getElementById('email');
+            emailElement.textContent = '';
+        }
+        if (password === '') {
+            valid = false;
+            const passElement = document.getElementById('pass');
+            passElement.textContent = 'Debes insertar una contraseña';
+        }else {
+            const passElement = document.getElementById('pass');
+            passElement.textContent = '';
+        }
+        if (email_padre === '') {
+            valid = false;
+            const padElement = document.getElementById('email_p');
+            padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
+        }else if (!/\S+@\S+\.\S+/.test(email_padre)) {
+            valid = false;
+            const padElement = document.getElementById('email_p');
+            padElement.textContent = 'El formato del correo electrónico no es válido';
+        }
+        else {
+            const padElement = document.getElementById('email_p');
+            padElement.textContent = '';
+        }
+        if (id_curso === '') {
+            valid = false;
+            const curElement = document.getElementById('id_curso');
+            curElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const curElement = document.getElementById('id_curso');
+            curElement.textContent = '';
+        }
+
+            
+        });
+
+        const formE = document.querySelector('#form-edit');
+    formE.addEventListener('submit', (e) => {
+        e.preventDefault(); // cancelar envío normal del formulario
+
+        // Obtener los valores de los campos del formulario
+        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
+        const apellido = formE.querySelector('input[name="apellido"]').value.trim();
+        const email = formE.querySelector('input[name="email"]').value.trim();
+        const email_padre = formE.querySelector('input[name="email_padre"]').value.trim();
+        const estado = formE.querySelector('select[name="estado"]').value.trim();
+        const id_curso = formE.querySelector('select[name="id_curso"]').value.trim();
+
+        // Validar que los campos no estén vacíos
+        let valid = true;
+        if (nombre === '') {
+            valid = false;
+            const nomElement = document.getElementById('nom-p');
+            nomElement.textContent = 'Debes insertar el nombre del alumno';
+        }else {
+            const nomElement = document.getElementById('nom-p');
+            nomElement.textContent = '';
+        }
+        if (apellido === '') {
+            valid = false;
+            const apElement = document.getElementById('ap-p');
+            apElement.textContent = 'Debes insertar el apellido del alumno';
+        }else {
+            const apElement = document.getElementById('ap-p');
+            apElement.textContent = '';
+        }
+        if (email === '') {
+            valid = false;
+            const emailElement = document.getElementById('email-p');
+            emailElement.textContent = 'Debes insertar un email para el alumno';
+        }else if (!/\S+@\S+\.\S+/.test(email)) {
+            valid = false;
+            const emailElement = document.getElementById('email-p');
+            emailElement.textContent = 'El formato del correo electrónico no es válido';
+        }else if (nombre === '' || apellido === '') {
+            const emailElement = document.getElementById('email-p');
+            emailElement.textContent = '';
+        }else {
+            const emailElement = document.getElementById('email-p');
+            emailElement.textContent = '';
+        }
+        if (estado === '') {
+            valid = false;
+            const esElement = document.getElementById('es-p');
+            esElement.textContent = 'Debes insertar una contraseña';
+        }else {
+            const esElement = document.getElementById('es-p');
+            esElement.textContent = '';
+        }
+        if (email_padre === '') {
+            valid = false;
+            const padElement = document.getElementById('email_p-p');
+            padElement.textContent = 'Debes insertar el email del padre/madre o tutor legal';
+        }else if (!/\S+@\S+\.\S+/.test(email_padre)) {
+            valid = false;
+            const padElement = document.getElementById('email_p-p');
+            padElement.textContent = 'El formato del correo electrónico no es válido';
+        }
+        else {
+            const padElement = document.getElementById('email_p-p');
+            padElement.textContent = '';
+        }
+        if (id_curso === '') {
+            valid = false;
+            const curElement = document.getElementById('id_curso-p');
+            curElement.textContent = 'Debes insertar un curso de la lista';
+        }else {
+            const curElement = document.getElementById('id_curso-p');
+            curElement.textContent = '';
+        }
 
 
             });
