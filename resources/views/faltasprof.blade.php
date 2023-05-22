@@ -3,8 +3,9 @@
 <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
 <h1> Curso <h1>
 <input type="text" name="buscadorCurso" id="buscadorCurso" placeholder="Buscador...">
-{{-- <input type="text" name="buscadorAsignatura" id="buscadorAsignatura" placeholder="Buscador...">
-<input type="text" name="buscadorClase" id="buscadorClase" placeholder="Buscador..."> --}}
+<h1> Asignatura <h1>
+ <input type="text" name="buscadorAsignatura" id="buscadorAsignatura" placeholder="Buscador...">
+{{-- <input type="text" name="buscadorClase" id="buscadorClase" placeholder="Buscador..."> --}} 
 <ul id="pagination" class="pagination"></ul>
 <link rel="stylesheet" href="{!! asset('../resources/css/stylesfaltasprof.css') !!}">
 
@@ -48,25 +49,48 @@
 var currentPage = 1;
 var lastPage = 1;
 
-buscador.addEventListener("keyup", () => {
-    let filtro = buscador.value;
-    if (!filtro) {
-        listarFaltas('')
-    } else {
-        listarFaltas(filtro);
-    }
-})
+document.getElementById('buscador').addEventListener("keyup", () => {
+        let filtroNombre = document.getElementById('buscador').value;
+        let filtroCurso = document.getElementById('buscadorCurso').value;
+        let filtroAsignatura = document.getElementById('buscadorAsignatura').value;
+
+        listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+    });
+
+    document.getElementById('buscadorCurso').addEventListener("keyup", () => {
+        let filtroNombre = document.getElementById('buscador').value;
+        let filtroCurso = document.getElementById('buscadorCurso').value;
+        let filtroAsignatura = document.getElementById('buscadorAsignatura').value;
+
+        listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+    });
+
+    document.getElementById('buscadorAsignatura').addEventListener("keyup", () => {
+        let filtroNombre = document.getElementById('buscador').value;
+        let filtroCurso = document.getElementById('buscadorCurso').value;
+        let filtroAsignatura = document.getElementById('buscadorAsignatura').value;
+
+        listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+    });
 listarFaltas();
 
 
-function listarFaltas(filtro) {
+function listarFaltas(filtroNombre, filtroCurso, filtroAsignatura) {
+     // Eliminar todos los eventos existentes en el calendario
+    // Al filtrar o cambiar de página, se eliminan todos los eventos del calendario
+    calendar.getEvents().forEach(function(event) {
+        event.remove();
+    });
+
     $.ajax({
         url: "listarFaltas",
         type: "GET",
         dataType: "json",
         data: {
             page: currentPage,
-            filtro: filtro
+            filtroNombre: filtroNombre,
+            filtroCurso: filtroCurso,
+            filtroAsignatura: filtroAsignatura
         },
         success: function(data) {
             console.log(data);
@@ -95,7 +119,7 @@ function listarFaltas(filtro) {
             $('#resultado').html(tableRows);
             currentPage = data.current_page; // Actualiza el número de página actual
             lastPage = data.last_page; // Actualiza el número de la última página
-            console.log("PAGINACION LOAD ASIGNATURAS")
+            console.log("PAGINACION LOAD FALTAS")
             console.log(currentPage);
             console.log(lastPage);
             console.log("-------");
@@ -107,6 +131,78 @@ function listarFaltas(filtro) {
         }
     });
 }
+
+function updatePagination() {
+    var prevBtn = $('#pagination-prev');
+    var nextBtn = $('#pagination-next');
+    var pageButtons = '';
+    currentPage = 1;
+    console.log(currentPage);
+    console.log(buscador.value);
+
+    // Agrega botones numéricos para todas las páginas disponibles
+    for (var i = 1; i <= lastPage; i++) {
+        pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+    }
+
+    // Actualiza el contenido de la lista desordenada con los botones numéricos
+    $('#pagination').html(pageButtons);
+
+    // Control de eventos para los botones numéricos
+    $('.page-link').click(function(event) {
+        event.preventDefault();
+        currentPage = $(this).data('page');
+        // listarFaltas();
+        let filtroNombre = buscador.value;
+        let filtroCurso = buscadorCurso.value;
+        let filtroAsignatura = buscadorAsignatura.value;
+        if (!filtroNombre && !filtroCurso && !filtroAsignatura) {
+            listarFaltas('');
+            console.log("0 filtro pag");
+        } else {
+            listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+            console.log("Filtro con pag OK");
+        }
+    });
+
+    // Control de eventos para el botón de página anterior
+    prevBtn.click(function(event) {
+        event.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            let filtroNombre = buscador.value;
+            let filtroCurso = buscadorCurso.value;
+            let filtroAsignatura = buscadorAsignatura.value;
+            if (!filtroNombre && !filtroCurso && !filtroAsignatura) {
+                listarFaltas('');
+                console.log("0 filtro pag");
+            } else {
+                listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+                console.log("Filtro con pag OK");
+            }
+        }
+    });
+
+    // Control de eventos para el botón de página siguiente
+    nextBtn.click(function(event) {
+        event.preventDefault();
+        if (currentPage < lastPage) {
+            currentPage++;
+            // listarFaltas();
+            let filtroNombre = buscador.value;
+            let filtroCurso = buscadorCurso.value;
+            let filtroAsignatura = buscadorAsignatura.value;
+            if (!filtroNombre && !filtroCurso && !filtroAsignatura) {
+                listarFaltas('');
+                console.log("0 filtro pag");
+            } else {
+                listarFaltas(filtroNombre, filtroCurso, filtroAsignatura);
+                console.log("Filtro con pag OK");
+            }
+        }
+    });
+}
+
 
 
 
