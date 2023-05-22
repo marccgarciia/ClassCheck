@@ -32,9 +32,11 @@ body {
 }
 
 :root {
-    --color-negro: #000;
+    --color-negro: #142c44;
     --color-azuloscuro: #142c44;
     --color-azulclaro: #2b4d6d;
+    --color-azulmedio: #41698e;
+    --color-blancotabla: #000000;
     --color-azulmasclaro: #85b7e5;
     --color-gris: #eee;
     --color-blanco: #ffff;
@@ -52,12 +54,16 @@ body.dark {
     --color-texto: #FBFBFB;
     --color-input: #2b4d6d;
     --color-texto-input: #85b7e5;
+    --color-blancotabla: #ffffff;
 }
 
 /* Estilo para las filas de la tabla */
+tr {
+    color: var(--color-blancotabla);
+}
 
 tr:hover {
-    background-color: var(--color-azulclaro);
+    background-color: var(--color-azulmedio);
     /* Cambia el color de fondo al pasar el ratón por encima */
     color: var(--color-blanco);
 }
