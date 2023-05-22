@@ -1,38 +1,59 @@
-listarFaltas()
+function updatePagination() {
+    var prevBtn = $('#pagination-prev');
+    var nextBtn = $('#pagination-next');
+    var pageButtons = '';
+    currentPage = 1;
+    console.log(currentPage);
 
-function listarFaltas(){
-    let lista = document.getElementById("resultado");
-    const ajax = new XMLHttpRequest();
-
-    ajax.open('GET', 'listarFaltas');
-    ajax.onload = () => {
-        if (ajax.status == 200) {
-            // console.log(ajax.responseText);
-            respuesta = JSON.parse(ajax.responseText);
-            console.log(respuesta);
-            respuesta.forEach(function (falta) {
-                let tipo = "";
-                if(falta.id_tipo_asistencia == 2){
-                    tipo = 'Falta';
-                }else if(falta.id_tipo_asistencia == 3){
-                    tipo = 'Retraso';
-                }
-                lista.innerHTML += `
-                <tr>
-                    <td>${falta.nombre}</td>
-                    <td>${falta.apellido}</td>
-                    <td>${falta.curso}</td>
-                    <td>${falta.asignatura}</td>
-                    <td>${falta.hora_inicio} - ${falta.hora_fin}</td>
-                    <td>${falta.fecha_asistencia}</td>
-                    <td>${tipo}</td>
-                    <td><button id="verFalta${falta.id}" onclick="faltasCalen('${falta.id}', '${falta.nombre}', '${falta.apellido}', '${falta.fecha_asistencia}', '${falta.curso}', '${falta.id_tipo_asistencia}')">Ver</button></td>
-                </tr>
-                `;
-            });            
-        }
+    // Agrega botones numéricos para todas las páginas disponibles
+    for (var i = 1; i <= lastPage; i++) {
+        pageButtons += '<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
     }
-    ajax.send();
+
+    // Actualiza el contenido de la lista desordenada con los botones numéricos
+    $('#pagination').html(pageButtons);
+
+    // Control de eventos para los botones numéricos
+    $('.page-link').click(function(event) {
+        event.preventDefault();
+        currentPage = $(this).data('page');
+        // listarFaltas();
+        let filtro = buscador.value;
+        if (!filtro) {
+            listarFaltas('');
+        } else {
+            listarFaltas(filtro);
+        }
+    });
+
+    // Control de eventos para el botón de página anterior
+    prevBtn.click(function(event) {
+        event.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            let filtro = buscador.value;
+            if (!filtro) {
+                listarFaltas('');
+            } else {
+                listarFaltas(filtro);
+            }
+        }
+    });
+
+    // Control de eventos para el botón de página siguiente
+    nextBtn.click(function(event) {
+        event.preventDefault();
+        if (currentPage < lastPage) {
+            currentPage++;
+            // listarFaltas();
+            let filtro = buscador.value;
+            if (!filtro) {
+                listarFaltas('');
+            } else {
+                listarFaltas(filtro);
+            }
+        }
+    });
 }
 
 function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
@@ -41,22 +62,22 @@ function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
     var eventoExistente = eventos.find(function(evento) {
         return evento.extendedProps.falta === id;
     });
-  
+
     // Si el evento existe, eliminarlo
     if (eventoExistente) {
-        document.getElementById('verFalta'+id).innerHTML = "Ver";
+        document.getElementById('verFalta' + id).innerHTML = "Ver";
         eventoExistente.remove();
         return; // Salir de la función, ya que se ha eliminado el evento
     }
-    document.getElementById('verFalta'+id).innerHTML = "Dejar de ver";
+    document.getElementById('verFalta' + id).innerHTML = "Dejar de ver";
 
     let colorF = "";
-    if(tipo == 2){
+    if (tipo == 2) {
         colorF = '#DB504A';
-    }else if(tipo == 3){
+    } else if (tipo == 3) {
         colorF = 'rgb(228, 166, 92)';
     }
-  
+
     // Crear un nuevo evento en el calendario para la falta de asistencia
     calendar.addEvent({
         title: nombre + ' ' + apellido,
@@ -68,5 +89,3 @@ function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
         }
     });
 }
-
-
