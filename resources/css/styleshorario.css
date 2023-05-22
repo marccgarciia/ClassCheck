@@ -1,0 +1,71 @@
+:root {
+    --color-negro: #000;
+    --color-azuloscuro: #142c44;
+    --color-azulclaro: #2b4d6d;
+    --color-azulmasclaro: #85b7e5;
+    --color-gris: #eee;
+    --color-blanco: #ffff;
+    --color-input: #ffff;
+    --color-texto-input: #142c44;
+    --color-texto: #142c44;
+    --rojo: #DB504A;
+    --fc-border-color: #eeeeee;
+}
+
+body.dark {
+    --color-azulclaro: #0C0C1E;
+    --color-gris: #142c44;
+    --color-blanco: #FBFBFB;
+    --color-texto: #FBFBFB;
+    --color-input: #2b4d6d;
+    --color-texto-input: #85b7e5;
+}
+
+thead {
+    background-color: var(--color-azulmasclaro);
+    color: var(--color-blanco);
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+td {
+    border: 1px solid var(--fc-border-color);
+    padding: 10px;
+    text-align: center;
+    min-width: 100px;
+    height: 60px;
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    font-size: 14px;
+    /* font-weight: bold; */
+    font-family: Arial, sans-serif;
+}
+
+
+#horario {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+  
+  #horario tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+  
+  #horario tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+
+table tbody tr:last-child td {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+@media screen and (max-width: 1000px) {
+    td {
+        font-size: 10px;
+    }
+}

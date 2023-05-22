@@ -1,28 +1,14 @@
-<ul class="box-info">
+<script src="{!! asset('../resources/js/cursosAlu.js') !!}"></script>
 
-    <li>
-        <i class='bx bxs-calendar-check'></i>
-        <span class="texto">
-            <h3>55</h3>
-            <p>Total de Faltas</p>
-        </span>
-    </li>
-
-    <li>
-        <i class='bx bx-library'></i>
-        <span class="texto">
-            <h3>254</h3>
-            <p>Total Asignaturas</p>
-        </span>
-    </li>
-
+<ul class="box-info" id="resultado">
 </ul>
 <br>
 
 <div class="grande">
     <div class="peque porcentaje">
-        <h1>REDES</h1>
-        <h1 id="por">10%</h1>
+        <p id="asignaturaAlu" style="font-size: 18px;"></p>
+        <h1>% de</h1>
+        <h1 id="por">Faltas</h1>
     </div>
     <div class="peque cal">
         <div id='calendar'></div>

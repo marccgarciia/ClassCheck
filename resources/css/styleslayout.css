@@ -64,6 +64,13 @@ table tbody tr:last-child td {
     border-bottom-right-radius: 10px;
 }
 
+.modal p {
+    color: var(--rojo);
+}
+
+.modal2 p {
+    color: var(--rojo);
+}
 
 
 
@@ -107,7 +114,6 @@ table tbody tr:last-child td {
 .elementos {
     display: none;
     margin-top: 10px;
-    padding-left: 20px;
 }
 
 
@@ -173,15 +179,33 @@ table tbody tr:last-child td {
 
 
 /* COSAS VARIAS */
-.ca{
+.ca {
     background: var(--color-azuloscuro);
     border-radius: 5px;
     padding: 10px;
+    margin: 3px;
 }
 
-.ca:hover{
+.ca:hover {
     background: var(--color-negro);
 }
+
+.lialu {
+    width: 33.33% !important;
+}
+
+.co {
+    background: var(--color-azuloscuro);
+    width: 100%;
+    height: 90px;
+    padding: 20px 10px;
+    border-radius: 5px;
+}
+
+.co:hover {
+    background: var(--color-negro);
+}
+
 
 
 .fc-direction-ltr .fc-toolbar>*>:not(:first-child) {
@@ -338,6 +362,9 @@ table tbody tr:last-child td {
 .horario {
     overflow: scroll;
 }
+
+  
+  
 
 /* DATOS */
 .divdatos {
@@ -501,6 +528,8 @@ table tbody tr:last-child td {
     padding: 0 10px;
     width: 58%;
 }
+
+
 
 .main h2 {
     color: #333;
@@ -1163,6 +1192,7 @@ textarea:focus {
     border-radius: 20px;
     display: flex;
     align-items: center;
+    overflow: scroll;
     grid-gap: 24px;
 }
 
@@ -1196,6 +1226,8 @@ textarea:focus {
 
 #contenido main .box-info li .texto p {
     color: var(--color-blanco);
+    display: flex;
+    align-items: center;
 }
 
 #modalinsertar {
@@ -1216,6 +1248,7 @@ textarea:focus {
     margin: 3px;
 }
 
+<<<<<<< HEAD
 /*MODALES*/
 
 #asignaturas1 {
@@ -1255,14 +1288,6 @@ textarea:focus {
     margin: 3px;
 }
 
-.modal__content1 {
-    border-radius: 20px;
-    position: relative;
-    width: 275px;
-    height: 300px;
-    background: #2B4D6D;
-    padding: 1em 2em;
-}
 
 .modal__close1 {
     position: absolute;
@@ -1312,23 +1337,7 @@ textarea:focus {
     margin: 3px;
 }
 
-.modal__content2 {
-    border-radius: 20px;
-    position: relative;
-    width: 275px;
-    height: 300px;
-    background: #2B4D6D;
-    padding: 1em 2em;
-}
 
-.modal__close2 {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-}
 
 /* VALIDACIONES */
 
@@ -1346,6 +1355,8 @@ textarea:focus {
     }
 
 }
+=======
+>>>>>>> 73cb633c29149f7d11b5ba9df07b1bdccca1233c
 
 /* :::::::::::::::::::::::::: */
 /* RESPONSIVE */
@@ -1390,6 +1401,10 @@ textarea:focus {
     .porcentaje {
         width: 100%;
     }
+
+    .lialu {
+        width: 50% !important;
+    }
 }
 
 @media screen and (max-width: 860px) {
@@ -1397,6 +1412,7 @@ textarea:focus {
         width: 450px;
         height: 500px;
     }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -1511,11 +1527,23 @@ textarea:focus {
     .edit-asignatura {
         width: 100%;
     }
+
+    .lialu {
+        width: 100% !important;
+    }
 }
 
 
 
 @media screen and (max-width: 576px) {
+    .tabla button {
+        border-radius: 10px 10px 0px 0px !important;
+    }
+
+    .tablacontenido {
+        border-radius: 0px 0px 10px 10px !important;
+    }
+
     .btnNolista p {
         font-size: 30px;
     }

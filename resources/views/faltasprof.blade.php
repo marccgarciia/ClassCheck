@@ -6,6 +6,7 @@
 {{-- <input type="text" name="buscadorAsignatura" id="buscadorAsignatura" placeholder="Buscador...">
 <input type="text" name="buscadorClase" id="buscadorClase" placeholder="Buscador..."> --}}
 <ul id="pagination" class="pagination"></ul>
+<link rel="stylesheet" href="{!! asset('../resources/css/stylesfaltasprof.css') !!}">
 
 <div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
@@ -22,7 +23,7 @@
                     <th scope="col">Faltas</th>
                 </tr>
             </thead>
-            
+
             <tbody class="tbody" id="resultado">
 
             </tbody>

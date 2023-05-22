@@ -151,7 +151,10 @@ Route::get('/cursosload', [CursosController::class, 'indexcursosload']);
 
 Route::get('/cursosfiltro', [CursosController::class, 'cursosfiltro']);
 
-Route::post('/getCurso_profe', [CursosController::class, 'cursosprofe']);
+Route::get('/getCurso_profe', [CursosController::class, 'cursosprofe']);
+
+Route::get('/getCurso_alu', [CursosController::class, 'cursoAlu']);
+
 
 //INSERTAR
 Route::post('/cursos', [CursosController::class, 'storecursos']);
@@ -242,6 +245,9 @@ Route::get('profesoresasignaturas', [AsignaturasController::class, 'profesoresas
 
 Route::get('listarFaltas', [AsignaturasController::class, 'listarFaltas']);
 
+Route::get('getFaltas_Alu/{id}', [AsignaturasController::class, 'getFaltas_Alu']);
+
+
 
 
 //-----------------------------------------------------
@@ -292,3 +298,11 @@ Route::post('/impas', [CSVController::class, 'impas']);
 Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 
 Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
+
+Route::post('/desactivar', [AlumnosController::class, 'des']);
+
+Route::post('/activar', [AlumnosController::class, 'act']);
+
+Route::post('/desactivarp', [ProfesoresController::class, 'des']);
+
+Route::post('/activarp', [ProfesoresController::class, 'act']);

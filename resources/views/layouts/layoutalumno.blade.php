@@ -24,6 +24,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
     {{-- ESTILOS --}}
     <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
+
 </head>
 
 <body>
@@ -92,7 +94,8 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }} {{ auth('alumno')->user()->apellido }}  | {{ auth('alumno')->user()->curso->nombre }}!</p>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }}
+                {{ auth('alumno')->user()->apellido }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}

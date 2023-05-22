@@ -1,15 +1,10 @@
 listarCursos();
 
 function listarCursos() {
-
-  
-  var csrf_token = token.content;
   var resultado = document.getElementById('resultado');
-  let formdata = new FormData();
-  formdata.append('_token', csrf_token);
 
   let ajax = new XMLHttpRequest();
-  ajax.open('POST', 'getCurso_profe');
+  ajax.open('GET', 'getCurso_profe');
   ajax.onload = () => {
     if (ajax.status == 200) {
       let cursos = [];
@@ -62,7 +57,7 @@ function listarCursos() {
       cargaCurso();
     }
   };
-  ajax.send(formdata);
+  ajax.send();
   
 }
 

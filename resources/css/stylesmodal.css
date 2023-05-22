@@ -1,158 +1,194 @@
+:root {
+    --color-negro: #000;
+    --color-azuloscuro: #142c44;
+    --color-azulclaro: #2b4d6d;
+    --color-azulmasclaro: #85b7e5;
+    --color-gris: #eee;
+    --color-blanco: #ffff;
+    --color-input: #ffff;
+    --color-texto-input: #142c44;
+    --color-texto: #142c44;
+    --rojo: #DB504A;
+    --fc-border-color: #eeeeee;
+}
 
-            #asignaturas1 {
-                z-index: 999;
-                visibility: hidden;
-                opacity: 0;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                /* background: rgba(0, 0, 0, 0.8);
+body.dark {
+    --color-azulclaro: #0C0C1E;
+    --color-gris: #142c44;
+    --color-blanco: #FBFBFB;
+    --color-texto: #FBFBFB;
+    --color-input: #2b4d6d;
+    --color-texto-input: #85b7e5;
+}
+
+
+
+#asignaturas1 {
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(0, 0, 0, 0.8);
                 transition: all .4s; */
-                backdrop-filter: blur(2px);
-            }
-    
-            .text12{
-                padding-top: 8px;
+    backdrop-filter: blur(2px);
+}
+
+.text12 {
+    padding-top: 8px;
+    color: #fff;
+    font-size: 20px;
+}
+
+#asignaturas1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn12 {
+    background-color: var(--color-azuloscuro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.modal__content1 {
+    border-radius: 20px;
+    position: relative;
+    height: 475px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+}
+
+/* separador */
+
+#asignaturas2 {
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(0, 0, 0, 0.8);
+                transition: all .4s; */
+    backdrop-filter: blur(2px);
+}
+
+.text13 {
+    padding-top: 8px;
+    color: #fff;
+    font-size: 20px;
+}
+
+#asignaturas2:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn13 {
+    background-color: var(--color-azuloscuro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 3px 10px;
+    text-align: center;
+    margin: 3px;
+}
+
+.modal__content2 {
+    width: 440px;
+    border-radius: 20px;
+    position: relative;
+    height: 475px;
+    background: var(--color-azulclaro);
+    padding: 1em 2em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.modal__content3 {
+    border-radius: 20px;
+    position: relative;
+    width: 345px;
+    height: 300px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.modal__content4 {
+    border-radius: 20px;
+    position: relative;
+    width: 360px;
+    height: 300px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+            .modal__close1 {
+                position: absolute;
+                top: 10px;
+                right: 15px;
                 color: #fff;
+                text-decoration: none;
                 font-size: 20px;
             }
-    
-            #asignaturas1:target {
-                visibility: visible;
-                opacity: 1;
-            }
-    
-            .btn12 {
-                background-color: var(--color-azuloscuro);
-                color: var(--color-blanco);
-                border-radius: 5px !important;
-                padding: 3px 10px;
-                text-align: center;
-                margin: 3px;
-            }
-    
-            .modal__content1 {
-                border-radius: 20px;
-                position: relative;
-                height: 475px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-                }
-    
-            /* separador */
-    
-            #asignaturas2 {
-                z-index: 999;
-                visibility: hidden;
-                opacity: 0;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                /* background: rgba(0, 0, 0, 0.8);
-                transition: all .4s; */
-                backdrop-filter: blur(2px);
-            }
-    
-            .text13{
-                padding-top: 8px;
-                color: #fff;
-                font-size: 20px;
-            }
-    
-            #asignaturas2:target {
-                visibility: visible;
-                opacity: 1;
-            }
-    
-            .btn13 {
-                background-color: var(--color-azuloscuro);
-                color: var(--color-blanco);
-                border-radius: 5px !important;
-                padding: 3px 10px;
-                text-align: center;
-                margin: 3px;
-            }
-    
-            .modal__content2 {
-                border-radius: 20px;
-                position: relative;
-                height: 475px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
 
-            .modal__content3 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
+.modal__content5 {
+    border-radius: 20px;
+    position: relative;
+    width: 335px;
+    height: 300px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
-            .modal__content4 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
+.modal__content6 {
+    border-radius: 20px;
+    position: relative;
+    width: 333px;
+    height: 300px;
+    background: var(--color-azulclaro);
+    padding: 1em 2em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
-            .modal__content5 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
+.modal__content7 {
+    border-radius: 20px;
+    position: relative;
+    width: 275px;
+    height: 350px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+}
 
-            .modal__content6 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 300px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
+.modal__content8 {
+    border-radius: 20px;
+    position: relative;
+    width: 340px;
+    height: 350px;
+    background: #2B4D6D;
+    padding: 1em 2em;
+}
 
-            .modal__content7 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 350px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
-
-            .modal__content8 {
-                border-radius: 20px;
-                position: relative;
-                width: 275px;
-                height: 350px;
-                background: #2B4D6D;
-                padding: 1em 2em;
-            }
-    
-            .modal__close2 {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-        }
-
-    
-           
+.modal__close2 {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}

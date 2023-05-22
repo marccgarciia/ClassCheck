@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <button id="desactivar-seleccionados" type="button" class="btn"
-        onclick="updateAlumnosEstado()">Desactivar</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
     <button id="activar-seleccionados" type="button" class="btn">Activar</button>
 
     <div class="importar">
@@ -177,27 +178,6 @@
                         //     .toLowerCase(); // Obtener el texto del buscador y pasarlo a minúsculas
                         $.each(data.data, function(i, alumno) {
                             console.log(filtro);
-                            // var nombre = alumno.nombre.toLowerCase();
-                            // var apellido = alumno.apellido.toLowerCase();
-                            // var email = alumno.email.toLowerCase();
-                            // var password = alumno.password.toLowerCase();
-                            // var email_padre = alumno.email_padre.toLowerCase();
-                            // var curso = alumno.curso.nombre.toLowerCase();
-                            // var estado = alumno.estado;
-
-
-                            // // Si se ha escrito algo en el buscador y no se encuentra en ningún campo, omitir este registro
-                            // if (filtro && nombre.indexOf(filtro) == -1 &&
-                            //     apellido.indexOf(filtro) == -1 &&
-                            //     email.indexOf(filtro) == -1 &&
-                            //     curso.indexOf(filtro) == -1 &&
-                            //     email_padre.indexOf(filtro) == -1 &&
-                            //     // password.indexOf(filtro) == -1 &&
-
-                            //     estado != filtro) {
-
-                            //     return true; // Continue
-                            // }
 
                             tableRows += '<tr>';
                             tableRows += '<td>' + alumno.nombre + '</td>';
@@ -207,7 +187,7 @@
                             tableRows += '<td>' + alumno.email_padre + '</td>';
                             tableRows += '<td>' + alumno.curso.nombre + '</td>';
                             tableRows +=
-                                '<td><input type="checkbox" name="seleccionar[]" value="' +
+                                '<td><input type="checkbox" name="seleccionar" value="' +
                                 alumno.id + '"></td>';
 
 
@@ -330,15 +310,6 @@
             formulario.reset();
             });
 
-            //*Sirve para cuando hagas click fuera del modal salga de el *//
-            var modal = document.getElementById('asignaturas1');
-
-            window.addEventListener('click', function (e) {
-                if (e.target == modal) {
-                cerrarModal();
-                }
-            });
-
 
             // $('#buscador').on('keyup', function() {
             //     loadAlumnos();
@@ -379,25 +350,44 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-alumno', function() {
-                var checkId = $(this).data('id');
+            var checkId = $(this).data('id');
 
-                if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                    $.ajax({
-                        url: 'alumnos/' + checkId,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        data: {
-                            '_token': $('input[name=_token]').val()
-                        },
-                        success: function(response) {
-                            loadAlumnos();
-                            actualizarContadores();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
+            // Llamar a SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $.ajax({
+                    url: 'alumnos/' + checkId,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: {
+                    '_token': $('input[name=_token]').val()
+                    },
+                    success: function(response) {
+                    loadAlumnos();
+                    actualizarContadores();
+
+                    // Llamar a SweetAlert de éxito después de eliminar
+                    Swal.fire(
+                        'Eliminado',
+                        'El usuario ha sido eliminado',
+                        'success'
+                    );
+                    },
+                    error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    }
+                });
                 }
+            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -521,6 +511,7 @@
                     if (xhr.status === 200) {
                         // Mostrar los resultados en el elemento correspondiente
                         importResults.innerHTML = xhr.responseText;
+                        loadAlumnos();
                     } else {
                         // Mostrar un mensaje de error en caso de que la petición haya fallado
                         importResults.innerHTML = '<p>Error al importar el archivo.</p>';
@@ -528,8 +519,6 @@
                 }
             };
             xhr.send(formData);
-            loadAlumnos();
-            loadCursos();
         });
 
     const form = document.querySelector('#form-insert');
@@ -572,11 +561,7 @@
             emailElement.textContent = 'El formato del correo electrónico no es válido';
         }else if (nombre === '' || apellido === '') {
             const emailElement = document.getElementById('email');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
+            emailElement.textContent = '';
         }else {
             const emailElement = document.getElementById('email');
             emailElement.textContent = '';
@@ -654,11 +639,7 @@
             emailElement.textContent = 'El formato del correo electrónico no es válido';
         }else if (nombre === '' || apellido === '') {
             const emailElement = document.getElementById('email-p');
-            if (window.innerWidth < 768) {
-                emailElement.textContent = '';
-            } else {
-                emailElement.textContent = 'ㅤ';
-            }
+            emailElement.textContent = '';
         }else {
             const emailElement = document.getElementById('email-p');
             emailElement.textContent = '';
@@ -695,6 +676,65 @@
 
 
         });
+        // ACTIVAR / DESACTIVAR
+        document.getElementById('desactivar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#alumnos-tbody input[name="seleccionar"]:checked');
+        var selectedAlumnos = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'desactivar', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadAlumnos();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ alumnos: selectedAlumnos }));
+    });
+    document.getElementById('activar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#alumnos-tbody input[name="seleccionar"]:checked');
+        var selectedAlumnos = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'activar', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadAlumnos();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ alumnos: selectedAlumnos }));
+    });
 
 
         });

@@ -181,7 +181,12 @@ class ProfesoresController extends Controller
         // if ($request->has('password')) {
         //     $profesor->password = bcrypt($request->password);
         // }
-        $profesor->estado = $request->estado;
+        if ($request->estado === "Desactivado") {
+            $estado = false;
+        }elseif ($request->estado === "Activado") {
+            $estado = true;
+        }
+        $profesor->estado = $estado;
         $profesor->save();
 
         return response()->json($profesor);
@@ -220,7 +225,48 @@ class ProfesoresController extends Controller
     }
 }
 
+public function des(Request $request)
+{
+    $profesores = $request->input('profesores');
+    $profesoresJson = [];
 
+    foreach ($profesores as $indice => $profesor) {
+        $profesoresJson[] = ['id' => $profesor];
+        $usuario = Profesor::where('id', $profesor)
+        ->Where('estado', 1)
+        ->first();
+
+        if ($usuario) {
+            $usuario->estado = 0;
+            $usuario->save();
+            // Actualizar el campo 'estado' del usuario
+        }
+    }
+    
+    echo json_encode($profesoresJson);
+    
+}
+public function act(Request $request)
+{
+    $profesores = $request->input('alumnos');
+    $profesoresJson = [];
+
+    foreach ($profesores as $indice => $profesor) {
+        $profesoresJson[] = ['id' => $profesor];
+        $usuario = Profesor::where('id', $profesor)
+        ->Where('estado', 0)
+        ->first();
+
+        if ($usuario) {
+            $usuario->estado = 1;
+            $usuario->save();
+            // Actualizar el campo 'estado' del usuario
+        }
+    }
+    
+    echo json_encode($profesoresJson);
+    
+}
 
     
 
