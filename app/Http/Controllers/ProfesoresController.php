@@ -248,7 +248,7 @@ public function des(Request $request)
 }
 public function act(Request $request)
 {
-    $profesores = $request->input('alumnos');
+    $profesores = $request->input('profesores');
     $profesoresJson = [];
 
     foreach ($profesores as $indice => $profesor) {
