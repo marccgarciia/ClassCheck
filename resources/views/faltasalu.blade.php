@@ -7,8 +7,8 @@
 <div class="grande">
     <div class="peque porcentaje">
         <p id="asignaturaAlu" style="font-size: 18px;"></p>
-        <h1 id="porcentaje" style="font-size: 23px;">% de</h1>
-        <h1 id="por" style="font-size: 21px;">Faltas</h1>
+        <h1 id="porcentaje" style="font-size: 50px;">% de</h1>
+        <h1 id="por">Faltas</h1>
     </div>
     <div class="peque cal">
         <div id='calendar'></div>

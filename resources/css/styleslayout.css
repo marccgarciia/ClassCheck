@@ -286,8 +286,12 @@ table tbody tr:last-child td {
     color: var(--rojo);
 }
 
+.elementos p {
+    cursor: pointer;
+}
+
 #por {
-    font-size: 120px !important;
+    font-size: 80px !important;
 }
 
 .fc-view-harness {
