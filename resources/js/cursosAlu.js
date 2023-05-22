@@ -23,7 +23,7 @@ function listarCursoA() {
 
       for (let i in cursos) {
         let curso = cursos[i];
-        console.log(curso);
+        // console.log(curso);
         let asignaturas = curso.elementos
           .map(
             (asignatura) =>
@@ -62,12 +62,14 @@ function listarCursoA() {
         // Agregar evento de clic a cada asignatura
         titulo.nextElementSibling.querySelectorAll(".lialu").forEach((asignatura) => {
             asignatura.addEventListener("click", (event) => {
+                let elementos = event.currentTarget.parentElement;
+                elementos.parentElement.style.height = `${elementos.parentElement.offsetHeight - elementos.offsetHeight}px`;
+                elementos.style.display = "none";
+
                 const idAsignatura = event.currentTarget.id;
                 const asignatura = event.currentTarget.querySelector(".co").textContent;
                 calendar.removeAllEvents();
-                listarFaltas(idAsignatura,asignatura);
-                // restaurarLi(event.currentTarget);
-                
+                listarFaltas(idAsignatura,asignatura);                
             });
           });
         });
@@ -84,7 +86,7 @@ function listarFaltas(idA,asignatura) {
   ajax.onload = () => {
     if (ajax.status == 200) {
         respuesta = JSON.parse(ajax.responseText);
-            console.log(respuesta);
+            // console.log(respuesta);
             respuesta.forEach(function (falta) {
                 console.log(falta);
                 let tipo = "";

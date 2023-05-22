@@ -55,7 +55,7 @@
                 </a>
             </li>
             
-            <li>
+            <li class="active">
                 <a href="{{ route('webalumnos') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Alumnos</span>
