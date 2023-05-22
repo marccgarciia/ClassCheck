@@ -112,45 +112,17 @@ class AsignaturasController extends Controller
         return response()->json($profesores);
     }
 
-
-    public function listarFaltas(Request $request)
+    public function listarFaltas()
     {
-        $filtroNombre = $request->query('filtroNombre');
-        $filtroCurso = $request->query('filtroCurso');
-        $filtroAsignatura = $request->query('filtroAsignatura');
-        if(empty($filtroNombre) && empty($filtroCurso) && empty($filtroAsignatura)) {
-            $faltas = DB::table('asistencias')
-             ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
-             ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
-             ->join('horario_asignaturas', 'horario_asignaturas.id', '=', 'asistencias.id_horarioasignatura_asistencia')
-             ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
-             ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
-             ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso', 'asignaturas.nombre as asignatura', 'horarios.hora_inicio', 'horarios.hora_fin')
-             ->where('asistencias.id_profe_asistencia', '=',auth('profesor')->user()->id)
-             ->paginate(2);
-        } else {
-            $faltas = DB::table('asistencias')
-                ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
-                ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
-                ->join('horario_asignaturas', 'horario_asignaturas.id', '=', 'asistencias.id_horarioasignatura_asistencia')
-                ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
-                ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
-                ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso', 'asignaturas.nombre as asignatura', 'horarios.hora_inicio', 'horarios.hora_fin')
-                ->where('asistencias.id_profe_asistencia', '=', auth('profesor')->user()->id)
-                ->when($filtroNombre, function ($query, $filtroNombre) {
-                    return $query->where(function ($q) use ($filtroNombre) {
-                        $q->where('alumnos.nombre', 'like', '%' . $filtroNombre . '%')
-                            ->orWhere('alumnos.apellido', 'like', '%' . $filtroNombre . '%');
-                    });
-                })
-                ->when($filtroCurso, function ($query, $filtroCurso) {
-                    return $query->where('cursos.nombre', 'like', '%' . $filtroCurso . '%');
-                })
-                ->when($filtroAsignatura, function ($query, $filtroAsignatura) {
-                    return $query->where('asignaturas.nombre', 'like', '%' . $filtroAsignatura . '%');
-                })
-                ->paginate(2);
-        }
+        $faltas = DB::table('asistencias')
+        ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
+        ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
+        ->join('horario_asignaturas', 'horario_asignaturas.id', '=', 'asistencias.id_horarioasignatura_asistencia')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
+        ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso', 'asignaturas.nombre as asignatura', 'horarios.hora_inicio', 'horarios.hora_fin')
+        ->where('asistencias.id_profe_asistencia', '=',auth('profesor')->user()->id)
+        ->get();
         return response()->json($faltas);
     }
     
