@@ -99,8 +99,6 @@
         </div>
     </div>
 
-
-
     <script>
         $(document).ready(function() {
             // BUSCADOR, DESCOEMNTAR CUANDO YA ESTÁ TODO ESTRUCTURADO

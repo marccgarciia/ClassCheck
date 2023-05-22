@@ -165,7 +165,7 @@
                             tableRows += '<td>' + profesor.email + '</td>';
                             // tableRows += '<td>' + profesor.password + '</td>';
                             tableRows +=
-                                '<td><input type="checkbox" name="seleccionar[]" value="' + profesor.id + '"></td>';
+                                '<td><input type="checkbox" name="seleccionar" value="' + profesor.id + '"></td>';
 
                             // Verificar el estado y cambiar el texto correspondiente
                             if (profesor.estado == 1) {
@@ -495,6 +495,66 @@
         }
 
         });
+
+        // ACTIVAR / DESACTIVAR
+        document.getElementById('desactivar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#profesores-tbody input[name="seleccionar"]:checked');
+        var selectedProfes = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'desactivarp', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadProfesores();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ profesores: selectedProfes }));
+    });
+    document.getElementById('activar-seleccionados').addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del botón
+
+        var checkboxes = document.querySelectorAll('#profesores-tbody input[name="seleccionar"]:checked');
+        var selectedProfes = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+            console.log(checkbox.value);
+        });
+
+        // Enviar los datos utilizando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'activarp', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Manejar la respuesta del controlador si es necesario
+                    console.log(xhr.responseText);
+                    loadProfesores();
+                } else {
+                    // Mostrar un mensaje de error en caso de que la petición haya fallado
+                    xhr.responseText = '<p>Error al importar el archivo.</p>';
+                    console.log(xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ profesores: selectedProfes }));
+    });
 
         });
     </script>
