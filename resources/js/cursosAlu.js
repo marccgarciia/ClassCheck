@@ -85,17 +85,23 @@ function listarFaltas(idA,asignatura) {
   ajax.open('GET', 'getFaltas_Alu/' + idA);
   ajax.onload = () => {
     if (ajax.status == 200) {
-        respuesta = JSON.parse(ajax.responseText);
-            console.log(respuesta);
-            respuesta.forEach(function (falta) {
+        let retrasos = 0;
+        let faltasAs = 0;
+        let faltasTotales = 0;
+        var response = JSON.parse(ajax.responseText);
+        let horas = response.horasTotales;
+        let faltas = response.faltas;
+            faltas.forEach(function (falta) {
                 // console.log(falta);
                 let tipo = "";
 
                 let colorF = "";
                 if(falta.id_tipo_asistencia == 2){
                     colorF = '#DB504A';
+                    faltasAs+=1;
                 }else if(falta.id_tipo_asistencia == 3){
                     colorF = 'rgb(228, 166, 92)';
+                    retrasos+=1;
                 }
 
                 // Crear un nuevo evento en el calendario para la falta de asistencia
@@ -109,8 +115,20 @@ function listarFaltas(idA,asignatura) {
                     }
                 });
                 
-            });   
+            });
+        faltasTotales = faltasAs + (retrasos/2);
+        let porcentaje = calcularPorcentajeFaltas(horas, faltasTotales);
+        document.getElementById('porcentaje').innerHTML = porcentaje+'% de';
+        // console.log(porcentaje);
+        
+           
     }
     }
     ajax.send();
 }
+
+function calcularPorcentajeFaltas(horasTotales, faltas) {
+    var porcentajeFaltas = (faltas * 100) / horasTotales;
+    return porcentajeFaltas.toFixed(2); // Redondear el resultado a 2 decimales
+  }
+  
