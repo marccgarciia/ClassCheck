@@ -82,13 +82,12 @@
                 @method('PUT')
                 <input type="hidden" name="id" id="edit-id">
                 <input type="text" name="nombre" id="edit-nombre" placeholder="Nombre">
-                <p id="nombre2"></p>
                 <input type="text" name="promocion" id="edit-promocion" placeholder="Promoción">
-                <p id="pr2"></p>
-                <select id="edit-id_escuela" name="id_escuela">
 
+                <select id="edit-id_escuela" name="id_escuela">
+                    <option value="">Selecciona un escuela</option>
                 </select>
-                <p id="es2"></p>
+
                 <button type="submit" class="btn13">Actualizar</button>
             </form>
             <a href="#" id="cerrar1" class="modal__close2">&times;</a>
@@ -159,7 +158,7 @@
             success: function(data) {
             var tableRows = '';
             console.log(data);
-            $.each(data.data, function( curso) { // Accede a los datos de la página actual
+            $.each(data.data, function(i, curso) { // Accede a los datos de la página actual
                 tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
                     tableRows += '<a href="#asignaturas2"><button class="edit-curso" data-id="' + 
                         curso.id +
@@ -451,47 +450,14 @@
             esElement.textContent = 'Debes insertar un curso de la lista';
         }else {
             const esElement = document.getElementById('es');
-            esElement.textContent = '';
+            if (window.innerWidth < 768) {
+                esElement.textContent = '';
+            } else {
+                esElement.textContent = 'ㅤ';
+            }
         }
 
         });
-        const formE = document.querySelector('#form-edit');
-    formE.addEventListener('submit', (e) => {
-        e.preventDefault(); // cancelar envío normal del formulario
-
-        // Obtener los valores de los campos del formulario
-        const nombre = formE.querySelector('input[name="nombre"]').value.trim();
-        const pr = formE.querySelector('input[name="promocion"]').value.trim();
-        const escuela = formE.querySelector('select[name="id_escuela"]').value.trim();
-
-        // Validar que los campos no estén vacíos
-        let valid = true;
-        if (nombre === '') {
-            valid = false;
-            const nomElement = document.getElementById('nombre2');
-            nomElement.textContent = 'Debes insertar el nombre del curso';
-        }else {
-            const nomElement = document.getElementById('nombre2');
-            nomElement.textContent = '';
-        }
-        if (pr === '') {
-            valid = false;
-            const prElement = document.getElementById('pr2');
-            prElement.textContent = 'Debes insertar una promoción válida';
-        }else {
-            const prElement = document.getElementById('pr2');
-            prElement.textContent = '';
-        }if (escuela === '') {
-            valid = false;
-            const esElement = document.getElementById('es2');
-            esElement.textContent = 'Debes insertar un curso de la lista';
-        }else {
-            const esElement = document.getElementById('es2');
-            esElement.textContent = '';
-        }
-
-        });
-
 
         });
     </script>
