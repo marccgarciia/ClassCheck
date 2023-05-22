@@ -159,7 +159,7 @@
             success: function(data) {
             var tableRows = '';
             console.log(data);
-            $.each(data.data, function(i, curso) { // Accede a los datos de la página actual
+            $.each(data.data, function( curso) { // Accede a los datos de la página actual
                 tableRows += '<tr><td>' + curso.nombre + '</td><td>' + curso.promocion + '</td><td>' + curso.escuela.nombre + '</td><td>';
                     tableRows += '<a href="#asignaturas2"><button class="edit-curso" data-id="' + 
                         curso.id +

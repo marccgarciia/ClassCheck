@@ -10,7 +10,7 @@ function listarFaltas() {
             // console.log(ajax.responseText);
             respuesta = JSON.parse(ajax.responseText);
             console.log(respuesta);
-            respuesta.forEach(function (falta) {
+            respuesta.data.forEach(function (falta) {
                 let tipo = "";
                 if (falta.id_tipo_asistencia == 2) {
                     tipo = 'Falta';
