@@ -72,10 +72,19 @@ table tbody tr:last-child td {
     color: var(--rojo);
 }
 
-
+.centro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .btnNolista p {
     font-size: 40px;
+}
+
+.fc-scrollgrid-sync-table td {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
 .btnNolista {
@@ -363,8 +372,8 @@ table tbody tr:last-child td {
     overflow: scroll;
 }
 
-  
-  
+
+
 
 /* DATOS */
 .divdatos {
@@ -1355,8 +1364,8 @@ textarea:focus {
     }
 
 }
-=======
->>>>>>> 73cb633c29149f7d11b5ba9df07b1bdccca1233c
+
+=======>>>>>>>73cb633c29149f7d11b5ba9df07b1bdccca1233c
 
 /* :::::::::::::::::::::::::: */
 /* RESPONSIVE */
