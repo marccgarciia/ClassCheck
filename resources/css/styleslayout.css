@@ -72,7 +72,11 @@ table tbody tr:last-child td {
     color: var(--rojo);
 }
 
-
+.centro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .btnNolista p {
     font-size: 40px;
