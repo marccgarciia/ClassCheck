@@ -26,7 +26,7 @@ function listarCursos() {
         let asignaturas = curso.elementos.map(asignatura => `<a  href="./datos/${asignatura.id}"><p class="ca">- ${asignatura.nombre}</p></a>`).join("");
         let cursoHTML = `
           <li>
-            <i class='bx bx-library'></i>
+          <i class='bx bxs-store-alt'></i>
             <span class="texto">
               <h3 class="titulo" id="asignaturasN">${curso.nombre}</h3>
               <div class="elementos">${asignaturas}</div>

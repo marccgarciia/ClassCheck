@@ -23,7 +23,7 @@ function listarFaltas() {
                     <td>${falta.apellido}</td>
                     <td>${falta.curso}</td>
                     <td>${falta.asignatura}</td>
-                    <td>${falta.hora_inicio} - ${falta.hora_fin}</td>
+                    <td>${falta.hora_inicio} ${falta.hora_fin}</td>
                     <td>${falta.fecha_asistencia}</td>
                     <td>${tipo}</td>
                     <td><button class="btn" id="verFalta${falta.id}" onclick="faltasCalen('${falta.id}', '${falta.nombre}', '${falta.apellido}', '${falta.fecha_asistencia}', '${falta.curso}', '${falta.id_tipo_asistencia}')">Ver</button></td>
