@@ -86,9 +86,9 @@ function listarFaltas(idA,asignatura) {
   ajax.onload = () => {
     if (ajax.status == 200) {
         respuesta = JSON.parse(ajax.responseText);
-            // console.log(respuesta);
+            console.log(respuesta);
             respuesta.forEach(function (falta) {
-                console.log(falta);
+                // console.log(falta);
                 let tipo = "";
 
                 let colorF = "";
