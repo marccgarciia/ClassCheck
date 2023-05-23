@@ -126,6 +126,11 @@ class AsignaturasController extends Controller
         ->get();
         return response()->json($faltas);
     }
+
+    public function empezarClase(Request $request)
+    {
+        DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', [17, 14, 8348, 2, '2023-05-02']);
+    }
     
     public function countasignaturas()
     {

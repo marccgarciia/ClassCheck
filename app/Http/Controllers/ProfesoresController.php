@@ -208,7 +208,7 @@ class ProfesoresController extends Controller
 
     public function profeClase()
 {
-    $asignatura = Asignatura::select('asignaturas.nombre as asignatura','cursos.nombre as curso','cursos.id as id')
+    $asignatura = Asignatura::select('horarios.hora_inicio', 'asignaturas.id as idAS', 'asignaturas.nombre as asignatura','cursos.nombre as curso','cursos.id as id')
     ->join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
     ->join('profesores', 'profesores.id', '=', 'asignaturas.id_profesor')
     ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
@@ -224,7 +224,9 @@ class ProfesoresController extends Controller
             'tieneAsignatura' => true,
             'asignatura' => $asignatura->first()->asignatura,
             'curso' =>  $asignatura->first()->curso,
-            'id' =>  $asignatura->first()->id// Accede al primer resultado
+            'id' =>  $asignatura->first()->id,
+            'idAs' => $asignatura->first()->idAS,
+            'hora' => $asignatura->first()->hora_inicio
         ]);
     } else {
         return response()->json(['tieneAsignatura' => false]);
