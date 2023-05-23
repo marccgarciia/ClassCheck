@@ -17,6 +17,8 @@ body {
     background-color: transparent;
 }
 
+
+
 /* Para Mozilla Firefox */
 ::-moz-scrollbar {
     width: 0;
@@ -385,11 +387,14 @@ table tbody tr:last-child td {
     color: white;
 }
 
+#filtroP {
+    width: 60%;
+}
 
 .column2 {
     padding: 20px;
     float: left;
-    width: 50%;
+    width: 40%;
 }
 
 .desplegable {
@@ -1420,6 +1425,10 @@ textarea:focus {
 
     .column2 {
         padding: 20px;
+        width: 100%;
+    }
+
+    #filtroP {
         width: 100%;
     }
 }
