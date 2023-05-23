@@ -17,6 +17,10 @@ body {
     background-color: transparent;
 }
 
+#calendar{
+    height: 467px;
+}
+
 /* Para Mozilla Firefox */
 ::-moz-scrollbar {
     width: 0;
@@ -32,7 +36,7 @@ body {
 }
 
 :root {
-    --color-negro: #000;
+    --color-negro: #0f1d36;
     --color-azuloscuro: #142c44;
     --color-azulclaro: #2b4d6d;
     --color-azulmasclaro: #85b7e5;
@@ -82,10 +86,7 @@ table tbody tr:last-child td {
     font-size: 40px;
 }
 
-.fc-scrollgrid-sync-table td {
-    border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
-}
+
 
 .btnNolista {
     background-color: var(--color-azulclaro);
@@ -125,6 +126,42 @@ table tbody tr:last-child td {
     margin-top: 10px;
 }
 
+.info {
+    margin-top: 150px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.infodiv {
+    width: 50%;
+    height: 100%;
+    border: 2px solid var(--color-azuloscuro);
+    background-color: #2b4d6da8;
+    display: flex;
+    color: var(--color-blanco);
+    border-radius: 20px;
+    padding: 20px;
+    overflow: scroll;
+}
+
+.infodiv:hover {
+    background-color: #2b4d6d;
+    transition: 0.2s;
+}
+
+.infodiv h1 {
+    font-size: 30px;
+}
+
+.infodiv p {
+    font-size: 18px;
+    padding: 0px 20px;
+    font-weight: 200;
+}
 
 /* AIRDROP */
 #hidden-div {
@@ -352,11 +389,14 @@ table tbody tr:last-child td {
     color: white;
 }
 
+#filtroP {
+    width: 60%;
+}
 
 .column2 {
     padding: 20px;
     float: left;
-    width: 50%;
+    width: 40%;
 }
 
 .desplegable {
@@ -1261,7 +1301,6 @@ textarea:focus {
     margin: 3px;
 }
 
-<<<<<<< HEAD
 /*MODALES*/
 
 #asignaturas1 {
@@ -1369,7 +1408,6 @@ textarea:focus {
 
 }
 
-=======>>>>>>>73cb633c29149f7d11b5ba9df07b1bdccca1233c
 
 /* :::::::::::::::::::::::::: */
 /* RESPONSIVE */
@@ -1389,6 +1427,10 @@ textarea:focus {
 
     .column2 {
         padding: 20px;
+        width: 100%;
+    }
+
+    #filtroP {
         width: 100%;
     }
 }
@@ -1424,6 +1466,16 @@ textarea:focus {
     .qr-scanner .box {
         width: 450px;
         height: 500px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .infodiv {
+        width: 100%;
     }
 
 }
@@ -1549,6 +1601,10 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    .info {
+        display: none;
+    }
+
     .tabla button {
         border-radius: 10px 10px 0px 0px !important;
     }
