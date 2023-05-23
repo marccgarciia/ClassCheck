@@ -3,6 +3,10 @@
 
 <div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
+        <p class="titulofalta">CALENDARIO DE FALTAS</p>
+        <div class="sep">
+            <input type="text" class="inputbuscadornombres" placeholder="Buscar..."><input type="text" class="inputbuscadorcurso" placeholder="Curso"><input type="text" class="inputbuscadormodulo" placeholder="Modulo">
+        </div>
         <table>
             <thead>
                 <tr>
