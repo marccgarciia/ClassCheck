@@ -11,18 +11,20 @@
 
 <body>
 
-    <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
-    <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
-    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
-
-
-    <div class="importar">
+<div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="csv-file" required class="impt">
-            <button type="submit" class="btn">Importar</button>
+            <input type="file" name="csv-file" required class="impt" id="imp">
+
         </form>
+        <div class="btn_panel">
+        <button id="btn-exportar" class="btn">Exportar CSV</button>
+    <button id="desactivar-seleccionados" type="button" class="btn">Desactivar</button>
+    <button id="activar-seleccionados" type="button" class="btn">Activar</button>
+</div>
+    </div>
+    <div class="filtraje">
+        <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     </div>
 
     <div id="profesores">
