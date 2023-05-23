@@ -117,6 +117,67 @@
         {{-- CONTENIDO --}}
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
+            <!-- Contenedor de la pantalla de carga -->
+            <div id="loader" style="display: none;">
+                <style>
+                    .loaderB {
+                    background-color: #142c44;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    }
+
+                    .loader {
+                    position: relative;
+                    width: 120px;
+                    height: 120px;
+                    }
+
+                    .circle {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    border: 7px solid #f3f3f3;
+                    border-top: 7px solid #2b4d6d;
+                    border-radius: 50%;
+                    width: 90px;
+                    height: 90px;
+                    animation: spin 2s linear infinite;
+                    }
+
+                    @keyframes spin {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                    }
+
+                    .check-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: white;
+                    font-size: 48px;
+                    }
+                </style>
+
+                <div class="loaderB">
+                <div class="loader">
+                    <div class="circle"></div>
+                    <i class="fas fa-check check-icon"></i>
+                </div>
+            </div>
+            </div>
 
             <div id="contenedor-contenido">
                 @yield('contenido')
@@ -136,7 +197,18 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
-    // MARCAR SELECCION SIDEBAR
+    // $(document).ajaxStart(function() {
+    //     $('#loader').fadeIn(); // Mostrar la pantalla de carga al iniciar una solicitud AJAX
+    //     var body = document.body;
+    //     body.style.backgroundColor = '#142c44';
+    // });
+
+    // $(document).ajaxStop(function() {
+    //     $('#loader').fadeOut(function() {
+    //     // Restablecer el color original del body después de ocultar la pantalla de carga
+    //     document.body.style.backgroundColor = '';
+    // });
+    // });
     const sidemenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
     sidemenu.forEach(item => {

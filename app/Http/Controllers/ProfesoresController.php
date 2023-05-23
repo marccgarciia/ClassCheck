@@ -26,6 +26,12 @@ class ProfesoresController extends Controller
         ->where('asignaturas.id', $id)
         ->get();
 
+        $faltasAsistencia = DB::table('asistencias')
+            ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->where('horario_asignaturas.id_asignatura_int', '=', $id)
+            ->orderBy('asistencias.fecha_asistencia')
+            ->get();
+
         $horasTotales = Asignatura::select(Asignatura::raw('(TIMESTAMPDIFF(WEEK, fecha_inicio, fecha_fin) +
         CASE WHEN WEEKDAY(fecha_inicio) > WEEKDAY(fecha_fin) THEN 2 ELSE 1 END) * COUNT(asignaturas.id) AS resultado'))
         ->join('horario_asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
@@ -83,7 +89,7 @@ class ProfesoresController extends Controller
         $horasTotales = $horasTotales - $horasRest;
         
         
-        return view('datos', compact('id','idC','horasTotales'));
+        return view('datos', compact('id','idC','horasTotales'))->with('faltasAsistencia', json_encode($faltasAsistencia));;
     }
     // CONTROLADOR PARA VER FALTAS 
     public function faltasprof()

@@ -122,6 +122,7 @@ class AsignaturasController extends Controller
         ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
         ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso', 'asignaturas.nombre as asignatura', 'horarios.hora_inicio', 'horarios.hora_fin')
         ->where('asistencias.id_profe_asistencia', '=',auth('profesor')->user()->id)
+        ->orderBy('asistencias.fecha_asistencia')
         ->get();
         return response()->json($faltas);
     }

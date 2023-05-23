@@ -54,15 +54,16 @@
             }
         }
 
-        // function calculoHoras(asignatura){
-        //     alert(asignatura)
-        // }
-
         function listaClase(){
             let curso = document.getElementById('cursoId').textContent;
             let asignatura = document.getElementById('asignaturaId').textContent;
             let horasTotales = document.getElementById('horasTotales').textContent;
+            // let faltasAsistencia = JSON.parse(document.getElementById('faltasAsistencia').textContent);
+            var faltasAsistenciaElement = document.getElementById('faltasAsistencia');
+            var faltasAsistenciaJSON = faltasAsistenciaElement.textContent;
+            var faltasAsistencia = JSON.parse(faltasAsistenciaJSON);
 
+            console.log(faltasAsistencia);
             console.log(curso)
             console.log(asignatura)
             console.log(horasTotales)
@@ -79,22 +80,55 @@
                 if (ajax.status == 200) {
                     respuesta = JSON.parse(ajax.responseText);
                     console.log(respuesta);
-                    respuesta.forEach(function (alumno) {
-                        lista.innerHTML += `
-                        <tr>
-                            <td>${alumno.nombre} ${alumno.apellido}</td>
-                            <td>10%</td>
-                            <td id="dia">P</td>
-                            <td id="dia">R</td>
-                            <td id="dia">R</td>
-                        </tr>
-                        `
-                        // <h1>${alumno.nombre} ${alumno.apellido}</h1>
-
+                    faltasAsistencia.forEach(function (falta) {
+                        document.getElementById('sesionesH').innerHTML += `
+                        <th>${falta.fecha_asistencia}</th>`
                     });
+                    respuesta.forEach(function (alumno) {
+                        // let porcentaje = 0;
+                        let faltaA = 0;
+                        let fila = `<tr>
+                        <td>${alumno.nombre} ${alumno.apellido}</td>
+                        <td id="dia${alumno.id}"></td>`;
+                        
+                        faltasAsistencia.forEach(function (falta) {
+                            if (falta.id_alumno_asistencia === alumno.id) {
+                                if(falta.id_tipo_asistencia === 3){
+                                    fila += `<td>R</td>`;
+                                faltaA+=0.5;
+                                }else if(falta.id_tipo_asistencia === 2){
+                                    fila += `<td>F</td>`;
+                                faltaA+=1;
+                                }
+                            } else {
+                                fila += `<td>P</td>`;
+                            }
+                        });
+                        fila += `</tr>`;
+                        lista.innerHTML += fila;
+                        let porcentaje = calcularPorcentajeFaltas(horasTotales, faltaA);
+                        // Actualizar porcentaje en todas las filas
+                        document.getElementById('dia'+alumno.id).innerHTML = porcentaje+'%';
+                        
+                        // Aplicar estilos de color según el porcentaje
+                        if (porcentaje >= 0 && porcentaje < 15) {
+                            document.getElementById('dia'+alumno.id).style.color = 'green';
+                        } else if (porcentaje >= 15 && porcentaje < 20) {
+                            document.getElementById('dia'+alumno.id).style.color = 'yellow';
+                        } else {
+                            document.getElementById('dia'+alumno.id).style.color = 'red';
+                        }
+                    });
+                    
                     resaltarFaltas()
                     // calculoHoras(asignatura)
                 }
             }
             ajax.send(formdata);
         }
+
+        function calcularPorcentajeFaltas(horasTotales, faltas) {
+            var porcentajeFaltas = (faltas * 100) / horasTotales;
+            return porcentajeFaltas.toFixed(2); // Redondear el resultado a 2 decimales
+          }
+          

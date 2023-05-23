@@ -156,7 +156,7 @@ class AlumnosController extends Controller
     public function listaalumnos(Request $request)
     {
         $curso = $request->curso;
-        $alumnos = Alumno::select('alumnos.nombre as nombre','alumnos.apellido as apellido')
+        $alumnos = Alumno::select('alumnos.id as id','alumnos.nombre as nombre','alumnos.apellido as apellido')
         ->where('alumnos.id_curso', $curso)
         ->get();
         return response()->json($alumnos);
