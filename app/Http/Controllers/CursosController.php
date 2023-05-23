@@ -83,7 +83,7 @@ class CursosController extends Controller
     {
         $curso = auth('alumno')->user()->id_curso;
 
-        $horarios = Asignatura::select('asignaturas.nombre','horarios.dia','horarios.hora_inicio','horarios.hora_fin')
+        $horarios = Asignatura::select('asignaturas.nombre','asignaturas.fecha_inicio','asignaturas.fecha_fin','horarios.dia','horarios.hora_inicio','horarios.hora_fin')
         ->join('cursos','cursos.id','=','asignaturas.id_curso')
         ->join('horario_asignaturas','horario_asignaturas.id_asignatura_int','=','asignaturas.id')
         ->join('horarios','horarios.id','=','horario_asignaturas.id_horario_int')

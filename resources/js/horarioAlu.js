@@ -33,7 +33,8 @@ function listarHorario() {
         for (var i = 0; i < horario.length; i++) {
           var sesion = horario[i];
           if(dia <= 4){
-            if (sesion.hora_inicio == element && dias[dia] == sesion.dia) {
+            let fechaHoy = moment();
+            if (sesion.hora_inicio == element && dias[dia] == sesion.dia && fechaHoy.isBetween(moment(sesion.fecha_inicio), moment(sesion.fecha_fin))) {
               box += `<td>${sesion.nombre}</td>`;
               dia++;
               encontrado = true;
