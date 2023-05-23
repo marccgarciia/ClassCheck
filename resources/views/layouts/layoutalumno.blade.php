@@ -120,29 +120,6 @@
             <!-- Contenedor de la pantalla de carga -->
             <div id="loader" style="display: none;">
                 <style>
-                    :root {
-                        --color-negro: #000;
-                        --color-azuloscuro: #142c44;
-                        --color-azulclaro: #2b4d6d;
-                        --color-azulmasclaro: #85b7e5;
-                        --color-gris: #eee;
-                        --color-blanco: #ffff;
-                        --color-input: #ffff;
-                        --color-texto-input: #142c44;
-                        --color-texto: #142c44;
-                        --rojo: #DB504A;
-                        --fc-border-color: #eeeeee;
-                    }
-
-                    body.dark {
-                        --color-azulclaro: #0C0C1E;
-                        --color-gris: #142c44;
-                        --color-blanco: #FBFBFB;
-                        --color-texto: #FBFBFB;
-                        --color-input: #2b4d6d;
-                        --color-texto-input: #85b7e5;
-                    }
-
                     .loaderB {
                         background-color: #eeeeee;
                         margin: 0;
