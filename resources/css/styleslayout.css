@@ -17,7 +17,9 @@ body {
     background-color: transparent;
 }
 
-
+#calendar{
+    height: 467px;
+}
 
 /* Para Mozilla Firefox */
 ::-moz-scrollbar {
