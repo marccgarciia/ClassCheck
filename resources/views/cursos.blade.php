@@ -12,16 +12,20 @@
 </head>
 
 <body>
-    <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
-    <button id="btn-exportar" class="btn">Exportar CSV</button>
 
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
             <input type="file" name="csv-file" required>
-            <button type="submit" class="btn">Importar</button>
+            <button type="submit" class="btn" id="imp">Importar</button>
 
         </form>
+        <div class="btn_panel">
+            <button id="btn-exportar" class="btn">Exportar CSV</button>
+        </div>
+    </div>
+    <div class="filtraje">
+        <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     </div>
     <div id="cursos">
     <div id="import-results"></div>
@@ -408,6 +412,8 @@
                     if (xhr.status === 200) {
                         // Mostrar los resultados en el elemento correspondiente
                         importResults.innerHTML = xhr.responseText;
+                        loadEscuelas();
+                        loadCursos();
                     } else {
                         // Mostrar un mensaje de error en caso de que la petición haya fallado
                         importResults.innerHTML = '<p>Error al importar el archivo.</p>';
@@ -415,8 +421,6 @@
                 }
             };
             xhr.send(formData);
-            loadCursos();
-            loadEscuelas();
         });
         const form = document.querySelector('#form-insert');
     form.addEventListener('submit', (e) => {
@@ -450,11 +454,7 @@
             esElement.textContent = 'Debes insertar un curso de la lista';
         }else {
             const esElement = document.getElementById('es');
-            if (window.innerWidth < 768) {
-                esElement.textContent = '';
-            } else {
-                esElement.textContent = 'ㅤ';
-            }
+            esElement.textContent = '';
         }
 
         });
@@ -462,5 +462,7 @@
         });
     </script>
 </body>
+
+
 
 </html>

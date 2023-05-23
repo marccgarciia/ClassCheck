@@ -128,7 +128,7 @@
     }
 
     function empezarClase(curso, asignatura, hora){
-        var csrf_token = token.content;
+        let csrf_token = token.content;
         const ajax = new XMLHttpRequest();
         let formdata = new FormData();
         formdata.append('_token', csrf_token);
@@ -137,7 +137,7 @@
         formdata.append('hora', hora);
 
 
-        ajax.open('POST', 'empezarClase');
+        ajax.open('POST', 'empezarclase');
         ajax.onload = () => {
             if (ajax.status == 200) {
                 respuesta = JSON.parse(ajax.responseText);
@@ -151,7 +151,7 @@
     function listaClase(curso){
         // console.log(curso);
         let lista = document.getElementById("listaClase");
-        var csrf_token = token.content;
+        let csrf_token = token.content;
         const ajax = new XMLHttpRequest();
         let formdata = new FormData();
         formdata.append('_token', csrf_token);

@@ -410,6 +410,7 @@ table tbody tr:last-child td {
     margin: 10px 0px 0px 0px;
     width: 100%;
     color: var(--color-azulmasclaro);
+    height: 10vh;
 }
 
 .horario {
@@ -744,6 +745,7 @@ table th:last-child {
     background-color: var(--color-input);
     color: var(--color-texto-input);
     border: 0.5px solid var(--color-texto-input);
+    float: left;
 }
 
 #buscador::placeholder {
@@ -857,7 +859,7 @@ select {
     border-radius: 5px !important;
     padding: 3px 10px;
     text-align: center;
-    margin: 3px;
+    margin: 1px;
 }
 
 .btn:hover {
@@ -1701,9 +1703,6 @@ textarea:focus {
         display: none;
     }
 
-    .importar {
-        display: none;
-    }
 
     [type=button]:not(:disabled),
     [type=reset]:not(:disabled),
@@ -1711,4 +1710,41 @@ textarea:focus {
     button:not(:disabled) {
         width: 100%;
     }
+
+    .btn_panel {
+        width: 100%;
+        height: 5vh;
+    }
+
+    #alumnos {
+        width: 100%;
+    }
+
+    .importar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 40vh;
+    }
+
+}
+
+#import-form {
+    float: left !important;
+    width: 50%;
+}
+
+.btn_panel {
+    width: 50%;
+    float: right !important;
+}
+
+.filtraje {
+    width: 100%;
+    height: 6.8vh;
+}
+
+.importar button:not(#imp) {
+    float: right;
 }
