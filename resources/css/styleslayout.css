@@ -622,7 +622,7 @@ table tbody tr:last-child td {
 .btnlista {
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
-    border-radius: 5px !important;
+    border-radius: 15px !important;
     padding: 10% 10px;
     text-align: center;
     margin: 3px;

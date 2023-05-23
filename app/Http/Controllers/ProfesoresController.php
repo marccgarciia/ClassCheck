@@ -216,6 +216,8 @@ class ProfesoresController extends Controller
     ->where('profesores.id', auth('profesor')->user()->id)
     ->whereRaw('TIME(NOW()) BETWEEN horarios.hora_inicio AND horarios.hora_fin')
     ->whereRaw('horarios.dia = CONCAT(ELT(WEEKDAY(now()) + 1, "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo"))')
+    ->whereDate('asignaturas.fecha_inicio', '<=', date('Y-m-d'))
+    ->whereDate('asignaturas.fecha_fin', '>=', date('Y-m-d'))
     ->limit(1)
     ->get();
 
