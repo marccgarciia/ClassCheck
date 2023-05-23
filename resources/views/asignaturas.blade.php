@@ -12,17 +12,19 @@
 </head>
 
 <body>
-    <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
-    <button id="btn-exportar" class="btn">Exportar CSV</button>
-    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
-
     <div class="importar">
         <form id="import-form" enctype="multipart/form-data">
             @csrf
             <input type="file" name="csv-file" required>
-            <button type="submit" class="btn">Importar</button>
+            <button type="submit" class="btn" id="imp">Importar</button>
 
         </form>
+        <div class="btn_panel">
+            <button id="btn-exportar" class="btn">Exportar CSV</button>
+        </div>
+    </div>
+    <div class="filtraje">
+        <input type="text" name="buscador" id="buscador" placeholder="Buscador...">
     </div>
     <div id="asignaturas">
         <div id="import-results"></div>
@@ -48,6 +50,7 @@
     <ul id="pagination" class="pagination"></ul>
 
     <div>
+    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
             <div class="modal__content3">
                 <form action="asignaturas" method="POST" id="form-insert">
@@ -501,11 +504,7 @@
                     prElement.textContent = 'Debes insertar un profesor de la lista';
                 } else {
                     const prElement = document.getElementById('pr');
-                    if (window.innerWidth < 768) {
-                        prElement.textContent = '';
-                    } else {
-                        prElement.textContent = 'ㅤ';
-                    }
+                    prElement.textContent = '';
                 }
 
                 // Enviar el formulario a través de AJAX si todos los campos están completos
