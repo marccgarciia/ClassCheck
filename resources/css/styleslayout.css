@@ -122,6 +122,42 @@ table tbody tr:last-child td {
     margin-top: 10px;
 }
 
+.info {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.infodiv {
+    width: 50%;
+    height: 100%;
+    border: 2px solid var(--color-azuloscuro);
+    background-color: #2b4d6da8;
+    display: flex;
+    color: var(--color-blanco);
+    border-radius: 20px;
+    padding: 20px;
+    overflow: scroll;
+}
+
+.infodiv:hover {
+    background-color: #2b4d6d;
+    transition: 0.2s;
+}
+
+.infodiv h1 {
+    font-size: 30px;
+}
+
+.infodiv p {
+    font-size: 18px;
+    padding: 0px 20px;
+    font-weight: 200;
+}
 
 /* AIRDROP */
 #hidden-div {
@@ -1258,7 +1294,6 @@ textarea:focus {
     margin: 3px;
 }
 
-<<<<<<< HEAD
 /*MODALES*/
 
 #asignaturas1 {
@@ -1366,7 +1401,6 @@ textarea:focus {
 
 }
 
-=======>>>>>>>73cb633c29149f7d11b5ba9df07b1bdccca1233c
 
 /* :::::::::::::::::::::::::: */
 /* RESPONSIVE */
@@ -1421,6 +1455,16 @@ textarea:focus {
     .qr-scanner .box {
         width: 450px;
         height: 500px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .infodiv {
+        width: 100%;
     }
 
 }
@@ -1546,6 +1590,10 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    .info {
+        display: none;
+    }
+
     .tabla button {
         border-radius: 10px 10px 0px 0px !important;
     }
