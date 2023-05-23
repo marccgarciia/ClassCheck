@@ -68,10 +68,7 @@ tr:hover {
     color: var(--color-blanco);
 }
 
-table tbody tr:last-child td {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
+
 
 .table-wrapper table td:first-child {
     display: table-cell !important;
