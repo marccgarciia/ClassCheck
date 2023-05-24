@@ -47,6 +47,7 @@ body {
     --color-texto: #142c44;
     --rojo: #DB504A;
     --fc-border-color: #eeeeee;
+    --color-titulo: #142c44;
 }
 
 body.dark {
@@ -56,6 +57,7 @@ body.dark {
     --color-texto: #FBFBFB;
     --color-input: #2b4d6d;
     --color-texto-input: #85b7e5;
+    --color-titulo: #ffff;
 }
 
 html {
@@ -319,9 +321,9 @@ table tbody tr:last-child td {
     text-shadow: 0px 0px 4px var(--color-gris);
 } */
 
-.porcentaje h1:hover {
+/* .porcentaje h1:hover {
     color: var(--rojo);
-}
+} */
 
 .elementos p {
     cursor: pointer;
@@ -690,7 +692,7 @@ table th:last-child {
 }
 
 .titulofalta{
-    color: #142C44;
+    color: var(--color-titulo);
     font-size: 48px; /* Ajusta el tamaño de fuente según tus necesidades */
     font-weight: bold; /* Ajusta el estilo del texto según tus necesidades */
 }
@@ -699,41 +701,41 @@ table th:last-child {
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
     width: 175px; /* Ajusta el ancho según tus necesidades */
     height: 30px; /* Ajusta la altura según tus necesidades */
     margin-right:10px;
 }
 
 .inputbuscadornombres::placeholder {
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
 }
 
 .inputbuscadorcurso{
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
     width: 100px; /* Ajusta el ancho según tus necesidades */
     height: 30px; /* Ajusta la altura según tus necesidades */
     margin-right:10px;
 }
 
 .inputbuscadorcurso::placeholder {
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
 }
 
 .inputbuscadormodulo{
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
     width: 120px; /* Ajusta el ancho según tus necesidades */
     height: 30px; /* Ajusta la altura según tus necesidades */
 }
 
 .inputbuscadormodulo::placeholder {
-    color: rgb(188, 187, 187);
+    color: rgb(169, 169, 169);
 }
 
 .table-wrapper table {

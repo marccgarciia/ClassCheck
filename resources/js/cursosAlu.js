@@ -118,10 +118,28 @@ function listarFaltas(idA,asignatura) {
             });
         faltasTotales = faltasAs + (retrasos/2);
         let porcentaje = calcularPorcentajeFaltas(horas, faltasTotales);
-        document.getElementById('porcentaje').innerHTML = porcentaje+'% de';
+        document.getElementById('porcentaje').innerHTML = porcentaje+'%';
         // console.log(porcentaje);
-        
-           
+        // document.getElementById('porcentaje').style.animation = "a"
+        // animation: zoom 2s infinite;
+        // Obtén una lista de elementos que tienen la clase "porcentaje"
+        var porcentajeElements = document.getElementsByClassName('porcentaje');
+
+        // Itera sobre los elementos y aplica los estilos y animaciones correspondientes
+        for (var i = 0; i < porcentajeElements.length; i++) {
+          var elemento = porcentajeElements[i];
+
+          if (porcentaje >= 0 && porcentaje < 12) {
+            elemento.style.animation = "zoom 2s infinite";
+            document.getElementById('porcentaje').style.color = "#559756";
+          } else if (porcentaje >= 12 && porcentaje < 20) {
+            elemento.style.animation = "zoom 1s infinite";
+            document.getElementById('porcentaje').style.color = "rgb(228, 166, 92)";
+          } else if (porcentaje >= 20) {
+            elemento.style.animation = "zoom 0.5s infinite";
+            document.getElementById('porcentaje').style.color = "#DB504A";
+          }
+        } 
     }
     }
     ajax.send();
