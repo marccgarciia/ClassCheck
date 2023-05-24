@@ -44,6 +44,7 @@ body {
     --rojo: #DB504A;
     --fc-border-color: #eeeeee;
     --color-titulo: #142c44;
+    --color-textoporcentaje: #142c44;
 }
 
 body.dark {
@@ -54,6 +55,7 @@ body.dark {
     --color-input: #2b4d6d;
     --color-texto-input: #85b7e5;
     --color-titulo: #ffff;
+    --color-textoporcentaje: #ffff;
 }
 
 html {
@@ -262,7 +264,7 @@ table tbody tr:last-child td {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    color: var(--color-azulclaro);
+    color: var(--color-textoporcentaje);
     animation: zoom 2s infinite;
 }
 
