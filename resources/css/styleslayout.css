@@ -284,9 +284,9 @@ table tbody tr:last-child td {
     text-shadow: 0px 0px 4px var(--color-gris);
 } */
 
-.porcentaje h1:hover {
+/* .porcentaje h1:hover {
     color: var(--rojo);
-}
+} */
 
 .elementos p {
     cursor: pointer;
