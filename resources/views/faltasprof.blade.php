@@ -22,6 +22,11 @@
             </tbody>
         </table>
     </div>
+    <div id="pagination-container">
+        <ul id="pagination-list">
+            <!-- Elementos de paginación -->
+        </ul>
+    </div>
     <div class="column2" id='calendar'></div>
 </div>
 
@@ -37,4 +42,9 @@
         firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
+
+
+
+
+
 </script>
