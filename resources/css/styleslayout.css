@@ -689,10 +689,56 @@ table th:last-child {
     border-top-right-radius: 10px;
 }
 
+.titulofalta{
+    color: #142C44;
+    font-size: 48px; /* Ajusta el tamaño de fuente según tus necesidades */
+    font-weight: bold; /* Ajusta el estilo del texto según tus necesidades */
+}
+
+.inputbuscadornombres{
+    background-color: rgb(219, 219, 219);
+    border-radius: 100px;
+    border: none;
+    color: rgb(188, 187, 187);
+    width: 175px; /* Ajusta el ancho según tus necesidades */
+    height: 30px; /* Ajusta la altura según tus necesidades */
+    margin-right:10px;
+}
+
+.inputbuscadornombres::placeholder {
+    color: rgb(188, 187, 187);
+}
+
+.inputbuscadorcurso{
+    background-color: rgb(219, 219, 219);
+    border-radius: 100px;
+    border: none;
+    color: rgb(188, 187, 187);
+    width: 100px; /* Ajusta el ancho según tus necesidades */
+    height: 30px; /* Ajusta la altura según tus necesidades */
+    margin-right:10px;
+}
+
+.inputbuscadorcurso::placeholder {
+    color: rgb(188, 187, 187);
+}
+
+.inputbuscadormodulo{
+    background-color: rgb(219, 219, 219);
+    border-radius: 100px;
+    border: none;
+    color: rgb(188, 187, 187);
+    width: 120px; /* Ajusta el ancho según tus necesidades */
+    height: 30px; /* Ajusta la altura según tus necesidades */
+}
+
+.inputbuscadormodulo::placeholder {
+    color: rgb(188, 187, 187);
+}
 
 .table-wrapper table {
     width: 100%;
-    margin: 65px 0 0px;
+    margin: 25px 0 0px;
     border-collapse: collapse;
     text-align: center;
     border-radius: 40px;
@@ -1398,6 +1444,19 @@ textarea:focus {
 #form-insert p {
     color: #c92626;
 }
+
+.inputbuscadornombres:focus{
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
+}
+
+.inputbuscadorcurso:focus{
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
+}
+
+.inputbuscadormodulo:focus{
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
+}
+
 
 @media only screen and (max-width: 600px) {
     #form-insert {

@@ -1,14 +1,22 @@
 listarFaltas()
 
-function listarFaltas() {
+
+function listarFaltas(busqueda, curso, modulo) {
     let lista = document.getElementById("resultado");
     const ajax = new XMLHttpRequest();
-
-    ajax.open('GET', 'listarFaltas');
+    
+    ajax.open('GET', 'listarFaltas?buscar='+busqueda+'&curso='+curso+'&modulo='+modulo);
     ajax.onload = () => {
         if (ajax.status == 200) {
-            // console.log(ajax.responseText);
+            const inputBusqueda = document.querySelector('.inputbuscadornombres');
+            const inputCurso = document.querySelector('.inputbuscadorcurso');
+            const inputModulo = document.querySelector('.inputbuscadormodulo');
+            inputBusqueda.addEventListener('keyup', buscar);
+            inputCurso.addEventListener('keyup', buscar);
+            inputModulo.addEventListener('keyup', buscar);
             respuesta = JSON.parse(ajax.responseText);
+            console.log(respuesta);
+            lista.innerHTML ='';
             respuesta.forEach(function (falta) {
                 let tipo = "";
                 if (falta.id_tipo_asistencia == 2) {
@@ -16,6 +24,7 @@ function listarFaltas() {
                 } else if (falta.id_tipo_asistencia == 3) {
                     tipo = 'Retraso';
                 }
+                
                 lista.innerHTML += `
                 <tr class="fila-tabla">
                     <td>${falta.nombre}</td>
@@ -69,3 +78,11 @@ function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
 }
 
 
+function buscar(event) {
+    console.log(event);
+    const busqueda = inputBusqueda.value.trim();
+    const curso = inputCurso.value.trim();
+    const modulo = inputModulo.value.trim();
+    console.log(busqueda, curso, modulo);
+    listarFaltas(busqueda, curso, modulo);
+}

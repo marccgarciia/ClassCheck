@@ -113,8 +113,12 @@ class AsignaturasController extends Controller
         return response()->json($profesores);
     }
 
-    public function listarFaltas()
+    public function listarFaltas(Request $req)
     {
+        $buscar = $req->query('buscar');
+        $curso = $req->query('curso');
+        $modulo = $req->query('modulo');
+
         $faltas = DB::table('asistencias')
         ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
         ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')

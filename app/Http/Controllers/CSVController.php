@@ -61,7 +61,7 @@ class CSVController extends Controller
             // Verificar que el archivo contenga las columnas esperadas
             $csvColumns = array_map('utf8_encode', $csvColumns);
             $csvColumns[0] = substr($csvColumns[0], 6);
-            if ($csvColumns === ['nombre', 'apellido', 'email', 'email_padre', 'estado', 'curso']) {
+            if ($csvColumns === ['nombre', 'apellido', 'email', 'estado', 'curso']) {
                 // Eliminar la primera fila del array, que contiene los nombres de las columnas
                 array_shift($csvData);
 
