@@ -23,19 +23,17 @@
             </thead>
 
             <tbody class="tbody" id="resultado">
-
+                
             </tbody>
+
         </table>
-    </div>
-    <div id="pagination-container">
-        <ul id="pagination-list">
-            <!-- Elementos de paginación -->
-        </ul>
+        <div class="pagination" id="pagination-container"></div>
     </div>
     <div class="column2" id='calendar'></div>
 </div>
 
 <script>
+
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
@@ -47,9 +45,5 @@
         firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
-
-
-
-
 
 </script>
