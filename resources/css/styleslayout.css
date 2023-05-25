@@ -269,7 +269,7 @@ table tbody tr:last-child td {
 
 #pagination {
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     width: 90%;
     overflow: scroll;
 }
@@ -396,6 +396,7 @@ table tbody tr:last-child td {
 
 #filtroP {
     width: 60%;
+    margin-top: 63px;
 }
 
 .column2 {
@@ -429,6 +430,7 @@ table tbody tr:last-child td {
 .divdatos {
     width: 100%;
     height: 50vh;
+    margin-top: 40px;
     padding: 20px;
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
@@ -1668,6 +1670,11 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    
+    #pagination {
+        bottom: 60px;
+    }
+
     .info {
         display: none;
     }
@@ -1788,9 +1795,23 @@ textarea:focus {
     .importar {
         display: flex;
         align-items: center;
-        justify-content: center;
         flex-direction: column;
-        height: 40vh;
+    }
+
+    #aaa{
+        height: 200px;
+    }
+
+    #ccc{
+        height: 120px;
+    }
+
+    #ppp{
+        height: 150px;
+    }
+
+    #aaa{
+        height: 110px;
     }
 
 }

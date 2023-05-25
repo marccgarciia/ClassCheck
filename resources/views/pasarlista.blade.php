@@ -1,7 +1,5 @@
 <script src="{{ asset('../resources/js/qrcode.js') }}"></script>
 
-<p class="titulofalta">PASAR LISTA</p>
-
 <div id="respuesta" class="qr">
 
 </div>
