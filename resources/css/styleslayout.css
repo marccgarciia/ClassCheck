@@ -396,6 +396,7 @@ table tbody tr:last-child td {
 
 #filtroP {
     width: 60%;
+    margin-top: 63px;
 }
 
 .column2 {
@@ -429,6 +430,7 @@ table tbody tr:last-child td {
 .divdatos {
     width: 100%;
     height: 50vh;
+    margin-top: 40px;
     padding: 20px;
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
