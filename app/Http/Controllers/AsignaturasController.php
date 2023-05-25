@@ -137,21 +137,32 @@ class AsignaturasController extends Controller
         $curso = $request->curso;
         $hora = $request->hora;
         $asignatura = $request->asignatura;
+        $date = date('Y-m-d');
 
         $alumnos = Alumno::select('alumnos.id as id')
         ->where('alumnos.id_curso', $curso)
         ->get();
 
         $resultado = DB::table('horario_asignaturas')
-        ->select('horario_asignaturas.id as id')
+        ->select('horario_asignaturas.id as id', 'horario_asignaturas.*')
         ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
         ->where('horario_asignaturas.id_asignatura_int', $asignatura)
         ->where('horarios.hora_inicio', $hora)
         ->first();
 
-        foreach ($alumnos as $alumno) {
-            DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
-            [$alumno->id, auth('profesor')->user()->id, $resultado->id, 2, date('Y-m-d')]);
+        // dd($resultado);
+        
+        // // dd($resultado->estado_lista);
+        if($resultado->estado_lista != 1){
+            foreach ($alumnos as $alumno) {
+                DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
+                [$alumno->id, auth('profesor')->user()->id, $resultado->id, 2, $date]);
+            }
+            DB::table('horario_asignaturas')
+            ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+            ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+            ->where('horarios.hora_inicio', $hora)
+            ->update(['estado_lista' => 1]);
         }
     }
 

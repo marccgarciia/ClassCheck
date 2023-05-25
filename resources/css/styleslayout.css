@@ -655,6 +655,17 @@ table tbody tr:last-child td {
     height: 10%;
     overflow: hidden;
 }
+.btnstopL {
+    background-color: var(--color-azulclaro);
+    color: var(--color-blanco);
+    border-radius: 5px !important;
+    padding: 8px;
+    text-align: center;
+    width: 20%;
+    margin: 20px;
+    height: 10%;
+    overflow: hidden;
+}
 
 #qrcode {
     background-color: var(--color-blanco);
