@@ -285,6 +285,10 @@ table tbody tr:last-child td {
 
 }
 
+#paginationbutton {
+    color: #c92626;
+}
+
 .grande {
     width: 100%;
     display: flex;

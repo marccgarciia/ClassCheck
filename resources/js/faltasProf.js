@@ -1,11 +1,12 @@
-listarFaltas()
-
-
-function listarFaltas(busqueda, curso, modulo) {
+function listarFaltas(busqueda, curso, modulo, paginaActual, elementosPorPagina) {
     let lista = document.getElementById("resultado");
     const ajax = new XMLHttpRequest();
-    
-    ajax.open('GET', 'listarFaltas?buscar='+busqueda+'&curso='+curso+'&modulo='+modulo);
+
+    // Calcular el índice de inicio y fin de los elementos en la página actual
+    const indiceInicio = (paginaActual - 1) * elementosPorPagina;
+    const indiceFin = indiceInicio + elementosPorPagina;
+
+    ajax.open('GET', 'listarFaltas?buscar=' + busqueda + '&curso=' + curso + '&modulo=' + modulo);
     ajax.onload = () => {
         if (ajax.status == 200) {
             const inputBusqueda = document.querySelector('.inputbuscadornombres');
@@ -16,15 +17,19 @@ function listarFaltas(busqueda, curso, modulo) {
             inputModulo.addEventListener('keyup', buscar);
             respuesta = JSON.parse(ajax.responseText);
             console.log(respuesta);
-            lista.innerHTML ='';
-            respuesta.forEach(function (falta) {
+            lista.innerHTML = '';
+
+            // Obtener solo los elementos correspondientes a la página actual
+            const elementosPagina = respuesta.slice(indiceInicio, indiceFin);
+
+            elementosPagina.forEach(function (falta) {
                 let tipo = "";
                 if (falta.id_tipo_asistencia == 2) {
                     tipo = 'Falta';
                 } else if (falta.id_tipo_asistencia == 3) {
                     tipo = 'Retraso';
                 }
-                
+
                 lista.innerHTML += `
                 <tr class="fila-tabla">
                     <td>${falta.nombre}</td>
@@ -38,10 +43,32 @@ function listarFaltas(busqueda, curso, modulo) {
                 </tr>
                 `;
             });
+
+            // Calcular el número total de páginas
+            const totalPaginas = Math.ceil(respuesta.length / elementosPorPagina);
+
+            // Generar los botones de paginación dinámicamente
+            const paginationContainer = document.getElementById("pagination-container");
+            paginationContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPaginas; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.addEventListener('click', () => {
+                    listarFaltas(busqueda, curso, modulo, i, elementosPorPagina);
+                });
+                paginationContainer.appendChild(button);
+            }
         }
     }
     ajax.send();
 }
+
+// Ejemplo de uso para mostrar 5 elementos por página y comenzar en la página 1
+listarFaltas('', '', '', 1, 5);
+
+
+
 
 function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
     // Verificar si el evento ya existe en el calendario
