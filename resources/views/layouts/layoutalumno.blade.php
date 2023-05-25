@@ -93,7 +93,7 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            <a href="#" class="nav-link">Panel de Control</a>
+            {{-- <a href="#" class="nav-link">Panel de Control</a> --}}
             <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }}
                 {{ auth('alumno')->user()->apellido }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
@@ -127,7 +127,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        height: 100vh;
+                        height: 95vh;
                     }
 
                     .loader {

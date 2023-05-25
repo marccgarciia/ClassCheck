@@ -1,10 +1,15 @@
 <script src="{{ asset('../resources/js/qrcode.js') }}"></script>
 
+<p class="titulofalta">PASAR LISTA</p>
 
-<div id="respuesta" class="qr"></div>
+<div id="respuesta" class="qr">
+
+</div>
+
 
 
 <div id="container">
+    
     
 </div>
 
@@ -17,8 +22,11 @@
     ajax.onload = () => {
         if (ajax.status == 200) {
             respuesta = JSON.parse(ajax.responseText);
-            var curso = respuesta.id;
-            // console.log(respuesta);
+            let curso = respuesta.id;
+            let asignatura = respuesta.idAs;
+            let hora = respuesta.hora;
+
+            console.log(respuesta);
             if(respuesta.tieneAsignatura){
                 document.getElementById("respuesta").innerHTML = `
                 <h1 id="tituloscan">Curso: ${respuesta.curso}, Módulo: ${respuesta.asignatura}</h1>
@@ -41,7 +49,10 @@
                 let intervalId;
 
                 boton.addEventListener("click", function() {
-                // Crear el nuevo código QR
+                    empezarClase(curso, asignatura, hora)
+                    // document.getElementById('listaClase').style.color = "red";
+
+                    // Crear el nuevo código QR
                     qrcode = new QRCode(qrDiv, {
                         text: new Date().toLocaleString(),
                         width: 256,
@@ -121,10 +132,31 @@
     ajax.send();
     }
 
+    function empezarClase(curso, asignatura, hora){
+        let csrf_token = token.content;
+        const ajax = new XMLHttpRequest();
+        let formdata = new FormData();
+        formdata.append('_token', csrf_token);
+        formdata.append('curso', curso);
+        formdata.append('asignatura', asignatura);
+        formdata.append('hora', hora);
+
+
+        ajax.open('POST', 'empezarclase');
+        ajax.onload = () => {
+            if (ajax.status == 200) {
+                respuesta = JSON.parse(ajax.responseText);
+                console.log(respuesta);
+
+            }
+        }
+        ajax.send(formdata);
+    }
+
     function listaClase(curso){
         // console.log(curso);
         let lista = document.getElementById("listaClase");
-        var csrf_token = token.content;
+        let csrf_token = token.content;
         const ajax = new XMLHttpRequest();
         let formdata = new FormData();
         formdata.append('_token', csrf_token);

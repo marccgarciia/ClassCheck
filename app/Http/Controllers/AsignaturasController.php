@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Asignatura;
 use App\Models\Curso;
 use App\Models\Profesor;
+use App\Models\Alumno;
 
 
 class AsignaturasController extends Controller
@@ -112,8 +113,12 @@ class AsignaturasController extends Controller
         return response()->json($profesores);
     }
 
-    public function listarFaltas()
+    public function listarFaltas(Request $req)
     {
+        $buscar = $req->query('buscar');
+        $curso = $req->query('curso');
+        $modulo = $req->query('modulo');
+
         $faltas = DB::table('asistencias')
         ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
         ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
@@ -126,6 +131,30 @@ class AsignaturasController extends Controller
         ->get();
         return response()->json($faltas);
     }
+
+    public function empezarClase(Request $request)
+    {
+        $curso = $request->curso;
+        $hora = $request->hora;
+        $asignatura = $request->asignatura;
+
+        $alumnos = Alumno::select('alumnos.id as id')
+        ->where('alumnos.id_curso', $curso)
+        ->get();
+
+        $resultado = DB::table('horario_asignaturas')
+        ->select('horario_asignaturas.id as id')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+        ->where('horarios.hora_inicio', $hora)
+        ->first();
+
+        foreach ($alumnos as $alumno) {
+            DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
+            [$alumno->id, auth('profesor')->user()->id, $resultado->id, 2, date('Y-m-d')]);
+        }
+    }
+
     
     public function countasignaturas()
     {

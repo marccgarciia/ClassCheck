@@ -93,7 +93,7 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            <a href="#" class="nav-link">Panel de Control</a>
+            {{-- <a href="#" class="nav-link">Panel de Control</a> --}}
             <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }}
                 {{ auth('profesor')->user()->apellido }}!</p>
 

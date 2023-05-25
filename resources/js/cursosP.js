@@ -23,7 +23,7 @@ function listarCursos() {
       for (let i in cursos) {
         let curso = cursos[i];
         console.log(curso);
-        let asignaturas = curso.elementos.map(asignatura => `<a  href="./datos/${asignatura.id}"><p class="ca">- ${asignatura.nombre}</p></a>`).join("");
+        let asignaturas = curso.elementos.map(asignatura => `<a  href="./datos/${asignatura.id}"><p class="ca">${asignatura.nombre}</p></a>`).join("");
         let cursoHTML = `
           <li>
           <i class='bx bxs-store-alt'></i>

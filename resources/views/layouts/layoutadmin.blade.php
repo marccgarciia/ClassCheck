@@ -45,8 +45,7 @@
         </a>
 
         <ul class="side-menu top">
-
-
+            
             <li class="active">
                 <a href="{{ route('webalumnos') }}">
                     <i class='bx bxs-group'></i>
@@ -96,7 +95,7 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            <a href="#" class="nav-link">Panel de Control</a>
+            {{-- <a href="#" class="nav-link">Panel de Control</a> --}}
             <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }} {{ auth('admin')->user()->apellido }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
