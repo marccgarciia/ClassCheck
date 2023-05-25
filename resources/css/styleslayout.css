@@ -269,7 +269,7 @@ table tbody tr:last-child td {
 
 #pagination {
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     width: 90%;
     overflow: scroll;
 }
@@ -1668,6 +1668,11 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    
+    #pagination {
+        bottom: 60px;
+    }
+
     .info {
         display: none;
     }
@@ -1788,9 +1793,23 @@ textarea:focus {
     .importar {
         display: flex;
         align-items: center;
-        justify-content: center;
         flex-direction: column;
-        height: 40vh;
+    }
+
+    #aaa{
+        height: 200px;
+    }
+
+    #ccc{
+        height: 120px;
+    }
+
+    #ppp{
+        height: 150px;
+    }
+
+    #aaa{
+        height: 110px;
     }
 
 }
