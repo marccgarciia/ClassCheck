@@ -65,7 +65,7 @@ function listarFaltas(busqueda, curso, modulo, paginaActual, elementosPorPagina)
 }
 
 // Ejemplo de uso para mostrar 5 elementos por página y comenzar en la página 1
-listarFaltas('', '', '', 1, 5);
+listarFaltas('', '', '', 1, 4);
 
 
 
