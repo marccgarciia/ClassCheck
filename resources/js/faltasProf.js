@@ -52,7 +52,7 @@ function listarFaltas(busqueda, curso, modulo, paginaActual, elementosPorPagina)
             paginationContainer.innerHTML = '';
 
             for (let i = 1; i <= totalPaginas; i++) {
-                const button = document.createElement('button');
+                const button = document.createElement('li');
                 button.innerText = i;
                 button.addEventListener('click', () => {
                     listarFaltas(busqueda, curso, modulo, i, elementosPorPagina);
