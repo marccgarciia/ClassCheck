@@ -82,53 +82,74 @@
                     console.log(respuesta);
                     let fechaAct = "";
                     let horarioAct = "";
+
+                    // Crear un objeto para almacenar las faltas agrupadas
+                    const faltasAgrupadas = {};
+
                     faltasAsistencia.forEach(function (falta) {
                         if (fechaAct != falta.fecha_asistencia || horarioAct != falta.id) {
                             document.getElementById('sesionesH').innerHTML += `<th>${falta.fecha_asistencia}</th>`;
                             fechaAct = falta.fecha_asistencia;
                             horarioAct = falta.id;
                         }
+
+                        // Agrupar las faltas por fecha y ID
+                        const clave = `${falta.fecha_asistencia}-${falta.id}`;
+                        if (!faltasAgrupadas[clave]) {
+                            faltasAgrupadas[clave] = [];
+                        }
+                        faltasAgrupadas[clave].push(falta);
                     });
+
                     respuesta.forEach(function (alumno) {
-                        // let porcentaje = 0;
                         let faltaA = 0;
                         let fila = `<tr>
-                        <td>${alumno.nombre} ${alumno.apellido}</td>
-                        <td id="dia${alumno.id}"></td>`;
-                        
-                        faltasAsistencia.forEach(function (falta) {
-                            if (falta.id_alumno_asistencia === alumno.id) {
-                                if(falta.id_tipo_asistencia === 3){
-                                    fila += `<td>R</td>`;
-                                faltaA+=0.5;
-                                }else if(falta.id_tipo_asistencia === 2){
-                                    fila += `<td>F</td>`;
-                                faltaA+=1;
+                            <td>${alumno.nombre} ${alumno.apellido}</td>
+                            <td id="dia${alumno.id}"></td>`;
+                        // Recorrer las faltas agrupadas por fecha y ID
+                        for (const clave in faltasAgrupadas) {
+                            const faltas = faltasAgrupadas[clave];
+                            let faltaEncontrada = false;
+
+                            faltas.forEach(function (falta) {
+                                if (falta.id_alumno_asistencia === alumno.id) {
+                                    if (falta.id_tipo_asistencia === 3) {
+                                        fila += `<td>R</td>`;
+                                        faltaA += 0.5;
+                                    } else if (falta.id_tipo_asistencia === 2) {
+                                        fila += `<td>F</td>`;
+                                        faltaA += 1;
+                                    }
+                                    faltaEncontrada = true;
                                 }
-                            } else {
+                            });
+
+                            // Si no se encontró ninguna falta para la fecha y el ID actual, agregar una celda vacía
+                            if (!faltaEncontrada) {
                                 fila += `<td>P</td>`;
                             }
-                        });
+                        }
+
                         fila += `</tr>`;
                         lista.innerHTML += fila;
                         let porcentaje = calcularPorcentajeFaltas(horasTotales, faltaA);
                         // Actualizar porcentaje en todas las filas
-                        document.getElementById('dia'+alumno.id).innerHTML = porcentaje+'%';
-                        
+                        document.getElementById('dia' + alumno.id).innerHTML = porcentaje + '%';
+
                         // Aplicar estilos de color según el porcentaje
                         if (porcentaje >= 0 && porcentaje < 12) {
-                            document.getElementById('dia'+alumno.id).style.color = 'rgb(85, 151, 86)';
+                            document.getElementById('dia' + alumno.id).style.color = 'rgb(85, 151, 86)';
                         } else if (porcentaje >= 12 && porcentaje < 20) {
-                            document.getElementById('dia'+alumno.id).style.color = 'rgb(228, 166, 92)';
+                            document.getElementById('dia' + alumno.id).style.color = 'rgb(228, 166, 92)';
                         } else {
-                            document.getElementById('dia'+alumno.id).style.color = '#DB504A';
+                            document.getElementById('dia' + alumno.id).style.color = '#DB504A';
                         }
                     });
-                    
-                    resaltarFaltas()
-                    // calculoHoras(asignatura)
+
+                    resaltarFaltas();
                 }
             }
+
             ajax.send(formdata);
         }
 
