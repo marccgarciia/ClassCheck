@@ -68,10 +68,22 @@ html {
 }
 
 
-table tbody tr:last-child td {
+table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
+}
+
+table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
+
+/* #horario tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+  
+  #horario tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+} */
+
 
 .modal p {
     color: var(--rojo);

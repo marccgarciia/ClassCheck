@@ -150,9 +150,6 @@ class AsignaturasController extends Controller
         ->where('horarios.hora_inicio', $hora)
         ->first();
 
-        // dd($resultado);
-        
-        // // dd($resultado->estado_lista);
         if($resultado->estado_lista != 1){
             foreach ($alumnos as $alumno) {
                 DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
@@ -163,6 +160,29 @@ class AsignaturasController extends Controller
             ->where('horario_asignaturas.id_asignatura_int', $asignatura)
             ->where('horarios.hora_inicio', $hora)
             ->update(['estado_lista' => 1]);
+        }
+    }
+
+    public function finalizarClase(Request $request)
+    {
+        $curso = $request->curso;
+        $hora = $request->hora;
+        $asignatura = $request->asignatura;
+        $date = date('Y-m-d');
+
+        $resultado = DB::table('horario_asignaturas')
+        ->select('horario_asignaturas.id as id', 'horario_asignaturas.*')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+        ->where('horarios.hora_inicio', $hora)
+        ->first();
+
+        if($resultado->estado_lista == 1){
+            DB::table('horario_asignaturas')
+            ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+            ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+            ->where('horarios.hora_inicio', $hora)
+            ->update(['estado_lista' => 0]);
         }
     }
 

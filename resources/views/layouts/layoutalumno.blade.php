@@ -93,7 +93,7 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            {{-- <a href="#" class="nav-link">Panel de Control</a> --}}
+            <a href="#" id="tituloP" class="nav-link"></a>
             <p class="bienvenido">¡Bienvenido/a {{ auth('alumno')->user()->nombre }}
                 {{ auth('alumno')->user()->apellido }} | {{ auth('alumno')->user()->curso->nombre }}!</p>
 
@@ -197,6 +197,15 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
+    // Obtener el elemento del <li> activo
+    var liActivo = document.querySelector('li.active');
+
+    // Obtener el texto del <span> dentro del <li> activo
+    var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+    // Imprimir el texto del <span>
+    console.log(textoSpan);
+    document.getElementById('tituloP').innerHTML = textoSpan;
     $(document).ajaxStart(function() {
         $('#loader').fadeIn(); // Mostrar la pantalla de carga al iniciar una solicitud AJAX
         var body = document.body;
@@ -219,6 +228,15 @@
                 i.parentElement.classList.remove('active');
             })
             li.classList.add('active');
+            // Obtener el elemento del <li> activo
+            var liActivo = document.querySelector('li.active');
+
+            // Obtener el texto del <span> dentro del <li> activo
+            var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+            // Imprimir el texto del <span>
+            console.log(textoSpan);
+            document.getElementById('tituloP').innerHTML = textoSpan;
         })
     });
 

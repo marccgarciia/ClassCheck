@@ -44,11 +44,11 @@
                     }
                     // Si el contenido de la celda es "P", establecer el fondo de la celda en verde
                     else if (table.rows[i].cells[j].textContent === 'P') {
-                        table.rows[i].cells[j].style.backgroundColor = '#7BD45F';
+                        table.rows[i].cells[j].style.backgroundColor = 'rgb(85, 151, 86)';
                     }
                     // Si el contenido de la celda es "R", establecer el fondo de la celda en amarillo
                     else if (table.rows[i].cells[j].textContent === 'R') {
-                        table.rows[i].cells[j].style.backgroundColor = '#E4A65C';
+                        table.rows[i].cells[j].style.backgroundColor = 'rgb(228, 166, 92)';
                     }
                 }
             }
@@ -80,9 +80,14 @@
                 if (ajax.status == 200) {
                     respuesta = JSON.parse(ajax.responseText);
                     console.log(respuesta);
+                    let fechaAct = "";
+                    let horarioAct = "";
                     faltasAsistencia.forEach(function (falta) {
-                        document.getElementById('sesionesH').innerHTML += `
-                        <th>${falta.fecha_asistencia}</th>`
+                        if (fechaAct != falta.fecha_asistencia || horarioAct != falta.id) {
+                            document.getElementById('sesionesH').innerHTML += `<th>${falta.fecha_asistencia}</th>`;
+                            fechaAct = falta.fecha_asistencia;
+                            horarioAct = falta.id;
+                        }
                     });
                     respuesta.forEach(function (alumno) {
                         // let porcentaje = 0;
@@ -111,12 +116,12 @@
                         document.getElementById('dia'+alumno.id).innerHTML = porcentaje+'%';
                         
                         // Aplicar estilos de color según el porcentaje
-                        if (porcentaje >= 0 && porcentaje < 15) {
-                            document.getElementById('dia'+alumno.id).style.color = 'green';
-                        } else if (porcentaje >= 15 && porcentaje < 20) {
-                            document.getElementById('dia'+alumno.id).style.color = 'yellow';
+                        if (porcentaje >= 0 && porcentaje < 12) {
+                            document.getElementById('dia'+alumno.id).style.color = 'rgb(85, 151, 86)';
+                        } else if (porcentaje >= 12 && porcentaje < 20) {
+                            document.getElementById('dia'+alumno.id).style.color = 'rgb(228, 166, 92)';
                         } else {
-                            document.getElementById('dia'+alumno.id).style.color = 'red';
+                            document.getElementById('dia'+alumno.id).style.color = '#DB504A';
                         }
                     });
                     

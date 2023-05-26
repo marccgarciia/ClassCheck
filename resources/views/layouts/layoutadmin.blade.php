@@ -95,7 +95,7 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            {{-- <a href="#" class="nav-link">Panel de Control</a> --}}
+            <a href="#" id="tituloP" class="nav-link"></a>
             <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }} {{ auth('admin')->user()->apellido }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
@@ -118,8 +118,6 @@
         {{-- CONTENIDO --}}
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
-
-
             <div id="paneldecontrol">
                 <ul class="box-info">
 
@@ -151,7 +149,67 @@
                 </ul>
             </div>
 
+            {{-- <!-- Contenedor de la pantalla de carga -->
+            <div id="loader" style="display: none;">
+                <style>
+                    .loaderB {
+                        background-color: #eeeeee;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 95vh;
+                    }
 
+                    .loader {
+                        position: relative;
+                        width: 120px;
+                        height: 120px;
+                    }
+
+                    .circle {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        margin: auto;
+                        border: 7px solid #2b4d6d5e;
+                        border-top: 7px solid #2b4d6d;
+                        border-radius: 50%;
+                        width: 90px;
+                        height: 90px;
+                        animation: spin 2s linear infinite;
+                    }
+
+                    @keyframes spin {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    .check-icon {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: var(--color-azuloscuro);
+                        font-size: 48px;
+                    }
+                </style>
+
+                <div class="loaderB">
+                    <div class="loader">
+                        <div class="circle"></div>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                </div>
+            </div> --}}
             <div id="contenedor-contenido">
                 @yield('contenido')
 
@@ -172,6 +230,27 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
+    // Obtener el elemento del <li> activo
+    var liActivo = document.querySelector('li.active');
+
+    // Obtener el texto del <span> dentro del <li> activo
+    var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+    // Imprimir el texto del <span>
+    console.log(textoSpan);
+    document.getElementById('tituloP').innerHTML = textoSpan;
+    // $(document).ajaxStart(function() {
+    //     $('#loader').fadeIn(); // Mostrar la pantalla de carga al iniciar una solicitud AJAX
+    //     var body = document.body;
+    //     body.style.backgroundColor = '#eeeeee';
+    // });
+
+    // $(document).ajaxStop(function() {
+    //     $('#loader').fadeOut(function() {
+    //         // Restablecer el color original del body después de ocultar la pantalla de carga
+    //         document.body.style.backgroundColor = '';
+    //     });
+    // });
     function actualizarContadores() {
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", "countcur", true);
@@ -220,6 +299,15 @@ actualizarContadores();
                 i.parentElement.classList.remove('active');
             })
             li.classList.add('active');
+            // Obtener el elemento del <li> activo
+            var liActivo = document.querySelector('li.active');
+
+            // Obtener el texto del <span> dentro del <li> activo
+            var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+            // Imprimir el texto del <span>
+            console.log(textoSpan);
+            document.getElementById('tituloP').innerHTML = textoSpan;
         })
     });
 

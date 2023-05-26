@@ -33,7 +33,6 @@
 </div>
 
 <script>
-
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
@@ -45,5 +44,4 @@
         firstDay: 1 // 1 representa el lunes
     });
     calendar.render();
-
 </script>

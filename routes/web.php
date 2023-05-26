@@ -249,6 +249,9 @@ Route::get('getFaltas_Alu/{id}', [AsignaturasController::class, 'getFaltas_Alu']
 
 Route::post('empezarclase', [AsignaturasController::class, 'empezarClase']);
 
+Route::post('finalizarClase', [AsignaturasController::class, 'finalizarClase']);
+
+
 
 
 
