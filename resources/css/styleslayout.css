@@ -1742,6 +1742,22 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
+    .inputbuscadormodulo {
+        width: 100%;
+        margin: 4px;
+    }
+
+    .inputbuscadorcurso {
+        width: 100%;
+        margin: 4px;
+    }
+
+    .inputbuscadornombres {
+        width: 100%;
+        margin: 4px;
+    }
+
+
 
     #pagination {
         bottom: 60px;
