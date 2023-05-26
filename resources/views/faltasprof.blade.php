@@ -27,7 +27,7 @@
             </tbody>
 
         </table>
-        <ul class="pagination" id="pagination-container"></ul>
+        <ul class="pagination2" id="pagination-container"></ul>
     </div>
     <div class="column2" id='calendar'></div>
 </div>

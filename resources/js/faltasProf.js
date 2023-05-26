@@ -43,7 +43,6 @@ function listarFaltas(busqueda, curso, modulo, paginaActual, elementosPorPagina)
                 </tr>
                 `;
             });
-
             // Calcular el número total de páginas
             const totalPaginas = Math.ceil(respuesta.length / elementosPorPagina);
 
@@ -52,13 +51,22 @@ function listarFaltas(busqueda, curso, modulo, paginaActual, elementosPorPagina)
             paginationContainer.innerHTML = '';
 
             for (let i = 1; i <= totalPaginas; i++) {
-                const button = document.createElement('li');
-                button.innerText = i;
-                button.addEventListener('click', () => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('page-item'); // Agregar la clase "page-item" al elemento <li>
+
+                const link = document.createElement('a');
+                link.innerText = i;
+                link.href = '#'; // Aquí puedes establecer la URL deseada para cada página
+                link.classList.add('page-link'); // Agregar la clase "page-link" al elemento <a>
+
+                link.addEventListener('click', () => {
                     listarFaltas(busqueda, curso, modulo, i, elementosPorPagina);
                 });
-                paginationContainer.appendChild(button);
+
+                listItem.appendChild(link);
+                paginationContainer.appendChild(listItem);
             }
+
         }
     }
     ajax.send();

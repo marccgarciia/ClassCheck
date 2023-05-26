@@ -279,23 +279,37 @@ table tbody tr:last-child td:last-child {
     margin-left: -2px;
 }
 
-.pagination {
+.pagination2 {
+    display: flex;
     width: 90%;
     overflow: scroll;
-    margin-top: 20px;
+    flex-direction: row;
+    margin-top: 10px;
 }
 
-.pagination button {
-    border: 20px;
-    border-radius: 5px;
+.pagination2 a {
+    display: flex;
     background-color: var(--color-azulclaro);
     border: 1px solid var(--color-azuloscuro);
     color: var(--color-azulmasclaro);
-    padding: 10px;
-    margin: 2px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
-.pagination button:hover {
+.page-item:first-child .page-link {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.pagination2 a:hover {
     background-color: var(--color-azuloscuro);
 
 }
