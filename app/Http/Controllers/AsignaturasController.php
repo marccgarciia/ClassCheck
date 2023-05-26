@@ -119,6 +119,8 @@ class AsignaturasController extends Controller
         $curso = $req->query('curso');
         $modulo = $req->query('modulo');
 
+        $where = "";
+
         $faltas = DB::table('asistencias')
         ->join('alumnos', 'alumnos.id', '=', 'asistencias.id_alumno_asistencia')
         ->join('cursos', 'cursos.id', '=', 'alumnos.id_curso')
@@ -127,8 +129,26 @@ class AsignaturasController extends Controller
         ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
         ->select('asistencias.*', 'alumnos.nombre', 'alumnos.apellido', 'cursos.nombre as curso', 'asignaturas.nombre as asignatura', 'horarios.hora_inicio', 'horarios.hora_fin')
         ->where('asistencias.id_profe_asistencia', '=',auth('profesor')->user()->id)
-        ->orderBy('asistencias.fecha_asistencia')
-        ->get();
+        ->orderBy('asistencias.fecha_asistencia');
+        
+        if (!empty($buscar)) {
+            $faltas->where(function ($query) use ($buscar) {
+                $query->where('alumnos.nombre', 'LIKE', $buscar . '%')
+                    ->orWhere('alumnos.apellido', 'LIKE', $buscar . '%');
+            });
+        }
+    
+        if (!empty($curso)) {
+            $faltas->where('cursos.nombre', 'LIKE', $curso . '%');
+        }
+    
+        if (!empty($modulo)) {
+            $faltas->where('asignaturas.nombre', 'LIKE', '%' . $modulo . '%');
+        }
+    
+        $faltas = $faltas->get();
+
+
         return response()->json($faltas);
     }
 

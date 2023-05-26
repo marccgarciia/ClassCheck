@@ -106,10 +106,10 @@ function faltasCalen(id, nombre, apellido, fecha, curso, tipo) {
 
 
 function buscar(event) {
-    console.log(event);
-    const busqueda = inputBusqueda.value
-    const curso = inputCurso.value;
-    const modulo = inputModulo.value
-    console.log(busqueda, curso, modulo);
-    listarFaltas(busqueda, curso, modulo);
+    // console.log(event);
+    const busqueda = document.querySelector('.inputbuscadornombres').value
+    const curso = document.querySelector('.inputbuscadorcurso').value;
+    const modulo = document.querySelector('.inputbuscadormodulo').value;
+    // console.log(busqueda,curso,modulo);
+    listarFaltas(busqueda, curso, modulo, 1, 5);
 }
