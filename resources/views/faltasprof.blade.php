@@ -23,7 +23,7 @@
             </thead>
 
             <tbody class="tbody" id="resultado">
-                
+
             </tbody>
 
         </table>

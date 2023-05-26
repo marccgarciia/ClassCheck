@@ -17,7 +17,7 @@ body {
     background-color: transparent;
 }
 
-#calendar{
+#calendar {
     height: 463px;
     margin-top: 4.4%;
 }
@@ -278,6 +278,28 @@ table tbody tr:last-child td:last-child {
 .log {
     margin-left: -2px;
 }
+
+.pagination {
+    width: 90%;
+    overflow: scroll;
+    margin-top: 20px;
+}
+
+.pagination button {
+    border: 20px;
+    border-radius: 5px;
+    background-color: var(--color-azulclaro);
+    border: 1px solid var(--color-azuloscuro);
+    color: var(--color-azulmasclaro);
+    padding: 10px;
+    margin: 2px;
+}
+
+.pagination button:hover {
+    background-color: var(--color-azuloscuro);
+
+}
+
 
 #pagination {
     position: absolute;
@@ -671,6 +693,7 @@ table tbody tr:last-child td:last-child {
     height: 10%;
     overflow: hidden;
 }
+
 .btnstopL {
     background-color: var(--color-azulclaro);
     color: var(--color-blanco);
@@ -723,47 +746,55 @@ table th:last-child {
     border-top-right-radius: 10px;
 }
 
-.titulofalta{
+.titulofalta {
     color: var(--color-titulo);
-    font-size: 48px; /* Ajusta el tamaño de fuente según tus necesidades */
-    font-weight: bold; /* Ajusta el estilo del texto según tus necesidades */
+    font-size: 48px;
+    /* Ajusta el tamaño de fuente según tus necesidades */
+    font-weight: bold;
+    /* Ajusta el estilo del texto según tus necesidades */
 }
 
-.inputbuscadornombres{
+.inputbuscadornombres {
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(169, 169, 169);
-    width: 175px; /* Ajusta el ancho según tus necesidades */
-    height: 30px; /* Ajusta la altura según tus necesidades */
-    margin-right:10px;
+    color: var(--color-azulclaro);
+    width: 175px;
+    /* Ajusta el ancho según tus necesidades */
+    height: 30px;
+    /* Ajusta la altura según tus necesidades */
+    margin-right: 10px;
 }
 
 .inputbuscadornombres::placeholder {
     color: rgb(169, 169, 169);
 }
 
-.inputbuscadorcurso{
+.inputbuscadorcurso {
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(169, 169, 169);
-    width: 100px; /* Ajusta el ancho según tus necesidades */
-    height: 30px; /* Ajusta la altura según tus necesidades */
-    margin-right:10px;
+    color: var(--color-azulclaro);
+    width: 100px;
+    /* Ajusta el ancho según tus necesidades */
+    height: 30px;
+    /* Ajusta la altura según tus necesidades */
+    margin-right: 10px;
 }
 
 .inputbuscadorcurso::placeholder {
     color: rgb(169, 169, 169);
 }
 
-.inputbuscadormodulo{
+.inputbuscadormodulo {
     background-color: rgb(219, 219, 219);
     border-radius: 100px;
     border: none;
-    color: rgb(169, 169, 169);
-    width: 120px; /* Ajusta el ancho según tus necesidades */
-    height: 30px; /* Ajusta la altura según tus necesidades */
+    color: var(--color-azulclaro);
+    width: 120px;
+    /* Ajusta el ancho según tus necesidades */
+    height: 30px;
+    /* Ajusta la altura según tus necesidades */
 }
 
 .inputbuscadormodulo::placeholder {
@@ -1480,15 +1511,15 @@ textarea:focus {
     color: #c92626;
 }
 
-.inputbuscadornombres:focus{
+.inputbuscadornombres:focus {
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
 }
 
-.inputbuscadorcurso:focus{
+.inputbuscadorcurso:focus {
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
 }
 
-.inputbuscadormodulo:focus{
+.inputbuscadormodulo:focus {
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #142c4400 !important;
 }
 
@@ -1697,7 +1728,7 @@ textarea:focus {
 
 
 @media screen and (max-width: 576px) {
-    
+
     #pagination {
         bottom: 60px;
     }
@@ -1825,19 +1856,19 @@ textarea:focus {
         flex-direction: column;
     }
 
-    #aaa{
+    #aaa {
         height: 200px;
     }
 
-    #ccc{
+    #ccc {
         height: 120px;
     }
 
-    #ppp{
+    #ppp {
         height: 150px;
     }
 
-    #aaa{
+    #aaa {
         height: 110px;
     }
 

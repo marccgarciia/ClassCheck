@@ -69,7 +69,7 @@ thead {
 
 th,
 td {
-    text-align: left;
+    text-align: center !important;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }

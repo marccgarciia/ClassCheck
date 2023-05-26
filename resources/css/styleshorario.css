@@ -49,12 +49,12 @@ td {
     border-collapse: separate;
     border-spacing: 0;
 }
-  
-  #horario tr:last-child td:first-child {
+
+#horario tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
 }
-  
-  #horario tr:last-child td:last-child {
+
+#horario tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
 

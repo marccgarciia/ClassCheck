@@ -50,7 +50,7 @@
     <ul id="pagination" class="pagination"></ul>
 
     <div>
-    <a href="#asignaturas1"><button class="btn">Insertar</button></a>
+        <a href="#asignaturas1"><button class="btn">Insertar</button></a>
         <div id="asignaturas1" class="modal">
             <div class="modal__content3">
                 <form action="asignaturas" method="POST" id="form-insert">
@@ -141,8 +141,8 @@
                         filtro: filtro
                     },
                     success: function(data) {
-                    var tableRows = '';
-                    $.each(data.data, function(i, asignatura) {
+                        var tableRows = '';
+                        $.each(data.data, function(i, asignatura) {
                             tableRows += '<tr>';
                             tableRows += '<td>' + asignatura.nombre + '</td>';
                             tableRows += '<td>' + asignatura.curso.nombre + '</td>';
@@ -322,44 +322,44 @@
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             // Función para eliminar los datos del CRUD al servidor con AJAX/JQUERY
             $('body').on('click', '.delete-asignatura', function() {
-            var checkId = $(this).data('id');
+                var checkId = $(this).data('id');
 
-            // Llamar a SweetAlert de confirmación
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Esta acción no se puede deshacer',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                $.ajax({
-                    url: 'asignaturas/' + checkId,
-                    type: 'DELETE',
-                    dataType: 'json',
-                    data: {
-                    '_token': $('input[name=_token]').val()
-                    },
-                    success: function(response) {
-                    loadAsignaturas();
-                    actualizarContadores();
+                // Llamar a SweetAlert de confirmación
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: 'asignaturas/' + checkId,
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: {
+                                '_token': $('input[name=_token]').val()
+                            },
+                            success: function(response) {
+                                loadAsignaturas();
+                                actualizarContadores();
 
-                    // Llamar a SweetAlert de éxito después de eliminar
-                    Swal.fire(
-                        'Eliminada',
-                        'La asignatura ha sido eliminada',
-                        'success'
-                    );
-                    },
-                    error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
+                                // Llamar a SweetAlert de éxito después de eliminar
+                                Swal.fire(
+                                    'Eliminada',
+                                    'La asignatura ha sido eliminada',
+                                    'success'
+                                );
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(xhr.responseText);
+                            }
+                        });
                     }
                 });
-                }
-            });
             });
 
             // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
