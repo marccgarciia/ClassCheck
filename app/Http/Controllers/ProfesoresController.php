@@ -28,8 +28,10 @@ class ProfesoresController extends Controller
 
         $faltasAsistencia = DB::table('asistencias')
             ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->join('horarios', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
             ->where('horario_asignaturas.id_asignatura_int', '=', $id)
             ->orderBy('asistencias.fecha_asistencia')
+            ->orderBy('horarios.hora_inicio')
             ->get();
 
         $horasTotales = Asignatura::select(Asignatura::raw('(TIMESTAMPDIFF(WEEK, fecha_inicio, fecha_fin) +

@@ -256,6 +256,8 @@ Route::post('comprobarLista', [AsignaturasController::class, 'comprobarLista']);
 
 Route::get('/comprobarClase', [AsignaturasController::class, 'comprobarClase']);
 
+Route::POST('/pasarListaAlu', [AsignaturasController::class, 'pasarListaAlu']);
+
 
 
 

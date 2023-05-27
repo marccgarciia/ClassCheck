@@ -11,10 +11,10 @@
 
     
     function comprobarClase() {
-    const ajax = new XMLHttpRequest();
-    ajax.open('GET', 'comprobarClase');
-    ajax.onload = () => {
-        if (ajax.status == 200) {
+        const ajax = new XMLHttpRequest();
+        ajax.open('GET', 'comprobarClase');
+        ajax.onload = () => {
+            if (ajax.status == 200) {
             respuesta = JSON.parse(ajax.responseText);
             let curso = respuesta.id;
             let asignatura = respuesta.idAs;
@@ -72,7 +72,28 @@
                     });
 
                     function pasarListaAlu(content,session){
-                        console.log(content,session)
+                        let csrf_token = token.content;
+                        let fecha = content.split(',')[0];
+                        let hora = content.split(',')[1];
+                        let alumno = session;
+                        // console.log(fecha,hora,alumno,asignatura);
+                        const ajax = new XMLHttpRequest();
+                        let formdata = new FormData();
+                        formdata.append('_token', csrf_token);
+                        formdata.append('fecha', fecha);
+                        formdata.append('hora', hora);
+                        formdata.append('alumno', alumno);
+                        formdata.append('asignatura', asignatura);
+                        ajax.open('POST', 'pasarListaAlu');
+                        ajax.onload = () => {
+                            if (ajax.status == 200) {
+                                respuesta = JSON.parse(ajax.responseText);
+                                if(!respuesta.pasar){
+                                    console.log('Estás intentando gacer trampa');
+                                }
+                            }
+                        };
+                        ajax.send(formdata);
                     }
 
                     // Iniciar el escáner

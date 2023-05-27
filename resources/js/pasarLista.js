@@ -1,4 +1,8 @@
 profeClase();
+
+// var cursoG = "";
+// var asignaturaG = "";
+
 function profeClase() {
 const ajax = new XMLHttpRequest();
 ajax.open('GET', 'claseprof');
