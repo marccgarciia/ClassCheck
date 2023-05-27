@@ -243,7 +243,7 @@ class AsignaturasController extends Controller
                 ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
                 ->where('horario_asignaturas.id_asignatura_int', $asignatura)
                 ->where('horarios.hora_inicio', $hora)
-                ->update(['estado_lista' => 1]);
+                ->update(['estado_lista' => 0]);
             }
         }
 
