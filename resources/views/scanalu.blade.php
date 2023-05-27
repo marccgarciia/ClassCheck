@@ -158,6 +158,7 @@
                     `
                 }
                 
+                
             }else{
                 let alumno = "{{ auth('alumno')->user()->nombre }}"+ " " + "{{ auth('alumno')->user()->apellido }}";
                 document.getElementById("respuesta").innerHTML = `
