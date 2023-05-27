@@ -113,6 +113,61 @@ class AsignaturasController extends Controller
         return response()->json($profesores);
     }
 
+    public function comprobarClase(){
+        $asignatura = DB::table('horarios')
+        ->select('horarios.hora_inicio', 'asignaturas.id AS idAS', 'asignaturas.nombre AS asignatura', 'cursos.nombre AS curso', 'cursos.id AS id')
+        ->join('horario_asignaturas', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
+        ->join('asignaturas', 'asignaturas.id', '=', 'horario_asignaturas.id_asignatura_int')
+        ->join('cursos', 'cursos.id', '=', 'asignaturas.id_curso')
+        ->join('alumnos', 'alumnos.id_curso', '=', 'cursos.id')
+        ->where('alumnos.id', auth('alumno')->user()->id)
+        ->whereRaw('TIME(NOW()) BETWEEN horarios.hora_inicio AND horarios.hora_fin')
+        ->whereRaw('horarios.dia = CONCAT(ELT(WEEKDAY(NOW()) + 1, "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo"))')
+        ->whereDate('asignaturas.fecha_inicio', '<=', date('Y-m-d'))
+        ->whereDate('asignaturas.fecha_fin', '>=', date('Y-m-d'))
+        ->limit(1)
+        ->get();
+    
+
+        if ($asignatura->isNotEmpty()) {
+            $lista = DB::table('asistencias')
+            ->join('alumnos', 'asistencias.id_alumno_asistencia', '=', 'alumnos.id')
+            ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->join('asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+            ->join('horarios', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
+            ->select('asistencias.*')
+            ->where('alumnos.id', auth('alumno')->user()->id)
+            ->where('asignaturas.id', $asignatura->first()->idAS)
+            ->where('asistencias.id_tipo_asistencia', 2)
+            ->whereDate('asistencias.fecha_asistencia', date('Y-m-d'))
+            ->whereRaw('TIME(NOW()) BETWEEN horarios.hora_inicio AND horarios.hora_fin')
+            ->get();
+            if ($lista->isNotEmpty()) {
+                return response()->json([
+                    'pasadoLista' => false,
+                    'tieneAsignatura' => true,
+                    'asignatura' => $asignatura->first()->asignatura,
+                    'curso' =>  $asignatura->first()->curso,
+                    'id' =>  $asignatura->first()->id,
+                    'idAs' => $asignatura->first()->idAS,
+                    'hora' => $asignatura->first()->hora_inicio
+                ]);
+            }else{
+                return response()->json([
+                    'pasadoLista' => true,
+                    'tieneAsignatura' => true,
+                    'asignatura' => $asignatura->first()->asignatura,
+                    'curso' =>  $asignatura->first()->curso,
+                    'id' =>  $asignatura->first()->id,
+                    'idAs' => $asignatura->first()->idAS,
+                    'hora' => $asignatura->first()->hora_inicio
+                ]);
+            }          
+        } else {
+            return response()->json(['tieneAsignatura' => false]);
+        }
+    }
+
     public function listarFaltas(Request $req)
     {
         $buscar = $req->query('buscar');
@@ -170,6 +225,28 @@ class AsignaturasController extends Controller
         ->where('horarios.hora_inicio', $hora)
         ->first();
 
+        foreach ($alumnos as $alumno) {
+            $asistencias = DB::table('asistencias')
+            ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->join('asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+            ->select('asistencias.*', 'asignaturas.id as asId')
+            ->where('asignaturas.id', '=', $asignatura)
+            ->where('asistencias.id_alumno_asistencia', '=', $alumno->id)
+            ->where('asistencias.id_horarioasignatura_asistencia', '=', $resultado->id)
+            ->get();
+
+            if ($asistencias->isEmpty()) {
+                DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
+                [$alumno->id, auth('profesor')->user()->id, $resultado->id, 2, $date]);
+            }else{
+                DB::table('horario_asignaturas')
+                ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+                ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+                ->where('horarios.hora_inicio', $hora)
+                ->update(['estado_lista' => 1]);
+            }
+        }
+
         if($resultado->estado_lista != 1){
             foreach ($alumnos as $alumno) {
                 DB::insert('INSERT INTO asistencias (id_alumno_asistencia, id_profe_asistencia, id_horarioasignatura_asistencia, id_tipo_asistencia, fecha_asistencia) VALUES (?, ?, ?, ?, ?)', 
@@ -204,6 +281,44 @@ class AsignaturasController extends Controller
             ->where('horarios.hora_inicio', $hora)
             ->update(['estado_lista' => 0]);
         }
+    }
+
+    public function comprobarLista(Request $request)
+    {
+        $curso = $request->curso;
+        $hora = $request->hora;
+        $asignatura = $request->asignatura;
+        $date = date('Y-m-d');
+
+        $alumnos = Alumno::select('alumnos.id as id')
+        ->where('alumnos.id_curso', $curso)
+        ->get();
+
+        $resultado = DB::table('horario_asignaturas')
+        ->select('horario_asignaturas.id as id', 'horario_asignaturas.*')
+        ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
+        ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+        ->where('horarios.hora_inicio', $hora)
+        ->first();
+
+        $alumnosSinResultados = [];
+
+        foreach ($alumnos as $alumno) {
+            $asistencias = DB::table('asistencias')
+            ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->join('asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
+            ->select('asistencias.*', 'asignaturas.id as asId')
+            ->where('asignaturas.id', '=', $asignatura)
+            ->where('asistencias.id_alumno_asistencia', '=', $alumno->id)
+            ->where('asistencias.id_horarioasignatura_asistencia', '=', $resultado->id)
+            ->get();
+
+            if ($asistencias->isEmpty()) {
+                $alumnosSinResultados[] = $alumno->id;
+            }
+        }
+        return response()->json($alumnosSinResultados);
+
     }
 
     

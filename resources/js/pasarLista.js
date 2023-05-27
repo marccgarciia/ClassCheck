@@ -142,6 +142,12 @@ function empezarClase(curso, asignatura, hora){
     ajax.open('POST', 'empezarclase');
     ajax.onload = () => {
         if (ajax.status == 200) {
+            document.getElementById("listaClase").style.color = "red"; 
+            // Ejecutar la función cada dos segundos
+            setInterval(function() {
+                comprobarLista(curso, asignatura, hora);
+            }, 2000);
+            comprobarLista(curso, asignatura, hora)
             respuesta = JSON.parse(ajax.responseText);
             console.log(respuesta);
         }
@@ -185,9 +191,37 @@ function listaClase(curso){
             console.log(respuesta);
             respuesta.forEach(function (alumno) {
                 lista.innerHTML += `
-                    <h1>${alumno.nombre} ${alumno.apellido}</h1>
+                    <h1 id="${alumno.id}">${alumno.nombre} ${alumno.apellido}</h1>
                 `
             });
+        }
+    }
+    ajax.send(formdata);
+}
+
+function comprobarLista(curso, asignatura, hora){
+    // console.log(curso, asignatura, hora);
+    let csrf_token = token.content;
+    const ajax = new XMLHttpRequest();
+    let formdata = new FormData();
+    formdata.append('_token', csrf_token);
+    formdata.append('curso', curso);
+    formdata.append('asignatura', asignatura);
+    formdata.append('hora', hora);
+
+
+    ajax.open('POST', 'comprobarLista');
+    ajax.onload = () => {
+        if (ajax.status == 200) {
+            // document.getElementById("listaClase").style.color = "red";
+            // comprobarLista(curso, asignatura, hora)
+            // console.log(ajax.responseText);
+            respuesta = JSON.parse(ajax.responseText);
+            // console.log(respuesta);
+            respuesta.forEach(function (alumno) {
+                document.getElementById(alumno).style.color = "green";
+            });
+            
         }
     }
     ajax.send(formdata);

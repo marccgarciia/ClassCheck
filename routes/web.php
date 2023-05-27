@@ -213,6 +213,7 @@ Route::get('/datosprof', [ProfesoresController::class, 'datosprof'])->name('dato
 
 Route::get('/claseprof', [ProfesoresController::class, 'profeClase']);
 
+
 Route::get('/datos/{id}', [ProfesoresController::class, 'datos']);
 
 
@@ -250,6 +251,12 @@ Route::get('getFaltas_Alu/{id}', [AsignaturasController::class, 'getFaltas_Alu']
 Route::post('empezarclase', [AsignaturasController::class, 'empezarClase']);
 
 Route::post('finalizarClase', [AsignaturasController::class, 'finalizarClase']);
+
+Route::post('comprobarLista', [AsignaturasController::class, 'comprobarLista']);
+
+Route::get('/comprobarClase', [AsignaturasController::class, 'comprobarClase']);
+
+
 
 
 
