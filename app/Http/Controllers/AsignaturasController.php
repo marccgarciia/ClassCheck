@@ -9,6 +9,7 @@ use App\Models\Asignatura;
 use App\Models\Curso;
 use App\Models\Profesor;
 use App\Models\Alumno;
+use Carbon\Carbon;
 
 
 class AsignaturasController extends Controller
@@ -329,35 +330,47 @@ class AsignaturasController extends Controller
         $asignatura = $request->asignatura;
         $alumno = $request->alumno;
         
-        $horaActual = time(); // Hora actual en segundos
+        $horaActual = date('H:i:s');
         $horaLimite = strtotime($hora) + 10; // Variable hora + 10 segundos
         $fechaActual = date('Y-m-d');
+        $fecha = Carbon::createFromFormat('d/m/Y', $fecha)->format('Y-m-d');
 
-        if ($horaActual > $horaLimite || $fechaActual !== $fecha) {
+        if (strtotime($horaActual) > $horaLimite || $fechaActual != $fecha) {
             return response()->json(['pasar' => false]);
         }
 
-        // $alumnos = Alumno::select('alumnos.id as id')
-        // ->where('alumnos.id_curso', $curso)
-        // ->get();
+        $currentDateTime = date('H:i:s');
 
-        // $resultado = DB::table('horario_asignaturas')
-        // ->select('horario_asignaturas.id as id', 'horario_asignaturas.*')
-        // ->join('horarios', 'horarios.id', '=', 'horario_asignaturas.id_horario_int')
-        // ->where('horario_asignaturas.id_asignatura_int', $asignatura)
-        // ->where('horarios.hora_inicio', $hora)
-        // ->first();
+        $asistencia = DB::table('asistencias')
+            ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
+            ->join('horarios', 'horario_asignaturas.id_horario_int', '=', 'horarios.id')
+            ->where('asistencias.id_alumno_asistencia', $alumno)
+            ->select('asistencias.*', 'horarios.hora_inicio')
+            ->where('horario_asignaturas.id_asignatura_int', $asignatura)
+            ->whereRaw('TIME(NOW()) BETWEEN horarios.hora_inicio AND horarios.hora_fin')
+            ->whereRaw('asistencias.fecha_asistencia = CURDATE()')
+            ->first();
 
-        // $asistencias = DB::table('asistencias')
-        // ->join('horario_asignaturas', 'asistencias.id_horarioasignatura_asistencia', '=', 'horario_asignaturas.id')
-        // ->join('asignaturas', 'horario_asignaturas.id_asignatura_int', '=', 'asignaturas.id')
-        // ->select('asistencias.*', 'asignaturas.id as asId')
-        // ->where('asignaturas.id', '=', $asignatura)
-        // ->where('asistencias.id_alumno_asistencia', '=', $alumno->id)
-        // ->where('asistencias.id_horarioasignatura_asistencia', '=', $resultado->id)
-        // ->get();
+            // dd($asistencia);
+        if ($asistencia) {
+            $horaInicio = $asistencia->hora_inicio;
+            if (strtotime($currentDateTime) > strtotime($horaInicio) + 600) {
+                // Actualizar el tipo de asistencia a 3
+                // dd($asistencia->id);
+                DB::table('asistencias')
+                    ->where('id', $asistencia->id)
+                    ->update(['id_tipo_asistencia' => 3]);
+                    return response()->json(['pasar' => 'retraso']);
 
-        // return response()->json($alumnosSinResultados);
+            } else {
+                // Eliminar la falta
+                DB::table('asistencias')->where('id', $asistencia->id)->delete();
+                return response()->json(['pasar' => 'puntual']);
+
+            }
+        }else{
+            return response()->json(['pasar' => 'error']);
+        }
 
     }
 

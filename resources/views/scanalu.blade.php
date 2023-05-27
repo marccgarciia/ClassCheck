@@ -10,7 +10,7 @@
     comprobarClase()
 
     
-    function comprobarClase() {
+    function comprobarClase(puntualidad) {
         const ajax = new XMLHttpRequest();
         ajax.open('GET', 'comprobarClase');
         ajax.onload = () => {
@@ -88,8 +88,13 @@
                         ajax.onload = () => {
                             if (ajax.status == 200) {
                                 respuesta = JSON.parse(ajax.responseText);
+                                comprobarClase(respuesta.pasar);
                                 if(!respuesta.pasar){
-                                    console.log('Estás intentando gacer trampa');
+                                    console.log('Estás intentando hacer trampa');
+                                }else if(respuesta.pasar == "retraso"){
+                                    console.log('Retraso')
+                                }else if(respuesta.pasar == "puntual"){
+                                    console.log('Puntual')
                                 }
                             }
                         };
@@ -130,12 +135,29 @@
                 });
             }else if(respuesta.tieneAsignatura && respuesta.pasadoLista){
                 let alumno = "{{ auth('alumno')->user()->nombre }}"+ " " + "{{ auth('alumno')->user()->apellido }}";
-                document.getElementById("respuesta").innerHTML = `
-                <div class="btn-primary btnNolista">
-                    <i class='bx bx-error-circle'></i>
-                    <p>${alumno} ya has confirmado tu asistencia, o tu profesor todavía no ha pasado la lista</p>
-                </div>
-                `
+                if(typeof puntualidad === 'undefined'){
+                    document.getElementById("respuesta").innerHTML = `
+                    <div class="btn-primary btnNolista">
+                        <i class='bx bx-error-circle'></i>
+                        <p>${alumno} ya has confirmado tu asistencia, o tu profesor todavía no ha pasado la lista</p>
+                    </div>
+                    `
+                }else if(puntualidad === 'puntual'){
+                    document.getElementById("respuesta").innerHTML = `
+                    <div class="btn-primary btnNolista">
+                        <i class='bx bx-error-circle'></i>
+                        <p>${alumno} ya has confirmado tu asistencia, has llegado puntual</p>
+                    </div>
+                    `
+                }else if(puntualidad == 'retraso'){
+                    document.getElementById("respuesta").innerHTML = `
+                    <div class="btn-primary btnNolista">
+                        <i class='bx bx-error-circle'></i>
+                        <p>${alumno} ya has confirmado tu asistencia, has llegado tarde</p>
+                    </div>
+                    `
+                }
+                
             }else{
                 let alumno = "{{ auth('alumno')->user()->nombre }}"+ " " + "{{ auth('alumno')->user()->apellido }}";
                 document.getElementById("respuesta").innerHTML = `

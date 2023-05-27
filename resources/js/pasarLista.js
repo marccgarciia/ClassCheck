@@ -42,8 +42,10 @@ ajax.onload = () => {
                 // document.getElementById('listaClase').style.color = "red";
 
                 // Crear el nuevo código QR
+                const currentDate = new Date();
+                const formattedDate = currentDate.toISOString().split('T')[0];
                 qrcode = new QRCode(qrDiv, {
-                    text: new Date().toLocaleString(),
+                    text: formattedDate,
                     width: 256,
                     height: 256,
                     colorDark: "#000000",
