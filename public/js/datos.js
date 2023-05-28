@@ -153,6 +153,7 @@
                     faltasAsistencia.forEach(function (falta) {
                         let mesInner = falta.fecha_asistencia.substring(5, 7);
                         if (fechaAct != falta.fecha_asistencia || horarioAct != falta.id) {
+                            console.log(mesInner);
                             document.getElementById('sesiones'+mesInner).innerHTML += `<th>${falta.fecha_asistencia}</th>`;
                             fechaAct = falta.fecha_asistencia;
                             horarioAct = falta.id;
