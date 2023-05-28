@@ -63,6 +63,7 @@
             let horasTotales = document.getElementById('horasTotales').textContent;
             let fechaF = document.getElementById('fechaF').textContent;
             let fechaI = document.getElementById('fechaI').textContent;
+            const faltasAcumuladas = {};
 
 
             // let faltasAsistencia = JSON.parse(document.getElementById('faltasAsistencia').textContent);
@@ -165,14 +166,25 @@
                             faltasAgrupadas[clave] = [];
                         }
                         faltasAgrupadas[clave].push(falta);
-                    });
 
+                        // Agrupar las faltas por ID de alumno
+                        const clave1 = falta.id_alumno_asistencia;
+                        if (!faltasAcumuladas[clave1]) {
+                            faltasAcumuladas[clave1] = 0;
+                        }
+                        if (falta.id_tipo_asistencia === 3) {
+                            faltasAcumuladas[clave1] += 0.5;
+                        } else if (falta.id_tipo_asistencia === 2) {
+                            faltasAcumuladas[clave1] += 1;
+                        }
+                    });
+                    let faltaT = 0;
                     for (let i = 0; i < meses.length; i++) {
                         const mes = meses[i];
                         let lista = document.getElementById("listaFaltas"+mes.numero);
 
                         respuesta.forEach(function (alumno) {
-                            let faltaA = 0;
+                            let faltaA = faltasAcumuladas[alumno.id] || 0;
                             let fila = `<tr>
                                 <td>${alumno.nombre} ${alumno.apellido}</td>
                                 <td id="dia${alumno.id+mes.numero}"></td>`;
@@ -186,10 +198,10 @@
                                     if (falta.id_alumno_asistencia === alumno.id && falta.fecha_asistencia.substring(5, 7) == mes.numero) {
                                         if (falta.id_tipo_asistencia === 3) {
                                             fila += `<td>R</td>`;
-                                            faltaA += 0.5;
+                                            // faltaA += 0.5;
                                         } else if (falta.id_tipo_asistencia === 2) {
                                             fila += `<td>F</td>`;
-                                            faltaA += 1;
+                                            // faltaA += 1;
                                         }
                                         faltaEncontrada = true;
                                         ponerNada = false;
@@ -207,7 +219,6 @@
                             fila += `</tr>`;    
                             lista.innerHTML += fila;
                             let porcentaje = calcularPorcentajeFaltas(horasTotales, faltaA);
-                            // Actualizar porcentaje en todas las filas
                             document.getElementById('dia' + alumno.id + mes.numero).innerHTML = porcentaje + '%';
     
                             // Aplicar estilos de color según el porcentaje
