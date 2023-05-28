@@ -23,7 +23,7 @@
     <!-- CALENDARIO -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
     {{-- ESTILOS --}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styleslayout.css') !!}">
     <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 
 </head>

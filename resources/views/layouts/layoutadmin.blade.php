@@ -24,11 +24,11 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     {{-- ESTILOS --}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styleslayout.css') !!}">
     {{-- ESTILOS MODAL--}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/stylesmodal.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/stylesmodal.css') !!}">
 
-    <script src='{!! asset('../resources/js/gestionAdmin.js') !!}'></script>
+    <script src='{!! asset('js/gestionAdmin.js') !!}'></script>
     <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 

@@ -1,6 +1,6 @@
 <script src="{!! asset('../resources/js/horarioAlu.js') !!}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-<link rel="stylesheet" href="{!! asset('../resources/css/styleshorario.css') !!}">
+<link rel="stylesheet" href="{!! asset('css/styleshorario.css') !!}">
 
 <div class="centro">
 

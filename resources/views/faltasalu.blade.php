@@ -1,4 +1,4 @@
-<script src="{!! asset('../resources/js/cursosAlu.js') !!}"></script>
+<script src="{!! asset('js/cursosAlu.js') !!}"></script>
 
 <ul class="box-info" id="resultado">
 </ul>

@@ -1,5 +1,5 @@
-<script src="{!! asset('../resources/js/cursosP.js') !!}"></script>
-<script src="{!! asset('../resources/js/datos.js') !!}"></script>
+<script src="{!! asset('js/cursosP.js') !!}"></script>
+<script src="{!! asset('js/datos.js') !!}"></script>
 
 <div id="paneldecontrol">
     @yield('contenido')

@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'League Spartan', sans-serif;
+}
+
+:root {
+    --color-negro: #000;
+    --color-azuloscuro: #142c44;
+    --color-azulclaro: #2b4d6d;
+    --color-gris: #252627;
+    --color-blanco: #ffffff;
+    --rojo: #DB504A;
+}
+
+body {
+    margin: 0;
+}
+
+
+/* LOGIN */
+.classcheck1 {
+    position: absolute;
+    width: 120px;
+    left: 29%;
+    top: 7%;
+    filter: drop-shadow(rgba(0, 0, 0, 0.35) 0px 5px 15px);
+}
+
+.classcheck2 {
+    position: absolute;
+    width: 130px;
+    top: 8%;
+    left: 38%;
+}
+
+.contenedorlogingrande {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-azulclaro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedorloginmediano {
+    width: 35%;
+    height: 70vh;
+    background-color: var(--color-blanco);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.relative {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+#clickme {
+    position: absolute;
+    top: 48%;
+    right: 155px;
+    transform: translateY(-50%);
+    color: var(--color-4);
+}
+
+#clickme2 {
+    position: absolute;
+    top: 48%;
+    right: 155px;
+    transform: translateY(-50%);
+    color: var(--color-4);
+    display: none;
+}
+
+#clickme2:hover {
+    color: var(--color-azulclaro);
+
+}
+
+#clickme:hover {
+    color: var(--color-azulclaro);
+}
+
+.contenedorloginmediano form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedorloginmediano input {
+    width: 80%;
+    background-color: #E7E7E7;
+    color: var(--color-gris);
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.contenedorloginmediano button {
+    width: 30%;
+    height: 40px;
+    text-align: center;
+    background-color: #e7e7e700;
+    color: var(--color-gris);
+    border: 1px solid var(--color-gris);
+    border-radius: 10px;
+}
+
+.contenedorloginmediano button:hover {
+    background-color: var(--color-gris);
+    color: var(--color-blanco);
+    transition: 0.5s;
+}
+
+.contenedorloginmediano h1 {
+    margin: 0px 0px 20px 0px;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--color-azuloscuro);
+    position: absolute;
+    top: 30%;
+}
+
+.contenedorloginmediano a {
+    font-size: 15px;
+    font-weight: 200;
+    color: var(--color-azuloscuro);
+    position: absolute;
+    top: 30%;
+    top: 75%;
+    text-decoration: underline;
+}
+
+[multiple]:focus,
+[type=date]:focus,
+[type=datetime-local]:focus,
+[type=email]:focus,
+[type=month]:focus,
+[type=number]:focus,
+[type=password]:focus,
+[type=search]:focus,
+[type=tel]:focus,
+[type=text]:focus,
+[type=time]:focus,
+[type=url]:focus,
+[type=week]:focus,
+select:focus,
+textarea:focus {
+    --tw-ring-inset: var(--tw-empty,
+            /*!*/
+            /*!*/
+        );
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: var(--color-azulclaro);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--color-azulclaro);
+    border-color: var(--color-azulclaro);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.errores {
+    font-size: 12px;
+    margin: 10px;
+    color: var(--rojo);
+}
+
+/* RESPONSIVE */
+@media only screen and (max-width: 1450px) {
+
+    #clickme,
+    #clickme2 {
+        right: 125px;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+
+    #clickme,
+    #clickme2 {
+        right: 110px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .classcheck2 {
+        left: 40%;
+    }
+
+    .contenedorloginmediano h1 {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .classcheck2 {
+        left: 42%;
+    }
+
+    .classcheck1 {
+        position: absolute;
+        width: 100px;
+        left: 29%;
+    }
+
+    #clickme,
+    #clickme2 {
+        right: 100px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .contenedorloginmediano {
+        width: 55%;
+    }
+
+    .classcheck1 {
+        left: 17%;
+    }
+
+    .classcheck2 {
+        left: 32%;
+    }
+
+    #clickme,
+    #clickme2 {
+        right: 121px;
+    }
+}
+
+@media only screen and (max-width:650px) {
+    .contenedorloginmediano {
+        width: 75%;
+    }
+
+    .classcheck1 {
+        left: 6%;
+    }
+
+    .classcheck2 {
+        left: 25%;
+    }
+}
+
+@media only screen and (max-width:530px) {
+    .classcheck2 {
+        left: 30%;
+    }
+
+    #clickme,
+    #clickme2 {
+        right: 100px;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .classcheck2 {
+        left: 32%;
+    }
+
+    #clickme,
+    #clickme2 {
+        right: 75px;
+    }
+}

@@ -19,7 +19,7 @@
     {{-- JQUERY  --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{-- ESTILOS --}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/styleslogin.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styleslogin.css') !!}">
 </head>
 
 <body>

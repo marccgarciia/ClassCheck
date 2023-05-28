@@ -1,5 +1,5 @@
-<script src="{!! asset('../resources/js/faltasProf.js') !!}"></script>
-<link rel="stylesheet" href="{!! asset('../resources/css/stylesfaltasprof.css') !!}">
+<script src="{!! asset('js/faltasProf.js') !!}"></script>
+<link rel="stylesheet" href="{!! asset('css/stylesfaltasprof.css') !!}">
 
 <div class="row faltas">
     <div class="column2 table-wrapper" id='filtroP'>
