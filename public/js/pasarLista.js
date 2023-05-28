@@ -148,7 +148,7 @@ function empezarClase(curso, asignatura, hora){
     ajax.open('POST', 'empezarclase');
     ajax.onload = () => {
         if (ajax.status == 200) {
-            document.getElementById("listaClase").style.color = "red"; 
+            document.getElementById("listaClase").style.color = "#DB504A"; 
             // Ejecutar la función cada dos segundos
             setInterval(function() {
                 comprobarLista(curso, asignatura, hora);
@@ -205,8 +205,7 @@ function listaClase(curso){
     ajax.send(formdata);
 }
 
-function comprobarLista(curso, asignatura, hora){
-    // console.log(curso, asignatura, hora);
+function comprobarLista(curso, asignatura, hora) {
     let csrf_token = token.content;
     const ajax = new XMLHttpRequest();
     let formdata = new FormData();
@@ -215,23 +214,31 @@ function comprobarLista(curso, asignatura, hora){
     formdata.append('asignatura', asignatura);
     formdata.append('hora', hora);
 
-
     ajax.open('POST', 'comprobarLista');
     ajax.onload = () => {
         if (ajax.status == 200) {
-            // document.getElementById("listaClase").style.color = "red";
-            // comprobarLista(curso, asignatura, hora)
-            // console.log(ajax.responseText);
             respuesta = JSON.parse(ajax.responseText);
-            // console.log(respuesta);
-            respuesta.forEach(function (alumno) {
-                document.getElementById(alumno).style.color = "green";
-            });
+            console.log(respuesta);
             
+            let alumnosSinResultados = respuesta.alumnosSinResultados;
+            let alumnosConResultado = respuesta.alumnosConResultado;
+
+            for (let i = 0; i < alumnosSinResultados.length; i++) {
+                let alumno = alumnosSinResultados[i];
+                document.getElementById(alumno.id).style.color = "rgb(85, 151, 86)";
+            }
+
+            for (let i = 0; i < alumnosConResultado.length; i++) {
+                let alumno = alumnosConResultado[i];
+                if(alumno.id_tipo_asistencia == 3){
+                    document.getElementById(alumno.id).style.color = "rgb(228, 166, 92)";
+                }
+            }
         }
     }
     ajax.send(formdata);
 }
+
 
 closeBtn.addEventListener('mouseleave', () => {
     closeBtn.style.cursor = 'default';

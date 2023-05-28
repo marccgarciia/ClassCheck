@@ -304,6 +304,7 @@ class AsignaturasController extends Controller
         ->first();
 
         $alumnosSinResultados = [];
+        $alumnosConResultado = [];
 
         foreach ($alumnos as $alumno) {
             $asistencias = DB::table('asistencias')
@@ -317,9 +318,18 @@ class AsignaturasController extends Controller
 
             if ($asistencias->isEmpty()) {
                 $alumnosSinResultados[] = $alumno->id;
+            }else{
+                $alumnosConResultado[] = [
+                    'id' => $alumno->id,
+                    'id_tipo_asistencia' => $asistencias[0]->id_tipo_asistencia,
+                ];
             }
         }
-        return response()->json($alumnosSinResultados);
+        return response()->json([
+            'alumnosSinResultados' => $alumnosSinResultados,
+            'alumnosConResultado' => $alumnosConResultado
+        ]);
+        
 
     }
 
