@@ -222,16 +222,21 @@ function comprobarLista(curso, asignatura, hora) {
             
             let alumnosSinResultados = respuesta.alumnosSinResultados;
             let alumnosConResultado = respuesta.alumnosConResultado;
+            console.log(alumnosConResultado);
+            console.log(alumnosSinResultados);
 
             for (let i = 0; i < alumnosSinResultados.length; i++) {
                 let alumno = alumnosSinResultados[i];
-                document.getElementById(alumno.id).style.color = "rgb(85, 151, 86)";
+                console.log(alumno)
+                document.getElementById(alumno).style.color = "rgb(85, 151, 86)";
             }
 
             for (let i = 0; i < alumnosConResultado.length; i++) {
                 let alumno = alumnosConResultado[i];
                 if(alumno.id_tipo_asistencia == 3){
                     document.getElementById(alumno.id).style.color = "rgb(228, 166, 92)";
+                }else{
+                    document.getElementById(alumno.id).style.color = "#DB504A";
                 }
             }
         }
