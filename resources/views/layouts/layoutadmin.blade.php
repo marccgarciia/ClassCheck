@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo') - ClassCheck</title>
 
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     {{-- FONT AWESOME --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -21,7 +24,12 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     {{-- ESTILOS --}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styleslayout.css') !!}">
+    {{-- ESTILOS MODAL--}}
+    <link rel="stylesheet" href="{!! asset('css/stylesmodal.css') !!}">
+
+    <script src='{!! asset('js/gestionAdmin.js') !!}'></script>
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -37,30 +45,29 @@
         </a>
 
         <ul class="side-menu top">
-
+            
             <li class="active">
-                <a href="#alumnos">
+                <a href="{{ route('webalumnos') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Alumnos</span>
                 </a>
             </li>
-
             <li>
-                <a href="#cursos">
+                <a href="{{ route('webcursos') }}">
                     <i class='bx bxs-graduation'></i>
                     <span class="texto">Cursos</span>
                 </a>
             </li>
 
             <li>
-                <a href="#profesores">
+                <a href="{{ route('webprofesores') }}">
                     <i class='bx bxs-user-circle'></i>
                     <span class="texto">Profesores</span>
                 </a>
             </li>
 
             <li>
-                <a href="#asignaturas">
+                <a href="{{ route('webasignaturas') }}">
                     <i class='bx bx-library'></i>
                     <span class="texto">Asignaturas</span>
                 </a>
@@ -72,7 +79,7 @@
             <li class="logout">
                 <form action="{{ route('procesologoutadmin') }}" method="POST">
                     @csrf
-                    <button type="submit"><i class='bx bxs-exit'></i></button>
+                    <button type="submit" class="log"><i class='bx bx-log-out'></i></button>
                 </form>
             </li>
         </ul>
@@ -88,8 +95,8 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a  {{ auth('admin')->user()->nombre }}!</p>
+            <a href="#" id="tituloP" class="nav-link"></a>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('admin')->user()->nombre }} {{ auth('admin')->user()->apellido }}!</p>
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
             {{-- BUSCADOR OCULTO --}}
@@ -111,8 +118,103 @@
         {{-- CONTENIDO --}}
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
+            <div id="paneldecontrol">
+                <ul class="box-info">
 
-            @yield('contenido')
+                    <li>
+                        <i class='bx bxs-calendar-check'></i>
+                        <span class="texto">
+                            <h3 id="cursosN">55</h3>
+                            <p>Cursos</p>
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class='bx bxs-group'></i>
+                        <span class="texto">
+                            <h3 id="alumnosN">2834</h3>
+                            <p>Alumnos</p>
+                        </span>
+                    </li>
+
+
+                    <li>
+                        <i class='bx bx-library'></i>
+                        <span class="texto">
+                            <h3 id="asignaturasN">254</h3>
+                            <p>Total Asignaturas</p>
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+
+            {{-- <!-- Contenedor de la pantalla de carga -->
+            <div id="loader" style="display: none;">
+                <style>
+                    .loaderB {
+                        background-color: #eeeeee;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 95vh;
+                    }
+
+                    .loader {
+                        position: relative;
+                        width: 120px;
+                        height: 120px;
+                    }
+
+                    .circle {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        margin: auto;
+                        border: 7px solid #2b4d6d5e;
+                        border-top: 7px solid #2b4d6d;
+                        border-radius: 50%;
+                        width: 90px;
+                        height: 90px;
+                        animation: spin 2s linear infinite;
+                    }
+
+                    @keyframes spin {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    .check-icon {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: var(--color-azuloscuro);
+                        font-size: 48px;
+                    }
+                </style>
+
+                <div class="loaderB">
+                    <div class="loader">
+                        <div class="circle"></div>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                </div>
+            </div> --}}
+            <div id="contenedor-contenido">
+                @yield('contenido')
+
+            </div>
+
 
         </main>
 
@@ -128,6 +230,64 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
+    // Obtener el elemento del <li> activo
+    var liActivo = document.querySelector('li.active');
+
+    // Obtener el texto del <span> dentro del <li> activo
+    var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+    // Imprimir el texto del <span>
+    console.log(textoSpan);
+    document.getElementById('tituloP').innerHTML = textoSpan;
+    // $(document).ajaxStart(function() {
+    //     $('#loader').fadeIn(); // Mostrar la pantalla de carga al iniciar una solicitud AJAX
+    //     var body = document.body;
+    //     body.style.backgroundColor = '#eeeeee';
+    // });
+
+    // $(document).ajaxStop(function() {
+    //     $('#loader').fadeOut(function() {
+    //         // Restablecer el color original del body después de ocultar la pantalla de carga
+    //         document.body.style.backgroundColor = '';
+    //     });
+    // });
+    function actualizarContadores() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countcur", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("cursosN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+        };
+        xhttp.send();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countalu", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("alumnosN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+        };
+        xhttp.send();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "countasi", true);
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("asignaturasN").innerHTML = JSON.parse(this.responseText).count;
+            } else if (this.readyState == 4 && this.status != 200) {
+                console.log('Error:', this.status, this.statusText);
+            }
+    };
+    xhttp.send();
+}
+
+// Llamar a la función cada 5 segundos
+actualizarContadores();
     // MARCAR SELECCION SIDEBAR
     const sidemenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
@@ -139,6 +299,15 @@
                 i.parentElement.classList.remove('active');
             })
             li.classList.add('active');
+            // Obtener el elemento del <li> activo
+            var liActivo = document.querySelector('li.active');
+
+            // Obtener el texto del <span> dentro del <li> activo
+            var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+            // Imprimir el texto del <span>
+            console.log(textoSpan);
+            document.getElementById('tituloP').innerHTML = textoSpan;
         })
     });
 
@@ -203,4 +372,5 @@
             document.body.classList.remove('dark');
         }
     })
+    
 </script>

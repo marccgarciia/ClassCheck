@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Curso;
 use App\Models\Escuela;
+use App\Models\Profesor;
+use App\Models\Asignatura;
+
 
 
 class CursosController extends Controller
@@ -17,17 +21,97 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexcursos()
+    public function indexcursos(Request $request)
     {
+        $filtro = $request->query('filtro');
+        if(empty($filtro)){
+            $cursos = Curso::with('escuela')->paginate(5);
+        } else {
+            $cursos = Curso::with('escuela')
+                ->where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('promocion', 'like', '%' . $filtro . '%')
+                ->orWhereHas('escuela', function($query) use ($filtro) {
+                    $query->where('nombre', 'like', '%' . $filtro . '%');
+                })    
+                ->orderBy('id', 'desc')
+                ->paginate(5);
+        }
+        return response()->json($cursos);
+    }
+
+    public function indexcursosload() {
         $cursos = Curso::with('escuela')->get();
         return response()->json($cursos);
     }
+
+    public function cursosfiltro(Request $request)
+    {
+        $searchTerm = $request->query('search');
+        $cursos = Curso::with('escuela')
+                    ->where('nombre', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('promocion', 'like', '%' . $searchTerm . '%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(2);
+        return response()->json($cursos);
+    }
+
+    public function cursoAlu()
+    //->where('profesores.id','=',auth('profesor')->user()->id)
+    {
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso','cursos.id as idC')
+        ->join('profesores','profesores.id','=','asignaturas.id_profesor')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->join('alumnos','alumnos.id_curso','=','cursos.id')
+        ->where('alumnos.id','=',auth('alumno')->user()->id)
+        ->get();
+        return response()->json($cursos);
+    }
+
+    public function cursosprofe()
+    //->where('profesores.id','=',auth('profesor')->user()->id)
+    {
+        $cursos = Asignatura::select('asignaturas.*','cursos.nombre as curso','cursos.id as idC')
+        ->join('profesores','profesores.id','=','asignaturas.id_profesor')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->where('profesores.id','=',auth('profesor')->user()->id)
+        // ->groupBy('cursos.nombre')
+        ->get();
+        return response()->json($cursos);
+    }
+
+    public function horarioCurso()
+    {
+        $curso = auth('alumno')->user()->id_curso;
+
+        $horarios = Asignatura::select('asignaturas.nombre','asignaturas.fecha_inicio','asignaturas.fecha_fin','horarios.dia','horarios.hora_inicio','horarios.hora_fin')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->join('horario_asignaturas','horario_asignaturas.id_asignatura_int','=','asignaturas.id')
+        ->join('horarios','horarios.id','=','horario_asignaturas.id_horario_int')
+        // ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->where('cursos.id','=',auth('alumno')->user()->id_curso)
+        ->get();
+        return response()->json($horarios);
+    }
+
+    //Funcion para ver la lista de alumnos de un curso
+    public function alumnosCurso()
+    {
+        $curso = auth('profesor')->user()->id_curso;
+
+        $alumnos = Asignatura::select('alumnos.id','alumnos.nombre','alumnos.apellido')
+        ->join('cursos','cursos.id','=','asignaturas.id_curso')
+        ->join('alumnos','alumnos.id_curso','=','cursos.id')
+        ->where('cursos.id','=',$curso)
+        ->get();
+        return response()->json($alumnos);
+    }
+
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
     public function storecursos(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
@@ -54,7 +138,7 @@ class CursosController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|alpha',
+            'nombre' => 'required',
             'promocion' => 'required',
             'id_escuela' => 'nullable',
         ]);
@@ -72,7 +156,7 @@ class CursosController extends Controller
     }
 
     // CONTROLADOR PARA ELIMINAR DATOS
-    public function destroycurso($id)
+    public function destroycursos($id)
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();
@@ -85,4 +169,14 @@ class CursosController extends Controller
         $escuelas = Escuela::all();
         return response()->json($escuelas);
     }
+
+    public function countcursos()
+    {
+            $count = Curso::count();
+
+            return response()->json([
+                'count' => $count
+        ]);
+    }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Alumno;
 use App\Models\Curso;
+use Illuminate\Support\Facades\DB;
 
 
 class AlumnosController extends Controller
@@ -16,11 +17,50 @@ class AlumnosController extends Controller
         return view('alumnos');
     }
 
-    // CONTROLADOR PARA MOSTRAR DATOS
-    public function indexalumnos()
+    // CONTROLADOR PARA VER FALTAS 
+    public function faltasalu()
     {
-        $alumnos = Alumno::with('curso')->get();
+        return view('faltasalu');
+    }
+    // CONTROLADOR PARA VER HORARIO
+    public function horarioalu()
+    {
+        return view('horarioalu');
+    }
+    // CONTROLADOR PARA VER DATOS 
+    public function datosalu()
+    {
+        return view('datosalu');
+    }
+
+    // CONTROLADOR PARA VER SCANER 
+    public function scanalu()
+    {
+        return view('scanalu');
+    }
+
+    // CONTROLADOR PARA MOSTRAR DATOS
+    public function indexalumnos(Request $request)
+    {
+        $filtro = $request->query('filtro');
+        if(empty($filtro)){
+            $alumnos = Alumno::with('curso')->paginate(5);
+
+        } else {
+            $alumnos = Alumno::with('curso')
+                ->where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('apellido', 'like', '%' . $filtro . '%')
+                ->orWhere('email', 'like', '%' . $filtro . '%')
+                ->orWhere('email_padre', 'like', '%' . $filtro . '%')
+                ->orWhereHas('curso', function($query) use ($filtro) {
+                    $query->where('nombre', 'like', '%' . $filtro . '%');
+                })    
+                ->paginate(5);
+        }
         return response()->json($alumnos);
+        // OLD, RECUPERAR SI NO SIRVE MI CODIGO Y QUITAR LOS REQUEST
+        // $alumnos = Alumno::with('curso')->get();
+        // return response()->json($alumnos);
     }
 
     // CONTROLADOR PARA INSERTAR DATOS CON VALIDACION DE CAMPOS VACIOS/FORMATO E-MAIL/E-MAIL EXISTENTE
@@ -65,7 +105,6 @@ class AlumnosController extends Controller
             'nombre' => 'required|alpha',
             'apellido' => 'required',
             'email' => 'required|email|unique:alumnos,email,' . $id,
-            'password' => 'required|min:8',
             'email_padre' => 'required|email',
             'estado' => 'nullable',
             'id_curso' => 'nullable',
@@ -78,14 +117,26 @@ class AlumnosController extends Controller
         $alumno->nombre = $request->nombre;
         $alumno->apellido = $request->apellido;
         $alumno->email = $request->email;
-        $alumno->password = bcrypt($request->password);
+
+        // Comprobar si el campo password se ha proporcionado en la solicitud
+        // if ($request->has('password')) {
+        //     $alumno->password = bcrypt($request->password);
+        // }
+
         $alumno->email_padre = $request->email_padre;
-        $alumno->estado = $request->estado;
+        if ($request->estado === "Desactivado") {
+            $estado = false;
+        }elseif ($request->estado === "Activado") {
+            $estado = true;
+        }
+        $alumno->estado = $estado;
         $alumno->id_curso = $request->id_curso;
         $alumno->save();
 
         return response()->json($alumno);
     }
+
+
 
     // CONTROLADOR PARA ELIMINAR DATOS
     public function destroyalumnos($id)
@@ -100,5 +151,64 @@ class AlumnosController extends Controller
     {
         $cursos = Curso::all();
         return response()->json($cursos);
+    }
+
+    public function listaalumnos(Request $request)
+    {
+        $curso = $request->curso;
+        $alumnos = Alumno::select('alumnos.id as id','alumnos.nombre as nombre','alumnos.apellido as apellido')
+        ->where('alumnos.id_curso', $curso)
+        ->get();
+        return response()->json($alumnos);
+    }
+
+    public function countalu()
+    {
+            $count = Alumno::count();
+
+            return response()->json([
+                'count' => $count
+        ]);
+    }
+    public function des(Request $request)
+    {
+        $alumnos = $request->input('alumnos');
+        $alumnosJson = [];
+
+        foreach ($alumnos as $indice => $alumno) {
+            $alumnosJson[] = ['id' => $alumno];
+            $usuario = Alumno::where('id', $alumno)
+            ->Where('estado', 1)
+            ->first();
+
+            if ($usuario) {
+                $usuario->estado = 0;
+                $usuario->save();
+                // Actualizar el campo 'estado' del usuario
+            }
+        }
+        
+        echo json_encode($alumnosJson);
+        
+    }
+    public function act(Request $request)
+    {
+        $alumnos = $request->input('alumnos');
+        $alumnosJson = [];
+
+        foreach ($alumnos as $indice => $alumno) {
+            $alumnosJson[] = ['id' => $alumno];
+            $usuario = Alumno::where('id', $alumno)
+            ->Where('estado', 0)
+            ->first();
+
+            if ($usuario) {
+                $usuario->estado = 1;
+                $usuario->save();
+                // Actualizar el campo 'estado' del usuario
+            }
+        }
+        echo json_encode($alumnosJson);
+        
     }
 }

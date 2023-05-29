@@ -20,8 +20,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CALENDARIO -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    {{-- //<script src="{{ asset('../resources/js/calendarProf.js') }}"></script> --}}
     {{-- ESTILOS --}}
-    <link rel="stylesheet" href="{!! asset('../resources/css/styleslayout.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/styleslayout.css') !!}">
+    <meta name='csrf-token' content="{{ csrf_token() }}" id="token" />
 </head>
 
 <body>
@@ -39,21 +43,28 @@
         <ul class="side-menu top">
 
             <li class="active">
-                <a href="#faltas">
+                <a href="{{ route('pasarlista') }}">
+                    <i class='bx bxs-chalkboard'></i>
+                    <span class="texto">Pasar lista</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('faltasprof') }}">
                     <i class='bx bxs-group'></i>
                     <span class="texto">Faltas</span>
                 </a>
             </li>
 
             <li>
-                <a href="#horario">
-                    <i class='bx bxs-calendar'></i>
-                    <span class="texto">Horario</span>
+                <a href="{{ route('cursosprof') }}">
+                    <i class='bx bxs-school'></i>
+                    <span class="texto">Mis cursos</span>
                 </a>
             </li>
 
             <li>
-                <a href="#datos">
+                <a href="{{ route('datosprof') }}">
                     <i class='bx bxs-cog'></i>
                     <span class="texto">Datos Personales</span>
                 </a>
@@ -65,7 +76,7 @@
             <li class="logout">
                 <form action="{{ route('procesologoutprofesor') }}" method="POST">
                     @csrf
-                    <button type="submit"><i class='bx bxs-exit'></i></button>
+                    <button type="submit" class="log"><i class='bx bx-log-out'></i></button>
                 </form>
             </li>
         </ul>
@@ -82,8 +93,9 @@
     <section id="contenido">
         <nav>
             <i class='bx bx-menu'></i>
-            <a href="#" class="nav-link">Panel de Control</a>
-            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }}!</p>
+            <a href="#" id="tituloP" class="nav-link"></a>
+            <p class="bienvenido">¡Bienvenido/a {{ auth('profesor')->user()->nombre }}
+                {{ auth('profesor')->user()->apellido }}!</p>
 
 
             {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
@@ -106,8 +118,71 @@
         {{-- CONTENIDO --}}
         {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
         <main>
+            <!-- Contenedor de la pantalla de carga -->
+            <div id="loader" style="display: none;">
+                <style>
+                    .loaderB {
+                        background-color: #eeeeee;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 95vh;
+                    }
 
-            @yield('contenido')
+                    .loader {
+                        position: relative;
+                        width: 120px;
+                        height: 120px;
+                    }
+
+                    .circle {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        margin: auto;
+                        border: 7px solid #2b4d6d5e;
+                        border-top: 7px solid #2b4d6d;
+                        border-radius: 50%;
+                        width: 90px;
+                        height: 90px;
+                        animation: spin 2s linear infinite;
+                    }
+
+                    @keyframes spin {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    .check-icon {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: var(--color-azuloscuro);
+                        font-size: 48px;
+                    }
+                </style>
+
+                <div class="loaderB">
+                    <div class="loader">
+                        <div class="circle"></div>
+                        <i class="fas fa-check check-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="contenedor-contenido">
+                @yield('contenido')
+            </div>
+
 
         </main>
 
@@ -123,6 +198,28 @@
 {{-- SCRIPT MODO OSCURO --}}
 {{-- ::::::::::::::::::::::::::::::::::::::::::::: --}}
 <script>
+    // Obtener el elemento del <li> activo
+    var liActivo = document.querySelector('li.active');
+
+    // Obtener el texto del <span> dentro del <li> activo
+    var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+    // Imprimir el texto del <span>
+    console.log(textoSpan);
+    document.getElementById('tituloP').innerHTML = textoSpan;
+
+    $(document).ajaxStart(function() {
+        $('#loader').fadeIn(); // Mostrar la pantalla de carga al iniciar una solicitud AJAX
+        var body = document.body;
+        body.style.backgroundColor = '#eeeeee';
+    });
+
+    $(document).ajaxStop(function() {
+        $('#loader').fadeOut(function() {
+            // Restablecer el color original del body después de ocultar la pantalla de carga
+            document.body.style.backgroundColor = '';
+        });
+    });
     // MARCAR SELECCION SIDEBAR
     const sidemenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
@@ -134,6 +231,15 @@
                 i.parentElement.classList.remove('active');
             })
             li.classList.add('active');
+                // Obtener el elemento del <li> activo
+            var liActivo = document.querySelector('li.active');
+
+            // Obtener el texto del <span> dentro del <li> activo
+            var textoSpan = liActivo.querySelector('span.texto').textContent;
+
+            // Imprimir el texto del <span>
+            console.log(textoSpan);
+            document.getElementById('tituloP').innerHTML = textoSpan;
         })
     });
 

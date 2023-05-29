@@ -1,0 +1,21 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/calendarAlu.js": "/js/calendarAlu.js",
+    "/js/calendarProf.js": "/js/calendarProf.js",
+    "/js/cursosAlu.js": "/js/cursosAlu.js",
+    "/js/cursosP.js": "/js/cursosP.js",
+    "/js/datos.js": "/js/datos.js",
+    "/js/faltasProf.js": "/js/faltasProf.js",
+    "/js/gestionAdmin.js": "/js/gestionAdmin.js",
+    "/js/horarioAlu.js": "/js/horarioAlu.js",
+    "/js/pasarLista.js": "/js/pasarLista.js",
+    "/js/qrcode.js": "/js/qrcode.js",
+    "/css/styleslayout.css": "/css/styleslayout.css",
+    "/css/stylesfaltasprof.css": "/css/stylesfaltasprof.css",
+    "/css/stylespassword.css": "/css/stylespassword.css",
+    "/css/styleslogin.css": "/css/styleslogin.css",
+    "/css/styleshorario.css": "/css/styleshorario.css",
+    "/css/stylesdatos.css": "/css/stylesdatos.css",
+    "/css/app.css": "/css/app.css",
+    "/css/stylesmodal.css": "/css/stylesmodal.css"
+}
