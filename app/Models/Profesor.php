@@ -14,16 +14,24 @@ class Profesor extends Model implements Authenticatable
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'nombre',
         'apellido',
         'email',
+        'token',
         'password',
         'estado',
+    ];
+
+    protected $hidden = [
+        'password',
+        'token',
     ];
     
 
     protected $casts = [
         'estado' => 'boolean',
+        'token',
     ];
     
         /**
